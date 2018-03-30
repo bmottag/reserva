@@ -55,6 +55,31 @@ class General_model extends CI_Model {
 					return false;
 				}
 		}
+		
+		/**
+		 * Active User list
+		 * @since 25/3/2018
+		 */
+		public function get_user_list($arrData) 
+		{
+			if (array_key_exists("idUser", $arrData)) {
+				$this->db->where('U.id_user', $arrData["idUser"]);
+			}
+			if (array_key_exists("idRol", $arrData)) {
+				$this->db->where('U.fk_id_rol', $arrData["idRol"]);
+			}
+			if (array_key_exists("state", $arrData)) {
+				$this->db->where('U.state', $arrData["state"]);
+			}
+			$this->db->join('param_rol R', 'R.id_rol = U.fk_id_rol', 'INNER');
+			$this->db->order_by("U.first_name, U.last_name", "ASC");
+			$query = $this->db->get("user U");
+
+			if ($query->num_rows() >= 1) {
+				return $query->result_array();
+			} else
+				return false;
+		}
 	
 		
 
