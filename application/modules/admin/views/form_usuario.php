@@ -5,7 +5,7 @@
 		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="x_panel">
 				<div class="x_title">
-					<h2>Adicionar / Editar Usurios</h2>
+					<h2><i class='fa fa-users'></i> USUARIOS</h2>
 					<ul class="nav navbar-right panel_toolbox">
 						<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 						</li>
@@ -13,7 +13,10 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="x_content">
-				<br />
+
+					<div class="alert alert-success alert-dismissible fade in" role="alert">
+						<strong>Info:</strong> Formulario para adicionar y/o editar información del usuario.
+					</div>
 				
 <?php
 $retornoExito = $this->session->flashdata('retornoExito');
