@@ -9,7 +9,7 @@
 	<meta name="baseurl" content="<?php echo base_url(); ?>" />
 	<link rel="icon" href="<?php echo base_url("images/favicon.ico"); ?>" type="image/ico" />
 
-    <title>ZAZUE </title>
+    <title>ZONA 2 </title>
 
     <!-- Bootstrap -->
 	<link href="<?php echo base_url("assets/bootstrap/vendors/bootstrap/dist/css/bootstrap.min.css"); ?>" rel="stylesheet">
