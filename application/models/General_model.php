@@ -80,6 +80,27 @@ class General_model extends CI_Model {
 			} else
 				return false;
 		}
+		
+		/**
+		 * Lista de solicitudes
+		 * @since 31/3/2018
+		 */
+		public function get_solicitudes($arrData) 
+		{
+			if (array_key_exists("idComputador", $arrData)) {
+				$this->db->where('S.fk_id_computador', $arrData["idComputador"]);
+			}
+			if (array_key_exists("fecha", $arrData)) {
+				$this->db->where('S.fecha_apartado', $arrData["fecha"]);
+			}
+			$this->db->order_by("S.id_solicitud", "ASC");
+			$query = $this->db->get("solicitud S");
+
+			if ($query->num_rows() >= 1) {
+				return $query->result_array();
+			} else
+				return false;
+		}
 	
 		
 

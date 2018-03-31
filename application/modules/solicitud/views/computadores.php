@@ -4,7 +4,7 @@ function valida(form) {
 
 	for (var i=0; i<form.length; i++) {
 		if(form[i].type =='text') {
-		form.fecha.value = form[i].value;
+		form.hddFecha.value = form[i].value;
 			if (form[i].value == null || form[i].value.length == 0 || /^\s*$/.test(form[i].value)){
 				ok = false;
 			}
@@ -36,7 +36,12 @@ function valida(form) {
 					<div class="alert alert-success alert-dismissible fade in" role="alert">
 						<strong>Info:</strong> Indicar <strong>fecha de solicitud</strong> para reservar el computador.
 					</div>
-
+	<!-- Mensajes de alerta form validator-->
+	<?php if(validation_errors()){?>
+					<div class="alert alert-danger alert-dismissible fade in" role="alert">
+						<?php echo validation_errors(); ?>
+					</div>
+	<?php } ?>
 					<div class="table-responsive">
 						<table class="table table-striped jambo_table bulk_action">
 							<thead>
@@ -62,13 +67,14 @@ foreach ($computadores as $data):
 	echo '<td class="a-center ">';
 ?>			
 
-	<input type="hidden" name="computadorId" value="<?php echo $idComputador; ?>" />
-	<input type="hidden" name="nombreComputador" value="<?php echo $data['computador_nombre']; ?>" />
-	<input type="hidden" id="fecha" name="fecha">
+	<input type="hidden" name="hddIdComputador" value="<?php echo $idComputador; ?>" />
+	<input type="hidden" name="hddNombreComputador" value="<?php echo $data['computador_nombre']; ?>" />
+	<input type="hidden" id="hddFecha" name="hddFecha">
 
 <script type="text/javascript">
 	$(function(){	
 			$('#datetimepicker<?php echo $idComputador; ?>').daterangepicker({
+			  minDate: moment(),
 			  singleDatePicker: true,
 			  singleClasses: "picker_1"
 			}, function(start, end, label) {

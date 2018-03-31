@@ -15,7 +15,7 @@ class Solicitud extends CI_Controller {
 	*/	
 	public function index()
 	{
-			$this->form_validation->set_rules('fecha', '"Fecha de solicitud"', 'required');
+			$this->form_validation->set_rules('hddFecha', '"Fecha de solicitud"', 'required');
 			if ($this->form_validation->run() === FALSE)
 			{
 				$arrParam = array();
@@ -23,14 +23,26 @@ class Solicitud extends CI_Controller {
 				$data['view'] = 'computadores';
 			} 
 			else
-			{
-				$salaId = $this->input->post('salaId');
-				$fecha = $this->input->post('fecha');
+			{				
+				$data['idComputador'] = $this->input->post('hddIdComputador');
 				
-				$data['solicitudes'] = $this->consultas_salas_model->get_solicitudes($salaId,$fecha);
-				$data['solicitud'] = $this->consultas_salas_model->get_solbyID();
+				$this->load->model("general_model");
+				//LISTA DE TIPIFICACION
+				$arrParam = array(
+					"table" => "param_tipificacion",
+					"order" => "tipificacion",
+					"id" => "x"
+				);
+				$data['tipificacion'] = $this->general_model->get_basic_search($arrParam);
+				
+				//filtro de solicitudes por computador y fecha
+				$arrParam = array(
+					"idComputador" => $this->input->post('hddIdComputador'),
+					"fecha" => $this->input->post('hddFecha')
+				);
+				$data['solicitudes'] = $this->general_model->get_solicitudes($arrParam);//listado de solicitudes filtrado por computador y fecha
+				$data['information'] = FALSE;
 
-				$data["fullName"] = $this->session->userdata("nom_usuario") . ' ' . $this->session->userdata("ape_usuario");
 				$data['view'] = 'form_solicitud';
 			}			
 			$this->load->view("layout",$data);
