@@ -5,7 +5,7 @@
 		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="x_panel">
 				<div class="x_title">
-					<h2>Listado de reservas</h2>
+					<h2><i class='fa fa-hand-o-up'></i> LISTADO DE RESERVAS</h2>
 					<ul class="nav navbar-right panel_toolbox">
 						<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 						</li>
@@ -67,24 +67,25 @@ if ($retornoError) {
 							<thead>
 								<tr>
 									<th style="width: 1%">#</th>
-									<th style="width: 10%">Fecha</th>
-									<th style="width: 20%">Inspector</th>
-									<th>Observaciones</th>
+									<th style="width: 20%">Computador</th>
+									<th style="width: 10%">Fecha reserva</th>
+									<th style="width: 20%">Hora Inicio</th>
+									<th style="width: 20%">Hora Final</th>
 									<th style="width: 30%">Enlaces</th>
 								</tr>
 							</thead>
 							<tbody>
-		<?php 
+		<?php
 			if($information){
 				foreach ($information as $data):
 					echo "<tr>";
-					echo "<td>" . $data['id_inspeccion'] . "</td>";
-					echo "<td>" . $data['date_inspeccion'] . "</td>";
-					echo "<td>" . $data['inspector'] . "</td>";
-					echo "<td>" . $data['observaciones'] . "</td>";
+					echo "<td>" . $data['id_solicitud'] . "</td>";
+					echo "<td>" . $data['computador_nombre'] . "</td>";
+					echo "<td>" . $data['fecha_apartado'] . "</td>";
+					echo "<td>" . $data['hora_inicio'] . "</td>";
+					echo "<td>" . $data['hora_final'] . "</td>";
 					echo "<td class='text-center'>";
-					echo "<a href='" . base_url("main/checkin/" . $data['fk_id_user_cliente'] . "/". $data['id_inspeccion']) . "' class='btn btn-info btn-xs'><i class='fa fa-arrow-right'></i> Check In </a>";
-					echo "<a href='" . base_url("main/checkout/" . $data['fk_id_user_cliente'] . "/". $data['id_inspeccion']) . "' class='btn btn-danger btn-xs'><i class='fa fa-arrow-left'></i> Check Out </a>";					
+					echo "<a href='" . base_url("main/checkin/" . $data['fk_id_user'] . "/". $data['id_solicitud']) . "' class='btn btn-info btn-xs'><i class='fa fa-arrow-right'></i> Ver detalle </a>";
 					echo "</td>";
 					echo "</tr>";
 				endforeach;
