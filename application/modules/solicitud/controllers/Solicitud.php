@@ -48,5 +48,63 @@ class Solicitud extends CI_Controller {
 			$this->load->view("layout",$data);
 	}
 	
+	/**
+	 * Save solicitud
+     * @since 1/4/2018
+	 */
+	public function save_solicitud()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$data["idRecord"] = $this->input->post('hddIdUserCliente');
+
+			if ($idSolicitud = $this->solicitud_model->saveSolicitud()) 
+			{
+				$data["result"] = true;
+				$data["mensaje"] = "Se guardó la información con éxito.";
+				$data["idSolicitud"] = $idSolicitud;
+				$this->session->set_flashdata('retornoExito', 'Se guardó la información con éxito!!');
+			} else {
+				$data["result"] = "error";
+				$data["mensaje"] = "Error!!! Ask for help.";
+				$data["idSolicitud"] = "";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+			
+			echo json_encode($data);
+    }
+	
+	/**
+	 * Listado de solicitudes para un usuario
+     * @since 1/4/2018
+     * @author BMOTTAG
+	 */
+	public function solicitudes_usuario($idSolicitud = 'x')
+	{			
+		$this->load->model("general_model");
+		$data['information'] = FALSE;
+		
+		$idUser = $this->session->userdata("id");
+		$arrParam = array("idUser" => $idUser);
+		$data['userInfo'] = $this->general_model->get_user_list($arrParam);//info cliente
+		
+		$arrParam = array(
+						"idUser" => $idUser,
+						"tipoInspeccion" => 1
+					);
+		$data['information'] = $this->general_model->get_solicitudes($arrParam);//info solicitudes
+		
+		//si envio el id, entonces busco la informacion 
+		if ($idSolicitud != 'x') {
+			$arrParam = array("idSolicitud" => $idSolicitud);
+			$data['information'] = $this->general_model->get_solicitudes($arrParam);//info inspecciones
+		}
+
+		$data["view"] = 'solicitudes_usuario';
+		$this->load->view("layout", $data);
+	}
+	
+	
 	
 }

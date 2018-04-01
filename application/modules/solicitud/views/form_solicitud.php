@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/admin/usuario.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/solicitud/solicitud.js"); ?>"></script>
 
 <div class="right_col" role="main">
 	<div class="row">
@@ -96,11 +96,12 @@ if ($retornoError) {
 						<input type="hidden" id="hddFecha" name="hddFecha" value="<?php echo $this->input->post('hddFecha'); ?>">
 						
 						<div class="form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_inicio">Hora inicio <span class="required">*</span>
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_inicio">Hora inicio <span class="required">*</span><br>
+							<small>(HH:mm) 08:00 - 18:00</small>
 							</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<div class='input-group date' id='hora_inical_picker'>	
-									<input type='text' id="hora_inicio" name="hora_inicio" class="form-control" required="required" value="<?php echo $information?$information[0]["hora_inicio"]:""; ?>" maxlength=5 placeholder="Hora inicial"/>
+									<input type='text' id="hora_inicio" name="hora_inicio" class="form-control" required="required" value="<?php echo $information?$information[0]["hora_inicio"]:""; ?>" maxlength=5 placeholder="HH:mm"/>
 									<span class="input-group-addon">
 									   <span class="glyphicon glyphicon-calendar"></span>
 									</span>
@@ -109,11 +110,12 @@ if ($retornoError) {
 						</div>
 						
 						<div class="form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_final">Hora final <span class="required">*</span>
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_final">Hora final <span class="required">*</span><br>
+							<small>(HH:mm) 08:00 - 18:00</small>
 							</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<div class='input-group date' id='hora_final_picker'>	
-									<input type='text' id="hora_final" name="hora_final" class="form-control" required="required" value="<?php echo $information?$information[0]["hora_final"]:""; ?>" maxlength=5 placeholder="Hora final"/>
+									<input type='text' id="hora_final" name="hora_final" class="form-control" required="required" value="<?php echo $information?$information[0]["hora_final"]:""; ?>" maxlength=5 placeholder="HH:mm"/>
 									<span class="input-group-addon">
 									   <span class="glyphicon glyphicon-calendar"></span>
 									</span>
@@ -125,17 +127,10 @@ if ($retornoError) {
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="numero_items">Número de items <span class="required">*</span>
 							</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-							<?php 
-								if($information){
-									$timeIn = explode(":",$information["time_in"]);
-									$hourIn = $timeIn[0];
-									$minIn = $timeIn[1];
-								}
-							?>
-								<select name="hourIn" id="hourIn" class="form-control" required>
+								<select name="numero_items" id="numero_items" class="form-control" required>
 									<option value='' >Select...</option>
 									<?php for ($i = 1; $i <= 50; $i++) { ?>
-										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information["time_in"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
+										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information["numero_items"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
 									<?php } ?>									
 								</select>
 							</div>
