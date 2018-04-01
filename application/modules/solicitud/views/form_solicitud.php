@@ -94,42 +94,33 @@ if ($retornoError) {
 						<input type="hidden" name="hddIdComputador" value="<?php echo $idComputador; ?>" />
 						<input type="hidden" id="hddNombreComputador" name="hddNombreComputador" value="<?php echo $this->input->post('hddNombreComputador'); ?>" >
 						<input type="hidden" id="hddFecha" name="hddFecha" value="<?php echo $this->input->post('hddFecha'); ?>">
-
-						
-
-						
-						
 						
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_inicio">Hora inicio <span class="required">*</span>
 							</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-	<div class='input-group date' id='Datepicker'>
-		<input type='text' class="form-control" />
-		<span class="input-group-addon">
-		   <span class="glyphicon glyphicon-calendar"></span>
-		</span>
-	</div>
+								<div class='input-group date' id='hora_inical_picker'>	
+									<input type='text' id="hora_inicio" name="hora_inicio" class="form-control" required="required" value="<?php echo $information?$information[0]["hora_inicio"]:""; ?>" maxlength=5 placeholder="Hora inicial"/>
+									<span class="input-group-addon">
+									   <span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
 							</div>
 						</div>
-						
-						
-						
-						
-						
-						
-						
-						
-						
 						
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_final">Hora final <span class="required">*</span>
 							</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="text" id="hora_final" name="hora_final" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $information?$information[0]["hora_final"]:""; ?>" maxlength=30 placeholder="Hora final">
+								<div class='input-group date' id='hora_final_picker'>	
+									<input type='text' id="hora_final" name="hora_final" class="form-control" required="required" value="<?php echo $information?$information[0]["hora_final"]:""; ?>" maxlength=5 placeholder="Hora final"/>
+									<span class="input-group-addon">
+									   <span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
 							</div>
-						</div>
-						
+						</div>						
+
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="numero_items">Número de items <span class="required">*</span>
 							</label>
@@ -143,7 +134,7 @@ if ($retornoError) {
 							?>
 								<select name="hourIn" id="hourIn" class="form-control" required>
 									<option value='' >Select...</option>
-									<?php for ($i = 1; $i < 50; $i++) { ?>
+									<?php for ($i = 1; $i <= 50; $i++) { ?>
 										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information["time_in"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
 									<?php } ?>									
 								</select>
@@ -213,7 +204,11 @@ if ($retornoError) {
 <script src="<?php echo base_url("assets/bootstrap/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"); ?>"></script>
 
 <script type="text/javascript">
-    $('#Datepicker').datetimepicker({
+    $('#hora_inical_picker').datetimepicker({
+        format: 'HH:mm'
+    });
+	
+    $('#hora_final_picker').datetimepicker({
         format: 'HH:mm'
     });
 </script>
