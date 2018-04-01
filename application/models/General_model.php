@@ -87,6 +87,12 @@ class General_model extends CI_Model {
 		 */
 		public function get_solicitudes($arrData) 
 		{
+			if (array_key_exists("idUser", $arrData)) {
+				$this->db->where('S.fk_id_user', $arrData["idUser"]);
+			}
+			if (array_key_exists("idSolicitud", $arrData)) {
+				$this->db->where('S.id_solicitud', $arrData["idSolicitud"]);
+			}
 			if (array_key_exists("idComputador", $arrData)) {
 				$this->db->where('S.fk_id_computador', $arrData["idComputador"]);
 			}
