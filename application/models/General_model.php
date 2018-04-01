@@ -99,7 +99,8 @@ class General_model extends CI_Model {
 			if (array_key_exists("fecha", $arrData)) {
 				$this->db->where('S.fecha_apartado', $arrData["fecha"]);
 			}
-			$this->db->order_by("S.id_solicitud", "ASC");
+			$this->db->join('computadores C', 'C.id_computador = S.fk_id_computador', 'INNER');
+			$this->db->order_by("S.id_solicitud", "DESC");
 			$query = $this->db->get("solicitud S");
 
 			if ($query->num_rows() >= 1) {
