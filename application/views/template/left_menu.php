@@ -32,7 +32,7 @@
 		  </li>
 		  <li><a><i class="fa fa-hand-o-up"></i> Reservas <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
-			  <li><a href="<?php echo base_url("main"); ?>">Listado</a></li>
+			  <li><a href="<?php echo base_url("solicitud/solicitudes_usuario/" . $this->session->userdata("id")); ?>">Listado</a></li>
 
 			</ul>
 		  </li>
