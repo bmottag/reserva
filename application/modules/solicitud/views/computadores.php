@@ -73,13 +73,16 @@ foreach ($computadores as $data):
 
 <script type="text/javascript">
 	$(function(){	
-			$('#datetimepicker<?php echo $idComputador; ?>').daterangepicker({
-			  minDate: moment(),
-			  singleDatePicker: true,
-			  singleClasses: "picker_1"
-			}, function(start, end, label) {
-			  console.log(start.toISOString(), end.toISOString(), label);
-			});
+		$('#datetimepicker<?php echo $idComputador; ?>').daterangepicker({
+			locale: {
+				format: 'YYYY-MM-DD'
+			},
+			minDate: moment(),
+			singleDatePicker: true,
+			singleClasses: "picker_1"
+		}, function(start, end, label) {
+				console.log(start.toISOString(), end.toISOString(), label);
+		});
 	})
 </script>
 				
