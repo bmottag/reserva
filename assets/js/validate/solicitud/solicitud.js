@@ -75,7 +75,7 @@ jQuery.validator.addMethod("horahhmm", function(value, element) {
 						{	                                                        
 							$("#div_load").css("display", "none");
 							$('#btnSubmit').removeAttr('disabled');
-							var url = base_url + "solicitud/solicitudes_usuario";
+							var url = base_url + "solicitud/solicitudes_usuario/" + data.idRecord;
 							$(location).attr("href", url);
 						}
 						else

@@ -57,7 +57,7 @@ class Solicitud extends CI_Controller {
 			header('Content-Type: application/json');
 			$data = array();
 			
-			$data["idRecord"] = $this->input->post('hddIdUserCliente');
+			$data["idRecord"] = $this->session->userdata("id");
 
 			if ($idSolicitud = $this->solicitud_model->saveSolicitud()) 
 			{
@@ -80,12 +80,11 @@ class Solicitud extends CI_Controller {
      * @since 1/4/2018
      * @author BMOTTAG
 	 */
-	public function solicitudes_usuario($idSolicitud = 'x')
+	public function solicitudes_usuario($idUser, $idSolicitud = 'x')
 	{			
 		$this->load->model("general_model");
 		$data['information'] = FALSE;
 		
-		$idUser = $this->session->userdata("id");
 		$arrParam = array("idUser" => $idUser);
 		$data['userInfo'] = $this->general_model->get_user_list($arrParam);//info cliente
 		
