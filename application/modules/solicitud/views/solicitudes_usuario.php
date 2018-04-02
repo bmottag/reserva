@@ -55,7 +55,7 @@ if ($retornoError) {
 							</li>
 							
 							<li><br>
-								<a href="<?php echo base_url("main/checkin/" . $userInfo[0]["id_user"] ); ?>" class="btn btn-success btn-block"><i class="fa fa-plus"></i> Nuevo Inventario</a>
+								<a href="<?php echo base_url("solicitud"); ?>" class="btn btn-success btn-block"><i class="fa fa-desktop"></i> Listado computadores</a>
 							</li>
 							
 						</ul>
