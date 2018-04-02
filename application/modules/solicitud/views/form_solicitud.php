@@ -27,41 +27,54 @@
 								<i class="fa fa-user user-profile-icon"></i> <strong>Usuario:</strong> <?php echo $this->session->userdata("name"); ?>
 							</li>
 
-												
-							<li><br>
-<?php if($solicitudes){ //SI HAY SOLICITUDES LAS MUESTRO?>
-								<a href="#" class="btn btn-info btn-block"><i class="fa fa-edit"></i> El computador esta reservado para el siguiente horario.</a>
-<?php }else{ ?>
-<a href="#" class="btn btn-info btn-block"><i class="fa fa-edit"></i> El computador no esta reservado</a>
-<?php } ?>
-							</li>
 						</ul>
-						
-
-				
+										
 					 </div>
 				
 					<div class="col-md-9 col-sm-9 col-xs-12">
+					
+<?php if($solicitudes){ //SI HAY SOLICITUDES LAS MUESTRO?>
+						<div class="alert alert-danger alert-dismissible fade in" role="alert">
+							<strong>Info:</strong> El computador esta reservado para el siguiente horario:
+						</div>
 
-<?php if($solicitudes){//SI HAY SOLICITUDES LAS MUESTRO ?>	
 						<div class="table-responsive">
 							<table class="table table-striped jambo_table bulk_action">
 								<thead>
 									<tr class="headings">
-										<th class="column-title">Computador </th>
-										<th class="column-title">Descripción</th>
-										<th class="column-title">Imagen</th>
-										<th class="column-title">Fecha de solicitud </th>
-										<th class="column-title">Reservar </th>
+										<th class="column-title" style="width: 1%"># </th>
+										<th style="width: 20%">Computador</th>
+										<th class="column-title" style="width: 20%">Fecha reserva</th>
+										<th class="column-title" style="width: 20%">Hora inicio</th>
+										<th class="column-title" style="width: 20%">Hora final</th>
+										<th class="column-title" style="width: 20%">Usuario </th>
 									</tr>
 								</thead>
 
 								<tbody>
-								
+		<?php
+			if($solicitudes){
+				foreach ($solicitudes as $data):
+					echo "<tr>";
+					echo "<td>" . $data['id_solicitud'] . "</td>";
+					echo "<td>" . $data['computador_nombre'] . "</td>";
+					echo "<td>" . $data['fecha_apartado'] . "</td>";
+					echo "<td>" . $data['hora_inicio'] . "</td>";
+					echo "<td>" . $data['hora_final'] . "</td>";
+					echo "<td>" . $data['first_name'] . " " . $data['last_name'] . "</td>";
+					echo "</tr>";
+				endforeach;
+			}
+		?>								
 								</tbody>
 							</table>
 						</div>
-<?php } ?>	
+<?php }else{ ?>
+						<div class="alert alert-success alert-dismissible fade in" role="alert">
+							<strong>Info:</strong> Para la fecha seleccionada el computador no se encuentra reservado. 
+							Diligencie el siguiente formulario para realizar una nueva reserva.
+						</div>
+<?php } ?>
 				
 				
 <?php
