@@ -100,6 +100,7 @@ class General_model extends CI_Model {
 				$this->db->where('S.fecha_apartado', $arrData["fecha"]);
 			}
 			$this->db->join('computadores C', 'C.id_computador = S.fk_id_computador', 'INNER');
+			$this->db->join('user U', 'U.id_user = S.fk_id_user', 'INNER');
 			$this->db->order_by("S.id_solicitud", "DESC");
 			$query = $this->db->get("solicitud S");
 
