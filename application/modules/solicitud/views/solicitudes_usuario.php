@@ -68,10 +68,10 @@ if ($retornoError) {
 								<tr>
 									<th style="width: 1%">#</th>
 									<th style="width: 20%">Computador</th>
-									<th style="width: 10%">Fecha reserva</th>
+									<th style="width: 20%">Fecha reserva</th>
 									<th style="width: 20%">Hora Inicio</th>
 									<th style="width: 20%">Hora Final</th>
-									<th style="width: 30%">Enlaces</th>
+									<th >Enlaces</th>
 								</tr>
 							</thead>
 							<tbody>
