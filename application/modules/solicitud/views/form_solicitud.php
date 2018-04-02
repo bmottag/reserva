@@ -20,11 +20,11 @@
 						<h4><strong>Computador:</strong> <?php echo $this->input->post('hddNombreComputador'); ?></h4>
 
 						<ul class="list-unstyled user_data">
-							<li><i class="fa fa-phone user-profile-icon"></i> <strong>Fecha:</strong> <?php echo $this->input->post('hddFecha'); ?>
+							<li><i class="fa fa-calendar user-profile-icon"></i> <strong>Fecha:</strong> <?php echo $this->input->post('hddFecha'); ?>
 							</li>
 
 							<li>
-								<i class="fa fa-envelope user-profile-icon"></i> <strong>Usuario:</strong> <?php echo $this->session->userdata("name"); ?>
+								<i class="fa fa-user user-profile-icon"></i> <strong>Usuario:</strong> <?php echo $this->session->userdata("name"); ?>
 							</li>
 
 												
