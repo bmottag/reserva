@@ -87,20 +87,20 @@ class General_model extends CI_Model {
 		 */
 		public function get_solicitudes($arrData) 
 		{
+			$this->db->select("S.*, U.*, I.hora hora_inicial, F.hora hora_final");
 			if (array_key_exists("idUser", $arrData)) {
 				$this->db->where('S.fk_id_user', $arrData["idUser"]);
 			}
 			if (array_key_exists("idSolicitud", $arrData)) {
 				$this->db->where('S.id_solicitud', $arrData["idSolicitud"]);
 			}
-			if (array_key_exists("idComputador", $arrData)) {
-				$this->db->where('S.fk_id_computador', $arrData["idComputador"]);
-			}
 			if (array_key_exists("fecha", $arrData)) {
 				$this->db->where('S.fecha_apartado', $arrData["fecha"]);
 			}
-			$this->db->join('computadores C', 'C.id_computador = S.fk_id_computador', 'INNER');
 			$this->db->join('user U', 'U.id_user = S.fk_id_user', 'INNER');
+			$this->db->join('param_horas I', 'I.id_hora = S.fk_id_hora_inicial', 'INNER');
+			$this->db->join('param_horas F', 'F.id_hora = S.fk_id_hora_final', 'INNER');
+
 			$this->db->order_by("S.id_solicitud", "DESC");
 			$query = $this->db->get("solicitud S");
 

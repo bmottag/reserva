@@ -55,7 +55,7 @@ if ($retornoError) {
 							</li>
 							
 							<li><br>
-								<a href="<?php echo base_url("solicitud"); ?>" class="btn btn-success btn-block"><i class="fa fa-desktop"></i> Listado computadores</a>
+								<a href="<?php echo base_url("solicitud"); ?>" class="btn btn-success btn-block"><i class="fa fa-desktop"></i> Nueva reserva</a>
 							</li>
 							
 						</ul>
@@ -67,8 +67,8 @@ if ($retornoError) {
 							<thead>
 								<tr>
 									<th style="width: 1%">#</th>
-									<th style="width: 20%">Computador</th>
 									<th style="width: 20%">Fecha reserva</th>
+									<th style="width: 20%">No. computadores</th>
 									<th style="width: 20%">Hora Inicio</th>
 									<th style="width: 20%">Hora Final</th>
 									<th >Enlaces</th>
@@ -80,9 +80,9 @@ if ($retornoError) {
 				foreach ($information as $data):
 					echo "<tr>";
 					echo "<td>" . $data['id_solicitud'] . "</td>";
-					echo "<td>" . $data['computador_nombre'] . "</td>";
 					echo "<td>" . $data['fecha_apartado'] . "</td>";
-					echo "<td>" . $data['hora_inicio'] . "</td>";
+					echo "<td>" . $data['numero_computadores'] . "</td>";
+					echo "<td>" . $data['hora_inicial'] . "</td>";
 					echo "<td>" . $data['hora_final'] . "</td>";
 					echo "<td class='text-center'>";
 					echo "<a href='" . base_url("main/checkin/" . $data['fk_id_user'] . "/". $data['id_solicitud']) . "' class='btn btn-info btn-xs'><i class='fa fa-arrow-right'></i> Ver detalle </a>";

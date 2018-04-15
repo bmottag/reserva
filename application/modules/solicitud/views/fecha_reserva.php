@@ -22,7 +22,7 @@ function valida(form) {
 		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="x_panel">
 				<div class="x_title">
-					<h2><i class='fa fa-desktop'></i> LISTADO COMPUTADORES</h2>
+					<h2><i class='fa fa-desktop'></i> ZONA 2</h2>
 
 					<ul class="nav navbar-right panel_toolbox">
 						<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -34,7 +34,7 @@ function valida(form) {
 				<div class="x_content">
 
 					<div class="alert alert-success alert-dismissible fade in" role="alert">
-						<strong>Info:</strong> Indicar <strong>fecha de solicitud</strong> para reservar el computador.
+						<strong>Info:</strong> Indicar <strong>fecha de solicitud deseada</strong> para realizar la reserva.
 					</div>
 	<!-- Mensajes de alerta form validator-->
 	<?php if(validation_errors()){?>
@@ -46,34 +46,23 @@ function valida(form) {
 						<table class="table table-striped jambo_table bulk_action">
 							<thead>
 								<tr class="headings">
-									<th class="column-title">Computador </th>
-									<th class="column-title">Descripción</th>
-									<th class="column-title">Imagen</th>
+									<th class="column-title">Zona 2 </th>
 									<th class="column-title">Fecha de solicitud </th>
 									<th class="column-title">Reservar </th>
 								</tr>
 							</thead>
 
 							<tbody>
+								<tr>
+									<td>Seleccionar la fecha en la que desea realizar la reseva </td>
+									<form  name="zona_2" id="zona_2" method="post" onsubmit="return valida(this)">
 									
-<?php 
-foreach ($computadores as $data):
-	echo "<tr>";
-	echo "<td>" . $data['computador_nombre'] . "</td>";
-	echo "<td>" . $data['computador_descripcion'] . "</td>";
-	echo "<td class='a-center '><img src=" . base_url() . "files/salas/" . $data['computador_descripcion'] . "></td>";
-	$idComputador = $data['id_computador'];
-	echo '<form  name="' . $idComputador . '" id="' . $idComputador . '" method="post" onsubmit="return valida(this)">';
-	echo '<td class="a-center ">';
-?>			
-
-	<input type="hidden" name="hddIdComputador" value="<?php echo $idComputador; ?>" />
-	<input type="hidden" name="hddNombreComputador" value="<?php echo $data['computador_nombre']; ?>" />
-	<input type="hidden" id="hddFecha" name="hddFecha">
+									<td class="a-center ">
+										<input type="hidden" id="hddFecha" name="hddFecha">
 
 <script type="text/javascript">
 	$(function(){	
-		$('#datetimepicker<?php echo $idComputador; ?>').daterangepicker({
+		$('#datetimepicker').daterangepicker({
 			locale: {
 				format: 'YYYY-MM-DD'
 			},
@@ -90,7 +79,7 @@ foreach ($computadores as $data):
 	<div class="control-group">
 		<div class="controls">
 			<div class="col-md-11 xdisplay_inputx form-group has-feedback">
-				<input type="text" class="form-control has-feedback-left" id="datetimepicker<?php echo $idComputador; ?>" aria-describedby="inputSuccess2Status">
+				<input type="text" class="form-control has-feedback-left" id="datetimepicker" aria-describedby="inputSuccess2Status">
 				<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
 				<span id="inputSuccess2Status" class="sr-only">(success)</span>
 			</div>
@@ -106,9 +95,7 @@ foreach ($computadores as $data):
 								</td>
 								</form>
 								</tr>
-<?php  
-endforeach;
-?>
+
 							</tbody>
 						</table>
 					</div>

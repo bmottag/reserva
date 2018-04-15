@@ -38,10 +38,10 @@
 			$idSolicitud = $this->input->post('hddIdInspeccion');
 		
 			$data = array(
-				'fk_id_computador' => $this->input->post('hddIdComputador'),
 				'fecha_apartado' => $this->input->post('hddFecha'),
-				'hora_inicio' => $this->input->post('hora_inicio'),
-				'hora_final' => $this->input->post('hora_final'),
+				'numero_computadores' => $this->input->post('numero_computadores'),
+				'fk_id_hora_inicial' => $this->input->post('hora_inicio'),
+				'fk_id_hora_final' => $this->input->post('hora_final'),
 				'numero_items' => $this->input->post('numero_items'),
 				'grupo_items' => $this->input->post('grupo_items'),
 				'fk_id_tipificacion' => $this->input->post('tipificacion'),

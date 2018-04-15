@@ -1,26 +1,12 @@
 $( document ).ready( function () {
-	
-jQuery.validator.addMethod("horahhmm", function(value, element) {
-	var res = false;
-
-	// Formato hh:mm
-	res = this.optional(element) || /^\d{2}[:]\d{2}$/.test(value);
-
-	var hora = value.split(':');
-	var hh = parseInt(hora[0],10);
-	var mm = parseInt(hora[1],10);
-	if (hh < 8 || hh > 18) res = false;
-	if (mm < 0 || mm > 59) res = false;
-
-	return res;
-}, "La hora indicada no es válida");
-			
+				
 	$("#grupo_items").convertirMayuscula().maxlength(50);
 			
 	$( "#form" ).validate( {
 		rules: {
-			hora_inicio:			{ required: true, maxlength:5, horahhmm: true },
-			hora_final: 			{ required: true, maxlength:5, horahhmm: true },
+			numero_computadores:		{ required: true },
+			hora_inicio:			{ required: true },
+			hora_final: 			{ required: true },
 			numero_items: 			{ required: true },
 			grupo_items: 			{ required: true, minlength: 3, maxlength:50 },
 			tipificacion:	 		{ required: true }

@@ -14,10 +14,9 @@
 				</div>
 				<div class="x_content">
 				
-				
 					<div class="col-md-3 col-sm-3 col-xs-12 profile_left">
 					
-						<h4><strong>Computador:</strong> <?php echo $this->input->post('hddNombreComputador'); ?></h4>
+						<h4><strong>ZONA 2</strong></h4>
 
 						<ul class="list-unstyled user_data">
 							<li><i class="fa fa-calendar user-profile-icon"></i> <strong>Fecha:</strong> <?php echo $this->input->post('hddFecha'); ?>
@@ -26,7 +25,6 @@
 							<li>
 								<i class="fa fa-user user-profile-icon"></i> <strong>Usuario:</strong> <?php echo $this->session->userdata("name"); ?>
 							</li>
-
 						</ul>
 										
 					 </div>
@@ -43,8 +41,8 @@
 								<thead>
 									<tr class="headings">
 										<th class="column-title" style="width: 1%"># </th>
-										<th style="width: 20%">Computador</th>
 										<th class="column-title" style="width: 20%">Fecha reserva</th>
+										<th class="column-title" style="width: 20%">No. computadores</th>
 										<th class="column-title" style="width: 20%">Hora inicio</th>
 										<th class="column-title" style="width: 20%">Hora final</th>
 										<th class="column-title" style="width: 20%">Usuario </th>
@@ -57,8 +55,8 @@
 				foreach ($solicitudes as $data):
 					echo "<tr>";
 					echo "<td>" . $data['id_solicitud'] . "</td>";
-					echo "<td>" . $data['computador_nombre'] . "</td>";
 					echo "<td>" . $data['fecha_apartado'] . "</td>";
+					echo "<td>" . $data['numero_computadores'] . "</td>";
 					echo "<td>" . $data['hora_inicio'] . "</td>";
 					echo "<td>" . $data['hora_final'] . "</td>";
 					echo "<td>" . $data['first_name'] . " " . $data['last_name'] . "</td>";
@@ -71,8 +69,11 @@
 						</div>
 <?php }else{ ?>
 						<div class="alert alert-success alert-dismissible fade in" role="alert">
-							<strong>Info:</strong> Para la fecha seleccionada el computador no se encuentra reservado. 
-							Diligencie el siguiente formulario para realizar una nueva reserva.
+							<strong>Info:</strong> 
+							<ul>
+								<li>Para la fecha seleccionada no existe ninguna reserva. </li>
+								<li>Diligencie el siguiente formulario para realizar una nueva reserva.</li>
+							</ul>
 						</div>
 <?php } ?>
 				
@@ -104,35 +105,42 @@ if ($retornoError) {
 <!-- FORMULARIO -->
 
 					<form id="form" data-parsley-validate class="form-horizontal form-label-left">
-						<input type="hidden" name="hddIdComputador" value="<?php echo $idComputador; ?>" />
-						<input type="hidden" id="hddNombreComputador" name="hddNombreComputador" value="<?php echo $this->input->post('hddNombreComputador'); ?>" >
 						<input type="hidden" id="hddFecha" name="hddFecha" value="<?php echo $this->input->post('hddFecha'); ?>">
-						
+
 						<div class="form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_inicio">Hora inicio <span class="required">*</span><br>
-							<small>(HH:mm) 08:00 - 18:00</small>
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="numero_computadores">Número computadores <span class="required">*</span>
 							</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<div class='input-group date' id='hora_inical_picker'>	
-									<input type='text' id="hora_inicio" name="hora_inicio" class="form-control" required="required" value="<?php echo $information?$information[0]["hora_inicio"]:""; ?>" maxlength=5 placeholder="HH:mm"/>
-									<span class="input-group-addon">
-									   <span class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
+								<select name="numero_computadores" id="numero_computadores" class="form-control" required>
+									<option value='' >Select...</option>
+									<?php for ($i = 1; $i <= 10; $i++) { ?>
+										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information["numero_computadores"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
+									<?php } ?>									
+								</select>
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_final">Hora final <span class="required">*</span><br>
-							<small>(HH:mm) 08:00 - 18:00</small>
-							</label>
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_inicio">Hora inicio<span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<div class='input-group date' id='hora_final_picker'>	
-									<input type='text' id="hora_final" name="hora_final" class="form-control" required="required" value="<?php echo $information?$information[0]["hora_final"]:""; ?>" maxlength=5 placeholder="HH:mm"/>
-									<span class="input-group-addon">
-									   <span class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
+								<select name="hora_inicio" id="hora_inicio" class="form-control" >
+									<option value=''>Select...</option>
+									<?php for ($i = 0; $i < count($horas); $i++) { ?>
+										<option value="<?php echo $horas[$i]["id_hora"]; ?>" <?php if($information[0]["fk_id_hora_inicial"] == $horas[$i]["id_hora"]) { echo "selected"; }  ?>><?php echo $horas[$i]["hora"]; ?></option>	
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_final">Hora final<span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<select name="hora_final" id="hora_final" class="form-control" >
+									<option value=''>Select...</option>
+									<?php for ($i = 0; $i < count($horas); $i++) { ?>
+										<option value="<?php echo $horas[$i]["id_hora"]; ?>" <?php if($information[0]["fk_id_hora_final"] == $horas[$i]["id_hora"]) { echo "selected"; }  ?>><?php echo $horas[$i]["hora"]; ?></option>	
+									<?php } ?>
+								</select>
 							</div>
 						</div>						
 
@@ -206,17 +214,3 @@ if ($retornoError) {
 		</div>
 	</div>
 </div>
-
-<!-- bootstrap-datetimepicker -->    	
-<script src="<?php echo base_url("assets/bootstrap/vendors/moment/min/moment.min.js"); ?>"></script>
-<script src="<?php echo base_url("assets/bootstrap/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"); ?>"></script>
-
-<script type="text/javascript">
-    $('#hora_inical_picker').datetimepicker({
-        format: 'HH:mm'
-    });
-	
-    $('#hora_final_picker').datetimepicker({
-        format: 'HH:mm'
-    });
-</script>

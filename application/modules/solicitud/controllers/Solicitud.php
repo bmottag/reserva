@@ -15,7 +15,7 @@ class Solicitud extends CI_Controller {
 	}
 
 	/**
-	* Muestra lista de computadores
+	* Muestra form para seleccionar fecha
 	* @since 30/3/2018
 	* @author BMOTTAG
 	*/	
@@ -25,13 +25,10 @@ class Solicitud extends CI_Controller {
 			if ($this->form_validation->run() === FALSE)
 			{
 				$arrParam = array();
-				$data['computadores'] = $this->solicitud_model->get_computadores($arrParam);
-				$data['view'] = 'computadores';
+				$data['view'] = 'fecha_reserva';
 			} 
 			else
 			{				
-				$data['idComputador'] = $this->input->post('hddIdComputador');
-				
 				$this->load->model("general_model");
 				//LISTA DE TIPIFICACION
 				$arrParam = array(
@@ -41,12 +38,19 @@ class Solicitud extends CI_Controller {
 				);
 				$data['tipificacion'] = $this->general_model->get_basic_search($arrParam);
 				
-				//filtro de solicitudes por computador y fecha
+				//LISTA DE HORAS
 				$arrParam = array(
-					"idComputador" => $this->input->post('hddIdComputador'),
+					"table" => "param_horas",
+					"order" => "id_hora",
+					"id" => "x"
+				);
+				$data['horas'] = $this->general_model->get_basic_search($arrParam);
+				
+				//filtro de solicitudes por fecha
+				$arrParam = array(
 					"fecha" => $this->input->post('hddFecha')
 				);
-				$data['solicitudes'] = $this->general_model->get_solicitudes($arrParam);//listado de solicitudes filtrado por computador y fecha
+				$data['solicitudes'] = $this->general_model->get_solicitudes($arrParam);//listado de solicitudes filtrado por fecha
 				$data['information'] = FALSE;
 
 				$data['view'] = 'form_solicitud';
