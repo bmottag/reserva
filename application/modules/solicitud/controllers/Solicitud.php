@@ -7,6 +7,12 @@ class Solicitud extends CI_Controller {
         parent::__construct();
 		$this->load->model("solicitud_model");
     }
+	
+	public function calendario()
+	{			
+		$data["view"] = 'calendario';
+		$this->load->view("layout", $data);
+	}
 
 	/**
 	* Muestra lista de computadores
