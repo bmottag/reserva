@@ -25,14 +25,17 @@
 	  <div class="menu_section">
 		<h3>General</h3>
 		<ul class="nav side-menu">
-		  <li><a><i class="fa fa-desktop"></i> Computadores <span class="fa fa-chevron-down"></span></a>
-			<ul class="nav child_menu">
-			  <li><a href="<?php echo base_url("solicitud"); ?>">Listado</a></li>
-			</ul>
-		  </li>
+
 		  <li><a><i class="fa fa-hand-o-up"></i> Reservas <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
-			  <li><a href="<?php echo base_url("solicitud/solicitudes_usuario/" . $this->session->userdata("id")); ?>">Listado</a></li>
+			
+			  <li>
+				<a href="<?php echo base_url("solicitud"); ?>">Nueva reserva</a>
+			  </li>
+			  
+			  <li>
+				<a href="<?php echo base_url("solicitud/solicitudes_usuario/" . $this->session->userdata("id")); ?>">Listado reservas</a>
+			  </li>
 
 			</ul>
 		  </li>
