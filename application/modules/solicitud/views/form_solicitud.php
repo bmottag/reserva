@@ -40,11 +40,11 @@
 							<table class="table table-striped jambo_table bulk_action">
 								<thead>
 									<tr class="headings">
-										<th class="column-title" style="width: 1%"># </th>
+										<th class="column-title" style="width: 10%">No. reserva </th>
 										<th class="column-title" style="width: 20%">Fecha reserva</th>
 										<th class="column-title" style="width: 20%">No. computadores</th>
-										<th class="column-title" style="width: 20%">Hora inicio</th>
-										<th class="column-title" style="width: 20%">Hora final</th>
+										<th class="column-title" style="width: 15%">Hora inicio</th>
+										<th class="column-title" style="width: 15%">Hora fin</th>
 										<th class="column-title" style="width: 20%">Usuario </th>
 									</tr>
 								</thead>
@@ -57,7 +57,7 @@
 					echo "<td>" . $data['id_solicitud'] . "</td>";
 					echo "<td>" . $data['fecha_apartado'] . "</td>";
 					echo "<td>" . $data['numero_computadores'] . "</td>";
-					echo "<td>" . $data['hora_inicio'] . "</td>";
+					echo "<td>" . $data['hora_inicial'] . "</td>";
 					echo "<td>" . $data['hora_final'] . "</td>";
 					echo "<td>" . $data['first_name'] . " " . $data['last_name'] . "</td>";
 					echo "</tr>";
