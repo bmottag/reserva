@@ -1,12 +1,24 @@
 $( document ).ready( function () {
 				
+//regla para validar que la hora final es mayor a la hora inicial
+jQuery.validator.addMethod("mayorQ", function(value, element, param) {
+	var hora_inicio = $('#hora_inicio').val();
+	
+	if (parseInt(hora_inicio) >= parseInt(value)) {
+		return false;
+	}else{
+		return true;
+	}
+}, "La hora final debe ser mayor a la hora inicial.");
+
+				
 	$("#grupo_items").convertirMayuscula().maxlength(50);
 			
 	$( "#form" ).validate( {
 		rules: {
-			numero_computadores:		{ required: true },
+			numero_computadores:	{ required: true },
 			hora_inicio:			{ required: true },
-			hora_final: 			{ required: true },
+			hora_final: 			{ required: true, mayorQ: "#hora_inicio" },
 			numero_items: 			{ required: true },
 			grupo_items: 			{ required: true, minlength: 3, maxlength:50 },
 			tipificacion:	 		{ required: true }
