@@ -23,7 +23,7 @@
 							</li>
 
 							<li>
-								<i class="fa fa-user user-profile-icon"></i> <strong>Usuario:</strong> <?php echo $this->session->userdata("name"); ?>
+								<i class="fa fa-user user-profile-icon"></i> <strong>Usuario:</strong><br> <?php echo $this->session->userdata("name"); ?>
 							</li>
 						</ul>
 										
@@ -77,33 +77,7 @@
 						</div>
 <?php } ?>
 				
-				
-<?php
-$retornoExito = $this->session->flashdata('retornoExito');
-if ($retornoExito) {
-    ?>
-	<div class="alert alert-success alert-dismissible fade in" role="alert">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-		</button>
-		<strong>Ok!</strong> <?php echo $retornoExito ?>	
-	</div>
-    <?php
-}
-
-$retornoError = $this->session->flashdata('retornoError');
-if ($retornoError) {
-    ?>
-	<div class="alert alert-danger alert-dismissible fade in" role="alert">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-		</button>
-		<strong>Error!</strong> <?php echo $retornoError ?>
-	</div>	
-    <?php
-}
-?> 
-
 <!-- FORMULARIO -->
-
 					<form id="form" data-parsley-validate class="form-horizontal form-label-left">
 						<input type="hidden" id="hddFecha" name="hddFecha" value="<?php echo $this->input->post('hddFecha'); ?>">
 
