@@ -87,7 +87,7 @@ class General_model extends CI_Model {
 		 */
 		public function get_solicitudes($arrData) 
 		{
-			$this->db->select("S.*, U.*, I.hora hora_inicial, F.hora hora_final");
+			$this->db->select("S.*, U.*, I.hora hora_inicial, F.hora hora_final, T.tipificacion");
 			if (array_key_exists("idUser", $arrData)) {
 				$this->db->where('S.fk_id_user', $arrData["idUser"]);
 			}
@@ -100,6 +100,7 @@ class General_model extends CI_Model {
 			$this->db->join('user U', 'U.id_user = S.fk_id_user', 'INNER');
 			$this->db->join('param_horas I', 'I.id_hora = S.fk_id_hora_inicial', 'INNER');
 			$this->db->join('param_horas F', 'F.id_hora = S.fk_id_hora_final', 'INNER');
+			$this->db->join('param_tipificacion T', 'T.id_tipificacion = S.fk_id_tipificacion', 'INNER');
 
 			$this->db->order_by("S.id_solicitud", "DESC");
 			$query = $this->db->get("solicitud S");
