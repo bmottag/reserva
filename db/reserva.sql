@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-03-2018 a las 17:25:20
+-- Tiempo de generación: 15-04-2018 a las 16:54:57
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -23,23 +23,67 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `computadores`
+-- Estructura de tabla para la tabla `param_horas`
 --
 
-CREATE TABLE `computadores` (
-  `id_computador` int(10) NOT NULL,
-  `computador_nombre` varchar(200) NOT NULL,
-  `computador_descripcion` text NOT NULL,
-  `estado` int(11) NOT NULL DEFAULT '1' COMMENT '1:Activo; 2:Inactivo'
+CREATE TABLE `param_horas` (
+  `id_hora` int(1) NOT NULL,
+  `hora` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `computadores`
+-- Volcado de datos para la tabla `param_horas`
 --
 
-INSERT INTO `computadores` (`id_computador`, `computador_nombre`, `computador_descripcion`, `estado`) VALUES
-(1, 'Equipo 1', 'Computador principal', 1),
-(2, 'Equipo 2', 'Descripcion del equipo de computo', 1);
+INSERT INTO `param_horas` (`id_hora`, `hora`) VALUES
+(1, '12:00 AM'),
+(2, '12:30 AM'),
+(3, '1:00 AM'),
+(4, '1:30 AM'),
+(5, '2:00 AM'),
+(6, '2:30 AM'),
+(7, '3:00 AM'),
+(8, '3:30 AM'),
+(9, '4:00 AM'),
+(10, '4:30 AM'),
+(11, '5:00 AM'),
+(12, '5:30 AM'),
+(13, '6:00 AM'),
+(14, '6:30 AM'),
+(15, '7:00 AM'),
+(16, '7:30 AM'),
+(17, '8:00 AM'),
+(18, '8:30 AM'),
+(19, '9:00 AM'),
+(20, '9:30 AM'),
+(21, '10:00 AM'),
+(22, '10:30 AM'),
+(23, '11:00 AM'),
+(24, '11:30 AM'),
+(25, '12:00 PM'),
+(26, '12:30 PM'),
+(27, '1:00 PM'),
+(28, '1:30 PM'),
+(29, '2:00 PM'),
+(30, '2:30 PM'),
+(31, '3:00 PM'),
+(32, '3:30 PM'),
+(33, '4:00 PM'),
+(34, '4:30 PM'),
+(35, '5:00 PM'),
+(36, '5:30 PM'),
+(37, '6:00 PM'),
+(38, '6:30 PM'),
+(39, '7:00 PM'),
+(40, '7:30 PM'),
+(41, '8:00 PM'),
+(42, '8:30 PM'),
+(43, '9:00 PM'),
+(44, '9:30 PM'),
+(45, '10:00 PM'),
+(46, '10:30 PM'),
+(47, '11:00 PM'),
+(48, '11:30 PM');
 
 -- --------------------------------------------------------
 
@@ -95,16 +139,23 @@ INSERT INTO `param_tipificacion` (`id_tipificacion`, `usuario`, `tipificacion`) 
 CREATE TABLE `solicitud` (
   `id_solicitud` int(10) NOT NULL,
   `fk_id_user` int(10) NOT NULL,
-  `fk_id_computador` int(10) NOT NULL,
   `fecha_apartado` date NOT NULL,
-  `hora_inicio` varchar(10) NOT NULL,
-  `hora_final` varchar(10) NOT NULL,
+  `numero_computadores` int(1) NOT NULL,
+  `fk_id_hora_inicial` int(1) NOT NULL,
+  `fk_id_hora_final` int(1) NOT NULL,
   `fecha_solicitud` datetime NOT NULL,
   `numero_items` tinyint(1) NOT NULL,
   `grupo_items` varchar(100) NOT NULL,
   `fk_id_tipificacion` int(1) NOT NULL,
   `estado_solicitud` tinyint(1) NOT NULL COMMENT '1:Activa;2Inactiva'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `solicitud`
+--
+
+INSERT INTO `solicitud` (`id_solicitud`, `fk_id_user`, `fecha_apartado`, `numero_computadores`, `fk_id_hora_inicial`, `fk_id_hora_final`, `fecha_solicitud`, `numero_items`, `grupo_items`, `fk_id_tipificacion`, `estado_solicitud`) VALUES
+(1, 1, '2018-04-15', 3, 17, 19, '2018-04-15 16:46:54', 5, 'NO SE QUE SE COLOCA ACA', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -132,17 +183,18 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `first_name`, `last_name`, `log_user`, `email`, `fk_id_rol`, `birthdate`, `movil`, `password`, `state`, `photo`, `address`) VALUES
-(1, 'Benjamin', 'Motta', 'bmottag', 'benmotta@gmail.com', 1, '2018-03-19', '4033089921', '25f9e794323b453885f5181f1b624d0b', 1, '', '');
+(1, 'BENJAMIN', 'MOTTA', 'bmottag', 'benmotta@gmail.com', 1, '2018-03-19', '4033089921', '25f9e794323b453885f5181f1b624d0b', 1, '', ''),
+(2, 'JORGE', 'LOZANO', 'jlozano', 'jlozano@gmail.com', 1, '2018-04-01', '3015505382', 'e10adc3949ba59abbe56e057f20f883e', 2, '', '');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `computadores`
+-- Indices de la tabla `param_horas`
 --
-ALTER TABLE `computadores`
-  ADD PRIMARY KEY (`id_computador`);
+ALTER TABLE `param_horas`
+  ADD PRIMARY KEY (`id_hora`);
 
 --
 -- Indices de la tabla `param_rol`
@@ -162,8 +214,9 @@ ALTER TABLE `param_tipificacion`
 ALTER TABLE `solicitud`
   ADD PRIMARY KEY (`id_solicitud`),
   ADD KEY `fk_id_user` (`fk_id_user`),
-  ADD KEY `fk_id_computador` (`fk_id_computador`),
-  ADD KEY `fk_id_tipificacion` (`fk_id_tipificacion`);
+  ADD KEY `fk_id_tipificacion` (`fk_id_tipificacion`),
+  ADD KEY `fk_id_hora_inicial` (`fk_id_hora_inicial`),
+  ADD KEY `fk_id_hora_final` (`fk_id_hora_final`);
 
 --
 -- Indices de la tabla `user`
@@ -179,10 +232,10 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT de la tabla `computadores`
+-- AUTO_INCREMENT de la tabla `param_horas`
 --
-ALTER TABLE `computadores`
-  MODIFY `id_computador` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `param_horas`
+  MODIFY `id_hora` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT de la tabla `param_rol`
 --
@@ -197,12 +250,12 @@ ALTER TABLE `param_tipificacion`
 -- AUTO_INCREMENT de la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
-  MODIFY `id_solicitud` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_solicitud` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Restricciones para tablas volcadas
 --
@@ -211,8 +264,9 @@ ALTER TABLE `user`
 -- Filtros para la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
-  ADD CONSTRAINT `solicitud_ibfk_1` FOREIGN KEY (`fk_id_computador`) REFERENCES `computadores` (`id_computador`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `solicitud_ibfk_2` FOREIGN KEY (`fk_id_tipificacion`) REFERENCES `param_tipificacion` (`id_tipificacion`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `solicitud_ibfk_2` FOREIGN KEY (`fk_id_tipificacion`) REFERENCES `param_tipificacion` (`id_tipificacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `solicitud_ibfk_3` FOREIGN KEY (`fk_id_hora_inicial`) REFERENCES `param_horas` (`id_hora`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `solicitud_ibfk_4` FOREIGN KEY (`fk_id_hora_final`) REFERENCES `param_horas` (`id_hora`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
