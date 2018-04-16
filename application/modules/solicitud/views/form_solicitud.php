@@ -1,4 +1,5 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/solicitud/solicitud.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/solicitud/ajaxPrueba.js"); ?>"></script>
 
 <div class="right_col" role="main">
 	<div class="row">
@@ -132,10 +133,23 @@
 						</div>
 						
 						<div class="form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="grupo_items">Grupo de items <span class="required">*</span>
-							</label>
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="prueba">Prueba <span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="text" id="grupo_items" name="grupo_items" class="form-control col-md-7 col-xs-12" maxlength=50 placeholder="Grupo de items">
+								<select name="prueba" id="prueba" class="form-control" >
+									<option value=''>Select...</option>
+									<?php for ($i = 0; $i < count($examenes); $i++) { ?>
+										<option value="<?php echo $examenes[$i]["codigo_examen"]; ?>" ><?php echo $examenes[$i]["examen"]; ?></option>	
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="grupo_items">Grupo de items <span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<select name="grupo_items" id="grupo_items" class="form-control" required>					
+
+								</select>
 							</div>
 						</div>
 						

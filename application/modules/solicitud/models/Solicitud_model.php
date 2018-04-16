@@ -18,7 +18,7 @@
 				'fk_id_hora_inicial' => $this->input->post('hora_inicio'),
 				'fk_id_hora_final' => $this->input->post('hora_final'),
 				'numero_items' => $this->input->post('numero_items'),
-				'grupo_items' => $this->input->post('grupo_items'),
+				'fk_id_prueba' => $this->input->post('grupo_items'),
 				'fk_id_tipificacion' => $this->input->post('tipificacion'),
 				'estado_solicitud' => 1
 			);

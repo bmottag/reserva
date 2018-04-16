@@ -20,7 +20,7 @@ jQuery.validator.addMethod("mayorQ", function(value, element, param) {
 			hora_inicio:			{ required: true },
 			hora_final: 			{ required: true, mayorQ: "#hora_inicio" },
 			numero_items: 			{ required: true },
-			grupo_items: 			{ required: true, minlength: 3, maxlength:50 },
+			grupo_items: 			{ required: true },
 			tipificacion:	 		{ required: true }
 		},
 		errorElement: "em",

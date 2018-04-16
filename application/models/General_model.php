@@ -87,7 +87,7 @@ class General_model extends CI_Model {
 		 */
 		public function get_solicitudes($arrData) 
 		{
-			$this->db->select("S.*, U.*, I.hora hora_inicial, F.hora hora_final, T.tipificacion");
+			$this->db->select("S.*, U.*, I.hora hora_inicial, F.hora hora_final, T.tipificacion, P.examen, P.prueba");
 			if (array_key_exists("idUser", $arrData)) {
 				$this->db->where('S.fk_id_user', $arrData["idUser"]);
 			}
@@ -101,6 +101,7 @@ class General_model extends CI_Model {
 			$this->db->join('param_horas I', 'I.id_hora = S.fk_id_hora_inicial', 'INNER');
 			$this->db->join('param_horas F', 'F.id_hora = S.fk_id_hora_final', 'INNER');
 			$this->db->join('param_tipificacion T', 'T.id_tipificacion = S.fk_id_tipificacion', 'INNER');
+			$this->db->join('param_prueba P', 'P.id_prueba = S.fk_id_prueba', 'INNER');
 
 			$this->db->order_by("S.fecha_apartado DESC, S.fk_id_hora_inicial ASC"); 
 			$query = $this->db->get("solicitud S");
@@ -109,6 +110,51 @@ class General_model extends CI_Model {
 				return $query->result_array();
 			} else
 				return false;
+		}
+		
+		/**
+		 * Lista de pruebas
+		 * @since 16/4/2018
+		 */
+		public function get_examenes() 
+		{
+				$this->db->select('DISTINCT(codigo_examen), examen');
+
+				$this->db->order_by('codigo_examen', 'asc');
+				$query = $this->db->get('param_prueba P');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+		
+		/**
+		 * Lista de pruebas por examen
+		 * @since 16/4/2018
+		 */
+		public function get_pruebas_by($arrDatos)
+		{			
+				$pruebas = array();
+				
+				$this->db->select();
+				if (array_key_exists("codigoExamen", $arrDatos)) {
+					$this->db->where('codigo_examen', $arrDatos["codigoExamen"]);
+				}
+				$this->db->order_by('prueba', 'asc');
+				$query = $this->db->get('param_prueba');
+					
+				if ($query->num_rows() > 0) {
+					$i = 0;
+					foreach ($query->result() as $row) {
+						$pruebas[$i]["idPrueba"] = $row->id_prueba;
+						$pruebas[$i]["prueba"] = $row->prueba;
+						$i++;
+					}
+				}
+				$this->db->close();
+				return $pruebas;
 		}
 	
 		

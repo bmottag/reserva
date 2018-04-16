@@ -46,6 +46,8 @@ class Solicitud extends CI_Controller {
 				);
 				$data['horas'] = $this->general_model->get_basic_search($arrParam);
 				
+				$data['examenes'] = $this->general_model->get_examenes();//listado de examenes
+				
 				//filtro de solicitudes por fecha
 				$arrParam = array("fecha" => $this->input->post('hddFecha'));
 				$data['solicitudes'] = $this->general_model->get_solicitudes($arrParam);//listado de solicitudes filtrado por fecha
@@ -239,6 +241,26 @@ class Solicitud extends CI_Controller {
 			}				
 
 			echo json_encode($data);
+    }
+	
+	/**
+	 * Lista de pruebas pr examen
+     * @since 16/4/2018
+	 */
+    public function pruebaList()
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+
+			$arrParam['codigoExamen'] = $this->input->post('identificador');
+			$this->load->model("general_model");
+			$lista = $this->general_model->get_pruebas_by($arrParam);
+		
+			echo "<option value=''>Select...</option>";
+			if ($lista) {
+				foreach ($lista as $fila) {
+					echo "<option value='" . $fila["idPrueba"] . "' >" . $fila["prueba"] . "</option>";
+				}
+			}
     }
 	
 	

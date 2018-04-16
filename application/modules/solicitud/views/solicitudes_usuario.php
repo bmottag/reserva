@@ -76,7 +76,7 @@ if ($retornoError) {
 					echo "<td>" . $data['hora_inicial'] . "</td>";
 					echo "<td>" . $data['hora_final'] . "</td>";
 					echo "<td>" . $data['numero_items'] . "</td>";
-					echo "<td>" . $data['grupo_items'] . "</td>";
+					echo "<td><strong>" . $data['examen'] . "</strong>-" . $data['prueba'] . "</td>";
 					echo "<td>" . $data['tipificacion'] . "</td>";
 					echo "<td>" . $data['first_name'] . " " . $data['last_name'] . "</td>";
 					echo "<td class='text-center'>";
