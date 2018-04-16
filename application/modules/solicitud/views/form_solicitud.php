@@ -95,7 +95,7 @@
 						</div>
 						
 						<div class="form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_inicio">Hora inicio<span class="required">*</span></label>
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_inicio">Hora inicio <span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<select name="hora_inicio" id="hora_inicio" class="form-control" >
 									<option value=''>Select...</option>
@@ -107,7 +107,7 @@
 						</div>
 						
 						<div class="form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_final">Hora final<span class="required">*</span></label>
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="hora_final">Hora final <span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<select name="hora_final" id="hora_final" class="form-control" >
 									<option value=''>Select...</option>
@@ -140,7 +140,7 @@
 						</div>
 						
 						<div class="form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="tipificacion">Tipificación<span class="required">*</span></label>
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="tipificacion">Tipificación <span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<select name="tipificacion" id="tipificacion" class="form-control" >
 									<option value=''>Select...</option>
