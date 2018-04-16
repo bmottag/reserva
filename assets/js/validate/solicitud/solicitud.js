@@ -65,7 +65,8 @@ jQuery.validator.addMethod("mayorQ", function(value, element, param) {
 							$("#div_load").css("display", "none");
 							$("#div_error").css("display", "inline");
 							$("#span_msj").html(data.mensaje);
-							$('#btnSubmit').removeAttr('disabled');							
+							$('#btnSubmit').removeAttr('disabled');
+							alert(data.mensaje);
 							return false;
 						} 
 
