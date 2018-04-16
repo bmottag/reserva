@@ -100,7 +100,7 @@
 								<select name="hora_inicio" id="hora_inicio" class="form-control" >
 									<option value=''>Select...</option>
 									<?php for ($i = 0; $i < count($horas); $i++) { ?>
-										<option value="<?php echo $horas[$i]["id_hora"]; ?>" <?php if($information[0]["fk_id_hora_inicial"] == $horas[$i]["id_hora"]) { echo "selected"; }  ?>><?php echo $horas[$i]["hora"]; ?></option>	
+										<option value="<?php echo $horas[$i]["id_hora"]; ?>" <?php if(17 == $horas[$i]["id_hora"]) { echo "selected"; }  ?>><?php echo $horas[$i]["hora"]; ?></option>	
 									<?php } ?>
 								</select>
 							</div>
@@ -112,7 +112,7 @@
 								<select name="hora_final" id="hora_final" class="form-control" >
 									<option value=''>Select...</option>
 									<?php for ($i = 0; $i < count($horas); $i++) { ?>
-										<option value="<?php echo $horas[$i]["id_hora"]; ?>" <?php if($information[0]["fk_id_hora_final"] == $horas[$i]["id_hora"]) { echo "selected"; }  ?>><?php echo $horas[$i]["hora"]; ?></option>	
+										<option value="<?php echo $horas[$i]["id_hora"]; ?>" <?php if(17 == $horas[$i]["id_hora"]) { echo "selected"; }  ?>><?php echo $horas[$i]["hora"]; ?></option>	
 									<?php } ?>
 								</select>
 							</div>
