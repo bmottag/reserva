@@ -140,7 +140,7 @@ class Solicitud extends CI_Controller {
 						$bandera = TRUE;
 					}
 //6 --- revisar horas cuando hora BD empieza antes y terminan dentro o igual a la hora final
-				}elseif( $hora_inicio > $hora_inicio_BD && $hora_fin_BD <= $hora_fin )
+				}elseif( $hora_inicio > $hora_inicio_BD && $hora_fin_BD <= $hora_fin && $hora_inicio < $hora_fin_BD )
 				{
 					//consulto numero de computadores disponibles
 					$contadorDisponibleBDAntes = $contadorDisponibleBDAntes - $numero_computadores_BD; 
