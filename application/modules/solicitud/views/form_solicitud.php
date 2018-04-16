@@ -1,6 +1,25 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/solicitud/solicitud.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/solicitud/ajaxPrueba.js"); ?>"></script>
 
+<script>
+$(document).ready(function () {
+	
+    $('#grupo_items').change(function () {
+        $('#grupo_items option:selected').each(function () {
+            var grupo_items = $('#grupo_items').val();
+            if (grupo_items == 69) {
+				$("#div_cual").css("display", "inline");
+				$('#cual').val("");
+            } else {
+				$("#div_cual").css("display", "none");
+				$('#cual').val("");
+            }
+        });
+    });
+	
+});
+</script>
+
 <div class="right_col" role="main">
 	<div class="row">
 		<div class="col-md-12 col-sm-12 col-xs-12">
@@ -152,6 +171,13 @@
 								</select>
 							</div>
 						</div>
+						
+						<div class="form-group" id="div_cual" style="display: none">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="cual">¿Cuál?  <span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="text" id="cual" name="cual" class="form-control" placeholder="¿Cuál?" >
+							</div>
+						</div><br>
 						
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="tipificacion">Tipificación <span class="required">*</span></label>

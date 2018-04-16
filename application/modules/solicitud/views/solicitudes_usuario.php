@@ -76,7 +76,14 @@ if ($retornoError) {
 					echo "<td>" . $data['hora_inicial'] . "</td>";
 					echo "<td>" . $data['hora_final'] . "</td>";
 					echo "<td>" . $data['numero_items'] . "</td>";
-					echo "<td><strong>" . $data['examen'] . "</strong>-" . $data['prueba'] . "</td>";
+					echo "<td>";
+					echo "<strong>" . $data['examen'] . "</strong> - ";
+					if($data['fk_id_prueba'] == 69){
+						echo $data['cual'];
+					}else{
+						echo $data['prueba'];
+					}
+					echo "</td>";
 					echo "<td>" . $data['tipificacion'] . "</td>";
 					echo "<td>" . $data['first_name'] . " " . $data['last_name'] . "</td>";
 					echo "<td class='text-center'>";

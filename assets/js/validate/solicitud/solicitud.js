@@ -1,4 +1,13 @@
 $( document ).ready( function () {
+
+jQuery.validator.addMethod("campoCual", function(value, element, param) {
+	var grupo_items = $('#grupo_items').val();
+	if (grupo_items == 69 && value == "") {
+		return false;
+	}else{
+		return true;
+	}
+}, "Este campo es requerido.");
 				
 //regla para validar que la hora final es mayor a la hora inicial
 jQuery.validator.addMethod("mayorQ", function(value, element, param) {
@@ -12,7 +21,7 @@ jQuery.validator.addMethod("mayorQ", function(value, element, param) {
 }, "La hora final debe ser mayor a la hora inicial.");
 
 				
-	$("#grupo_items").convertirMayuscula().maxlength(50);
+	$("#cual").convertirMayuscula().maxlength(120);
 			
 	$( "#form" ).validate( {
 		rules: {
@@ -21,6 +30,7 @@ jQuery.validator.addMethod("mayorQ", function(value, element, param) {
 			hora_final: 			{ required: true, mayorQ: "#hora_inicio" },
 			numero_items: 			{ required: true },
 			grupo_items: 			{ required: true },
+			cual:					{ maxlength: 120, campoCual: "#grupo_items" },
 			tipificacion:	 		{ required: true }
 		},
 		errorElement: "em",
