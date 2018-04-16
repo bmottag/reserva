@@ -209,6 +209,38 @@ class Solicitud extends CI_Controller {
 		$this->load->view("layout", $data);
 	}
 	
+	/**
+	 * Eliminar reserva
+     * @since 16/4/2018
+	 */
+	public function eliminar_reserva()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$data["idRecord"] = $this->session->userdata("id");
+			$idSolicitud = $this->input->post('identificador');
+			
+			$this->load->model("general_model");
+
+			$arrParam = array(
+				"table" => "solicitud",
+				"primaryKey" => "id_solicitud",
+				"id" => $idSolicitud
+			);
+			
+			if ($this->general_model->deleteRecord($arrParam)) {
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', 'Se eliminó el registro.');
+			} else {
+				$data["result"] = "error";
+				$data["mensaje"] = "Error!!! Contactarse con el Administrador.";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Contactarse con el Administrador.');
+			}				
+
+			echo json_encode($data);
+    }
+	
 	
 	
 }
