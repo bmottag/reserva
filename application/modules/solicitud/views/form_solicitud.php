@@ -122,7 +122,7 @@
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="numero_items">Número de items <span class="required">*</span>
 							</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<select name="numero_items" id="numero_items" class="form-control" required>
+								<select name="numero_items" id="numero_items" class="form-control">
 									<option value='' >Select...</option>
 									<?php for ($i = 1; $i <= 50; $i++) { ?>
 										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information["numero_items"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
@@ -135,7 +135,7 @@
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="grupo_items">Grupo de items <span class="required">*</span>
 							</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="text" id="grupo_items" name="grupo_items" required="required" class="form-control col-md-7 col-xs-12" maxlength=50 placeholder="Grupo de items">
+								<input type="text" id="grupo_items" name="grupo_items" class="form-control col-md-7 col-xs-12" maxlength=50 placeholder="Grupo de items">
 							</div>
 						</div>
 						
