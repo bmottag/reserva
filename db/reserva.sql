@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-04-2018 a las 23:11:24
+-- Tiempo de generación: 17-04-2018 a las 22:48:38
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -28,62 +28,63 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `param_horas` (
   `id_hora` int(1) NOT NULL,
-  `hora` varchar(10) NOT NULL
+  `hora` varchar(10) NOT NULL,
+  `formato_24` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `param_horas`
 --
 
-INSERT INTO `param_horas` (`id_hora`, `hora`) VALUES
-(1, '12:00 AM'),
-(2, '12:30 AM'),
-(3, '1:00 AM'),
-(4, '1:30 AM'),
-(5, '2:00 AM'),
-(6, '2:30 AM'),
-(7, '3:00 AM'),
-(8, '3:30 AM'),
-(9, '4:00 AM'),
-(10, '4:30 AM'),
-(11, '5:00 AM'),
-(12, '5:30 AM'),
-(13, '6:00 AM'),
-(14, '6:30 AM'),
-(15, '7:00 AM'),
-(16, '7:30 AM'),
-(17, '8:00 AM'),
-(18, '8:30 AM'),
-(19, '9:00 AM'),
-(20, '9:30 AM'),
-(21, '10:00 AM'),
-(22, '10:30 AM'),
-(23, '11:00 AM'),
-(24, '11:30 AM'),
-(25, '12:00 PM'),
-(26, '12:30 PM'),
-(27, '1:00 PM'),
-(28, '1:30 PM'),
-(29, '2:00 PM'),
-(30, '2:30 PM'),
-(31, '3:00 PM'),
-(32, '3:30 PM'),
-(33, '4:00 PM'),
-(34, '4:30 PM'),
-(35, '5:00 PM'),
-(36, '5:30 PM'),
-(37, '6:00 PM'),
-(38, '6:30 PM'),
-(39, '7:00 PM'),
-(40, '7:30 PM'),
-(41, '8:00 PM'),
-(42, '8:30 PM'),
-(43, '9:00 PM'),
-(44, '9:30 PM'),
-(45, '10:00 PM'),
-(46, '10:30 PM'),
-(47, '11:00 PM'),
-(48, '11:30 PM');
+INSERT INTO `param_horas` (`id_hora`, `hora`, `formato_24`) VALUES
+(1, '12:00 AM', '00:00'),
+(2, '12:30 AM', '00:30'),
+(3, '1:00 AM', '01:00'),
+(4, '1:30 AM', '01:30'),
+(5, '2:00 AM', '02:00'),
+(6, '2:30 AM', '02:30'),
+(7, '3:00 AM', '03:00'),
+(8, '3:30 AM', '03:30'),
+(9, '4:00 AM', '04:00'),
+(10, '4:30 AM', '04:30'),
+(11, '5:00 AM', '05:00'),
+(12, '5:30 AM', '05:30'),
+(13, '6:00 AM', '06:00'),
+(14, '6:30 AM', '06:30'),
+(15, '7:00 AM', '07:00'),
+(16, '7:30 AM', '07:30'),
+(17, '8:00 AM', '08:00'),
+(18, '8:30 AM', '08:30'),
+(19, '9:00 AM', '09:00'),
+(20, '9:30 AM', '09:30'),
+(21, '10:00 AM', '10:00'),
+(22, '10:30 AM', '10:30'),
+(23, '11:00 AM', '11:00'),
+(24, '11:30 AM', '11:30'),
+(25, '12:00 PM', '12:00'),
+(26, '12:30 PM', '12:30'),
+(27, '1:00 PM', '13:00'),
+(28, '1:30 PM', '13:30'),
+(29, '2:00 PM', '14:00'),
+(30, '2:30 PM', '14:30'),
+(31, '3:00 PM', '15:00'),
+(32, '3:30 PM', '15:30'),
+(33, '4:00 PM', '16:00'),
+(34, '4:30 PM', '16:30'),
+(35, '5:00 PM', '17:00'),
+(36, '5:30 PM', '17:30'),
+(37, '6:00 PM', '18:00'),
+(38, '6:30 PM', '18:30'),
+(39, '7:00 PM', '19:00'),
+(40, '7:30 PM', '19:30'),
+(41, '8:00 PM', '20:00'),
+(42, '8:30 PM', '20:30'),
+(43, '9:00 PM', '21:00'),
+(44, '9:30 PM', '21:30'),
+(45, '10:00 PM', '22:00'),
+(46, '10:30 PM', '22:30'),
+(47, '11:00 PM', '23:00'),
+(48, '11:30 PM', '23:30');
 
 -- --------------------------------------------------------
 
@@ -235,6 +236,7 @@ CREATE TABLE `solicitud` (
   `fecha_solicitud` datetime NOT NULL,
   `numero_items` tinyint(1) NOT NULL,
   `fk_id_prueba` int(10) NOT NULL,
+  `cual` varchar(150) NOT NULL,
   `fk_id_tipificacion` int(1) NOT NULL,
   `estado_solicitud` tinyint(1) NOT NULL COMMENT '1:Activa;2Inactiva'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -243,8 +245,10 @@ CREATE TABLE `solicitud` (
 -- Volcado de datos para la tabla `solicitud`
 --
 
-INSERT INTO `solicitud` (`id_solicitud`, `fk_id_user`, `fecha_apartado`, `numero_computadores`, `fk_id_hora_inicial`, `fk_id_hora_final`, `fecha_solicitud`, `numero_items`, `fk_id_prueba`, `fk_id_tipificacion`, `estado_solicitud`) VALUES
-(1, 1, '2018-04-16', 3, 17, 23, '2018-04-16 23:07:19', 9, 5, 4, 1);
+INSERT INTO `solicitud` (`id_solicitud`, `fk_id_user`, `fecha_apartado`, `numero_computadores`, `fk_id_hora_inicial`, `fk_id_hora_final`, `fecha_solicitud`, `numero_items`, `fk_id_prueba`, `cual`, `fk_id_tipificacion`, `estado_solicitud`) VALUES
+(1, 1, '2018-04-16', 3, 17, 23, '2018-04-16 23:07:19', 9, 5, '', 4, 1),
+(2, 1, '2018-04-16', 3, 17, 26, '2018-04-16 23:35:08', 5, 69, 'Otra cosa', 1, 1),
+(3, 1, '2018-04-17', 4, 17, 18, '2018-04-17 07:34:14', 1, 5, '', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -352,7 +356,7 @@ ALTER TABLE `param_tipificacion`
 -- AUTO_INCREMENT de la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
-  MODIFY `id_solicitud` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_solicitud` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
