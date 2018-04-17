@@ -102,7 +102,16 @@ if($information){
 	foreach ($information as $data):
 ?>
 				  {
-					title: '<?php echo "No. computadores: " . $data["numero_computadores"]; ?>',
+					title: '<?php 
+							echo "# COMPUTADORES: " . $data["numero_computadores"] . " - ";
+							echo " USUARIO: " . $data['first_name'] . " " . $data['last_name'] . " - ";
+							echo " GRUPO ITEMS: " . $data['examen'] . " - ";
+							if($data['fk_id_prueba'] == 69){
+								echo $data['cual'];
+							}else{
+								echo $data['prueba'];
+							}
+							?>',
 					start: '<?php echo $data["fecha_apartado"] . " " . $data["hora_inicial_24"]; ?>',
 					end: '<?php echo $data["fecha_apartado"] . " " . $data["hora_final_24"]; ?>',
 					url: '<?php echo base_url("solicitud/solicitudes_usuario/" . $data["fk_id_user"] . "/" . $data["id_solicitud"] ); ?>'
