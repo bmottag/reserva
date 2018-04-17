@@ -9,7 +9,11 @@ class Solicitud extends CI_Controller {
     }
 	
 	public function calendario()
-	{			
+	{
+		$this->load->model("general_model");
+		$arrParam = array();
+		$data['information'] = $this->general_model->get_solicitudes($arrParam);//info solicitudes
+		
 		$data["view"] = 'calendario';
 		$this->load->view("layout", $data);
 	}

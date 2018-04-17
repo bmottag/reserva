@@ -36,6 +36,10 @@
 			  <li>
 				<a href="<?php echo base_url("solicitud/solicitudes_usuario/" . $this->session->userdata("id")); ?>">Listado reservas</a>
 			  </li>
+			  
+			  <li>
+				<a href="<?php echo base_url("solicitud/calendario"); ?>">Ver calendario</a>
+			  </li>
 
 			</ul>
 		  </li>

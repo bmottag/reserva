@@ -8,41 +8,113 @@
               <div class="col-md-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Calendar Events <small>Sessions</small></h2>
+                    <h2>Reservas por fecha </h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                       </li>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+				  			  
 <script>
-$(document).ready(function() {
-    // página cargada, inicializamos el calendario...
-    $('#calendar').fullCalendar({
-        events : [
-        {
-            title  : 'event1',
-            start  : '2018-04-12',
-			color  : '#40E0D0'
-        },
-        {
-            title  : 'event2',
-            start  : '2018-04-12',
-            end    : '2018-04-15'
-        },
-        {
-            title  : 'event3',
-            start  : '2018-04-20 22:30',
-            allDay : false // will make the time show
-        }
-    ]
-    })
-});
+	   	/* CALENDAR */
+		$(document).ready(function() {
+
+				if( typeof ($.fn.fullCalendar) === 'undefined'){ return; }
+				console.log('init_calendar');
+					
+				var date = new Date(),
+					d = date.getDate(),
+					m = date.getMonth(),
+					y = date.getFullYear(),
+					started,
+					categoryClass;
+
+				var calendar = $('#calendar').fullCalendar({
+					
+				locale: 'es',
+				  header: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay,listMonth'
+				  },
+				  selectable: true,
+				  selectHelper: true,
+				  select: function(start, end, allDay) {
+					$('#fc_create').click();
+
+					started = start;
+					ended = end;
+
+					$(".antosubmit").on("click", function() {
+					  var title = $("#title").val();
+					  if (end) {
+						ended = end;
+					  }
+
+					  categoryClass = $("#event_type").val();
+
+					  if (title) {
+						calendar.fullCalendar('renderEvent', {
+							title: title,
+							start: started,
+							end: end,
+							allDay: allDay
+						  },
+						  true // make the event "stick"
+						);
+					  }
+
+					  $('#title').val('');
+
+					  calendar.fullCalendar('unselect');
+
+					  $('.antoclose').click();
+
+					  return false;
+					});
+				  },
+				  eventClick: function(calEvent, jsEvent, view) {
+					$('#fc_edit').click();
+					$('#title2').val(calEvent.title);
+
+					categoryClass = $("#event_type").val();
+
+					$(".antosubmit2").on("click", function() {
+					  calEvent.title = $("#title2").val();
+
+					  calendar.fullCalendar('updateEvent', calEvent);
+					  $('.antoclose2').click();
+					});
+
+					calendar.fullCalendar('unselect');
+				  },
+				  editable: true,
+				  
+				  events: [
+				  
+<?php
+if($information){
+	foreach ($information as $data):
+?>
+				  {
+					title: '<?php echo "No. computadores: " . $data["numero_computadores"]; ?>',
+					start  : '<?php echo $data["fecha_apartado"] . " " . $data["hora_inicial_24"]; ?>',
+					end  : '<?php echo $data["fecha_apartado"] . " " . $data["hora_final_24"]; ?>'
+				  },
+				  
+<?php
+		endforeach;
+	}
+?>
+				  
+				  ]			  
+				});
+		});
 </script>
+				  				  
+
                     <div id='calendar'></div>
 
                   </div>
@@ -128,3 +200,4 @@ $(document).ready(function() {
 <!-- bootstrap-datetimepicker -->    	
 <script src="<?php echo base_url("assets/bootstrap/vendors/moment/min/moment.min.js"); ?>"></script>
 <script src="<?php echo base_url("assets/bootstrap/vendors/fullcalendar/dist/fullcalendar.min.js"); ?>"></script>
+<script src="<?php echo base_url("assets/bootstrap/vendors/fullcalendar/dist/lang/es.js"); ?>"></script>
