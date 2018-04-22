@@ -28,7 +28,7 @@
 					categoryClass;
 
 				var calendar = $('#calendar').fullCalendar({
-				defaultView: "listMonth",
+				defaultView: "agendaWeek",
 				locale: 'es',
 				  header: {
 					left: 'prev,next today',
