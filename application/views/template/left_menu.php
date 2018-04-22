@@ -39,8 +39,8 @@
 			<a data-toggle="tooltip" data-placement="top" title="FullScreen">
 				<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
 			</a>
-			<a data-toggle="tooltip" data-placement="top" title="Lock">
-				<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+			<a data-toggle="tooltip" data-placement="top" title="Calendario" href="<?php echo base_url("solicitud/calendario"); ?>">
+				<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
 			</a>
 			<a data-toggle="tooltip" data-placement="top" title="Salir" href="<?php echo base_url("menu/salir"); ?>">
 				<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
