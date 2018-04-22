@@ -63,7 +63,7 @@
 	    				redirect("/employee","location",301);
 	    				break;
 	    		case 1: //ACTIVE USER
-						redirect("solicitud","location",301);
+						redirect("solicitud/calendario","location",301);
 	    				break;
 	    		case 2: //INACTIVE USER
 	    				$this->session->sess_destroy();
