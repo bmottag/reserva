@@ -3,6 +3,19 @@
 
 <script>
 $(document).ready(function () {
+
+    $('#prueba').change(function () {
+        $('#prueba option:selected').each(function () {
+            var prueba = $('#prueba').val();
+            if (prueba == 998) {
+				$("#div_cual_prueba").css("display", "inline");
+				$('#cual_prueba').val("");
+            } else {
+				$("#div_cual_prueba").css("display", "none");
+				$('#cual_prueba').val("");
+            }
+        });
+    });
 	
     $('#grupo_items').change(function () {
         $('#grupo_items option:selected').each(function () {
@@ -162,6 +175,13 @@ $(document).ready(function () {
 								</select>
 							</div>
 						</div>
+						
+						<div class="form-group" id="div_cual_prueba" style="display: none">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="cual_prueba">¿Cuál prueba?  <span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="text" id="cual_prueba" name="cual_prueba" class="form-control" placeholder="¿Cuál prueba?" >
+							</div>
+						</div><br>
 						
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="grupo_items">Grupo de items <span class="required">*</span></label>

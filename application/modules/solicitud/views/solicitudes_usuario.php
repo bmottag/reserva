@@ -79,6 +79,7 @@ if ($retornoError) {
 					echo "<td>";
 					echo "<strong>" . $data['examen'] . "</strong> - ";
 					if($data['fk_id_prueba'] == 69){
+						echo $data['cual_prueba'] . " - ";
 						echo $data['cual'];
 					}else{
 						echo $data['prueba'];

@@ -21,6 +21,7 @@ jQuery.validator.addMethod("mayorQ", function(value, element, param) {
 }, "La hora final debe ser mayor a la hora inicial.");
 
 				
+	$("#cual_prueba").convertirMayuscula().maxlength(120);
 	$("#cual").convertirMayuscula().maxlength(120);
 			
 	$( "#form" ).validate( {
@@ -30,6 +31,7 @@ jQuery.validator.addMethod("mayorQ", function(value, element, param) {
 			hora_final: 			{ required: true, mayorQ: "#hora_inicio" },
 			numero_items: 			{ required: true },
 			grupo_items: 			{ required: true },
+			cual_prueba:			{ maxlength: 120, campoCual: "#grupo_items" },
 			cual:					{ maxlength: 120, campoCual: "#grupo_items" },
 			tipificacion:	 		{ required: true }
 		},
