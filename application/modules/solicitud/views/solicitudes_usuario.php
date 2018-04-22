@@ -75,7 +75,14 @@ if ($retornoError) {
 					echo "<td>" . $data['numero_computadores'] . "</td>";
 					echo "<td>" . $data['hora_inicial'] . "</td>";
 					echo "<td>" . $data['hora_final'] . "</td>";
-					echo "<td>" . $data['numero_items'] . "</td>";
+					echo "<td>";
+					if (99 == $data["numero_items"])
+					{ 
+						echo 'Sin definir'; 
+					}else{
+						echo $data['numero_items'];
+					}
+					echo "</td>";
 					echo "<td>";
 					echo "<strong>" . $data['examen'] . "</strong> - ";
 					if($data['fk_id_prueba'] == 69){

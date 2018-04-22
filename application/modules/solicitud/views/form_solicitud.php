@@ -159,7 +159,8 @@ $(document).ready(function () {
 									<option value='' >Select...</option>
 									<?php for ($i = 1; $i <= 50; $i++) { ?>
 										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information["numero_items"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
-									<?php } ?>									
+									<?php } ?>
+									<option value=99 <?php if ($information && 99 == $information["numero_items"]) { echo 'selected="selected"'; } ?> >Sin definir</option>
 								</select>
 							</div>
 						</div>
