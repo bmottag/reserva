@@ -308,8 +308,50 @@ class Admin extends CI_Controller {
 
 			echo json_encode($data);	
     }
+	
+	/**
+	 * Form para actualizar datos de la tabla param general
+     * @since 23/4/2018
+     * @author BMOTTAG
+	 */
+	public function update_parametricas()
+	{			
+		$this->load->model("general_model");
+		
+		$arrParam = array();
+		$data['horas'] = $this->general_model->get_horas($arrParam);//LISTA DE HORAS
+		
+		//informacion tabla param general
+		$arrParam = array(
+			"table" => "param_generales",
+			"order" => "id_generales",
+			"id" => "x"
+		);
+		$data['information'] = $this->general_model->get_basic_search($arrParam);
+	
+		$data["view"] = 'form_parametricas';
+		$this->load->view("layout", $data);
+	}
+
+	/**
+	 * Guardar parametricas
+     * @since 23/4/2018
+	 */
+	public function save_parametricas()
+	{			
+			header('Content-Type: application/json');
+
+			if ($this->admin_model->saveParametricas()) {
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', "Se actualizó la información.");
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Contactarse con el Administrador.');
+			}
 
 
+			echo json_encode($data);
+    }
 
 
 	

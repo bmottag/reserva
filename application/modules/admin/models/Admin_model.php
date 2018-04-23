@@ -139,7 +139,34 @@
 					return false;
 				}
 		}
-		
+	
+		/**
+		 * Edit TABLA PARAM GENERALES
+		 * @since 29/3/2018
+		 */
+		public function saveParametricas() 
+		{		
+				//actualizar hora inicio
+				$data = array('valor' => $this->input->post('hora_inicio'));	
+				$this->db->where('id_generales', 1);
+				$query = $this->db->update('param_generales', $data);
+				
+				//actualizar hora final
+				$data = array('valor' => $this->input->post('hora_final'));	
+				$this->db->where('id_generales', 2);
+				$query = $this->db->update('param_generales', $data);
+				
+				//actualizar numero computadores
+				$data = array('valor' => $this->input->post('numero_computadores'));	
+				$this->db->where('id_generales', 3);
+				$query = $this->db->update('param_generales', $data);
+
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}	
 		
 	    
 	}
