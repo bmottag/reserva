@@ -95,6 +95,17 @@ if ($retornoError) {
 					echo "<td>" . $data['tipificacion'] . "</td>";
 					echo "<td>" . $data['first_name'] . " " . $data['last_name'] . "</td>";
 					echo "<td class='text-center'>";
+					
+//consultar si la fecha y hora de la reserva es mayor a la fecha y hora actual
+$fechaAparatada = $data['fecha_apartado'] . " " . $data['hora_final_24'];
+
+$datetime1 = date_create($fechaAparatada);
+$datetime2 = date_create(date('Y-m-d G:i'));
+
+
+if($datetime1 < $datetime2) {
+		echo "No se puede modificar";
+}else{
 		?>
 <a href='<?php echo base_url("solicitud/update_solicitud/" . $data['id_solicitud']); ?>' class='btn btn-info btn-xs'><i class='fa fa-pencil'></i> Editar </a>
 		
@@ -102,6 +113,7 @@ if ($retornoError) {
 		Eliminar <span class="fa fa-times fa-fw" aria-hidden="true">
 </button>
 		<?php
+}
 
 					echo "</td>";
 					echo "</tr>";
