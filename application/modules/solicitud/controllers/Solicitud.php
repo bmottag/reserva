@@ -36,10 +36,20 @@ class Solicitud extends CI_Controller {
 				$data['fecha_apartada'] = $this->input->post('hddFecha');
 				
 				$this->load->model("general_model");
-				//LISTA DE TIPIFICACION
+
 				$rol = $this->session->userdata("rol");//consulto rol para mostrar la lista de tipificacion
+				
+				$data['dataMensajeAlerta'] = FALSE;
 				if($rol == 3){
 					$usuario = "GESTOR";
+					
+					//revisar para rol GESTOR si es sabado o domingo la fecha de reserva	
+					// si es domingo $dia tendra 0, si es sabado dia es 6			
+					$dia=date("w", strtotime($data['fecha_apartada']));
+					if($dia == 0 || $dia == 6){
+						$data['dataMensajeAlerta'] = "Usted no tiene permisos para realizar reservas para los fines de semana.";
+					}			
+					
 				}else{
 					$usuario = "ADMON";
 				}

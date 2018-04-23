@@ -34,7 +34,17 @@ function valida(form) {
 				<div class="x_content">
 
 					<div class="alert alert-success alert-dismissible fade in" role="alert">
-						<strong>Info:</strong> Indicar <strong>fecha de solicitud deseada</strong> para realizar la reserva.
+						<strong>Info:</strong> 
+						
+							<ul>
+								<li>Indicar <strong>FEHA DE SOLICITUD </strong>deseada para realizar la reserva.</li>
+<?php 
+$rol = $this->session->userdata("rol");//consulto rol
+if($rol == 3){
+	echo "<li>Como usuario <strong>GESTOR</strong> solo puede reservar para un horario hábil. (8:00 AM - 6:00 PM de lunes a viernes)</li>";
+}
+?>
+							</ul>
 					</div>
 	<!-- Mensajes de alerta form validator-->
 	<?php if(validation_errors()){?>

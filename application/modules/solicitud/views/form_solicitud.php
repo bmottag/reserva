@@ -69,7 +69,7 @@ $(document).ready(function () {
 $rol = $this->session->userdata("rol");//consulto rol
 $mensaje = "";
 if($rol == 3){
-	$mensaje = "<li>Como usuario GESTOR solo puede reservar para un horario hábil. (8:00 AM - 6:00 PM Lunes a Viernes)</li>";
+	$mensaje = "<li>Como usuario <strong>GESTOR</strong> solo puede reservar para un horario hábil. (8:00 AM - 6:00 PM de lunes a viernes)</li>";
 }
 
 if($solicitudes){ //SI HAY SOLICITUDES LAS MUESTRO?>
@@ -122,6 +122,12 @@ if($solicitudes){ //SI HAY SOLICITUDES LAS MUESTRO?>
 							</ul>
 						</div>
 <?php } ?>
+
+<?php if($dataMensajeAlerta){ ?>
+						<div class="alert alert-danger alert-dismissible fade in" role="alert">
+							<strong>Error!</strong> <?php echo $dataMensajeAlerta ?>
+						</div>
+<?php }else{ ?>
 				
 <!-- FORMULARIO -->
 					<form id="form" data-parsley-validate class="form-horizontal form-label-left">
@@ -286,6 +292,8 @@ if($solicitudes){ //SI HAY SOLICITUDES LAS MUESTRO?>
 						</div>
 
 					</form>
+<?php } ?>
+					
 					</div>
 				</div>
 			</div>
