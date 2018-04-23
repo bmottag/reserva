@@ -103,14 +103,27 @@ if($information){
 ?>
 				  {
 					title: '<?php 
-							echo "# COMPUTADORES: " . $data["numero_computadores"] . " - ";
+							echo "No. COMPUTADORES: " . $data["numero_computadores"] . " - ";
 							echo " USUARIO: " . $data['first_name'] . " " . $data['last_name'] . " - ";
-							echo " GRUPO ITEMS: " . $data['examen'] . " - ";
-							if($data['fk_id_prueba'] == 69){
-								echo $data['cual'];
+							
+							echo " No. ITEMS: ";
+							if (99 == $data["numero_items"])
+							{ 
+								echo 'Sin definir - '; 
 							}else{
-								echo $data['prueba'];
+								echo $data['numero_items'] . " - ";
 							}
+							
+							echo " PRUEBA: " . $data['examen'] . " - ";
+							if($data['fk_id_prueba'] == 69){
+								echo $data['cual_prueba'] . " - ";
+								echo " GRUPO ITEMS: " . $data['cual']. " - ";
+							}else{
+								echo " GRUPO ITEMS: " . $data['prueba'] . " - ";
+							}
+							
+							echo "TIPIFICACIÓN: " . $data['tipificacion'];
+							
 							?>',
 					start: '<?php echo $data["fecha_apartado"] . " " . $data["hora_inicial_24"]; ?>',
 					end: '<?php echo $data["fecha_apartado"] . " " . $data["hora_final_24"]; ?>',
