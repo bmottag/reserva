@@ -47,13 +47,27 @@ class Solicitud extends CI_Controller {
 				$arrParam = array("usuario" => $usuario);
 				$data['tipificacion'] = $this->general_model->get_tipificacion($arrParam);
 				
-				//LISTA DE HORAS
-				$arrParam = array(
-					"table" => "param_horas",
-					"order" => "id_hora",
-					"id" => "x"
-				);
-				$data['horas'] = $this->general_model->get_basic_search($arrParam);
+				//verifico el rol del usuario si es GESTOR solo se muestran las horas permitidas que estan configuradas
+				//en la tabla de param_generales (hora inicio y hora fin)
+				$rol = $this->session->userdata("rol");//consulto rol
+				$arrParamFiltro = array();
+				
+				if($rol == 3){
+					
+					//BUSCO HORA INICIO Y HORA FINAL PARA USUARIO GESTOR
+					$arrParam = array(
+						"table" => "param_generales",
+						"order" => "id_generales",
+						"id" => "x"
+					);
+					$filtro = $this->general_model->get_basic_search($arrParam);
+					
+					$arrParamFiltro = array(
+						"idHoraInicio" => $filtro[0]['valor'],
+						"idHoraFinal" => $filtro[1]['valor']
+					);
+				}
+				$data['horas'] = $this->general_model->get_horas($arrParamFiltro);//LISTA DE HORAS
 				
 				$data['examenes'] = $this->general_model->get_examenes();//listado de examenes
 				

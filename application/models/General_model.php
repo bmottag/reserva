@@ -199,5 +199,28 @@ class General_model extends CI_Model {
 				return false;
 		}
 		
+		/**
+		 * Lista de horas
+		 * si es un usuario gestor se filtra por las horas configuradas en la tabla param generales
+		 * @since 22/4/2018
+		 * @review 23/4/2018
+		 */
+		public function get_horas($arrData) 
+		{
+			if (array_key_exists("idHoraInicio", $arrData)) {
+				$this->db->where('id_hora >=', $arrData["idHoraInicio"]);
+			}
+			if (array_key_exists("idHoraFinal", $arrData)) {
+				$this->db->where('id_hora <=', $arrData["idHoraFinal"]);
+			}
+			$this->db->order_by("id_hora", "ASC");
+			$query = $this->db->get("param_horas");
+
+			if ($query->num_rows() >= 1) {
+				return $query->result_array();
+			} else
+				return false;
+		}
+		
 
 }
