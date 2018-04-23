@@ -14,6 +14,11 @@
 		  </a>
 		</li>
 		
+<?php
+	$rol = $this->session->userdata("rol");//consulto rol para mostrar enlaces, usuario GESTOR no tiene acceso
+	if($rol != 3){
+?>
+		
 		<li class="">
 		  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			<i class="fa fa-cog"></i> Configuración
@@ -27,8 +32,11 @@
 			<li><a href="<?php echo base_url("admin/prueba"); ?>"><i class="fa fa-tags pull-right"></i> Pruebas</a></li>
 			
 		  </ul>
-		  
 		</li>
+		
+<?php
+	}
+?>
 
 	  </ul>
 	</nav>
