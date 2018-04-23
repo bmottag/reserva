@@ -59,7 +59,6 @@ class Solicitud extends CI_Controller {
 				
 				//verifico el rol del usuario si es GESTOR solo se muestran las horas permitidas que estan configuradas
 				//en la tabla de param_generales (hora inicio y hora fin)
-				$rol = $this->session->userdata("rol");//consulto rol
 				$arrParamFiltro = array();
 				
 				//BUSCO HORA INICIO Y HORA FINAL PARA USUARIO GESTOR y numero maximo de computadores
@@ -320,11 +319,20 @@ class Solicitud extends CI_Controller {
 			$data['information'] = $this->general_model->get_solicitudes($arrParam);
 			
 			$data['fecha_apartada'] = $data['information'][0]["fecha_apartado"];
-		
-			//LISTA DE TIPIFICACION
+			
 			$rol = $this->session->userdata("rol");//consulto rol para mostrar la lista de tipificacion
+					
+			$data['dataMensajeAlerta'] = FALSE;
 			if($rol == 3){
 				$usuario = "GESTOR";
+				
+				//revisar para rol GESTOR si es sabado o domingo la fecha de reserva	
+				// si es domingo $dia tendra 0, si es sabado dia es 6			
+				$dia=date("w", strtotime($data['fecha_apartada']));
+				if($dia == 0 || $dia == 6){
+					$data['dataMensajeAlerta'] = "Usted no tiene permisos para realizar reservas para los fines de semana.";
+				}			
+				
 			}else{
 				$usuario = "ADMON";
 			}
@@ -332,13 +340,26 @@ class Solicitud extends CI_Controller {
 			$arrParam = array("usuario" => $usuario);
 			$data['tipificacion'] = $this->general_model->get_tipificacion($arrParam);
 			
-			//LISTA DE HORAS
-			$arrParam = array(
-				"table" => "param_horas",
-				"order" => "id_hora",
+			//verifico el rol del usuario si es GESTOR solo se muestran las horas permitidas que estan configuradas
+			//en la tabla de param_generales (hora inicio y hora fin)
+			$arrParamFiltro = array();
+			
+			//BUSCO HORA INICIO Y HORA FINAL PARA USUARIO GESTOR y numero maximo de computadores
+			$arrParamGeneral = array(
+				"table" => "param_generales",
+				"order" => "id_generales",
 				"id" => "x"
 			);
-			$data['horas'] = $this->general_model->get_basic_search($arrParam);
+			$data['filtro'] = $this->general_model->get_basic_search($arrParamGeneral);
+			
+			if($rol == 3){
+							
+				$arrParamFiltro = array(
+					"idHoraInicio" => $data['filtro'][0]['valor'],
+					"idHoraFinal" => $data['filtro'][1]['valor']
+				);
+			}
+			$data['horas'] = $this->general_model->get_horas($arrParamFiltro);//LISTA DE HORAS
 			
 			$data['examenes'] = $this->general_model->get_examenes();//listado de examenes
 			
