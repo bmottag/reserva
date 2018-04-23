@@ -163,11 +163,13 @@ class General_model extends CI_Model {
 		 */
 		public function get_tipificacion($arrData) 
 		{
-
+			if (array_key_exists("idTipificacion", $arrData)) {
+				$this->db->where('id_tipificacion', $arrData["idTipificacion"]);
+			}
 			if (array_key_exists("usuario", $arrData)) {
 				$this->db->where('usuario', $arrData["usuario"]);
 			}
-			$this->db->order_by("tipificacion", "ASC");
+			$this->db->order_by("usuario, tipificacion", "ASC");
 			$query = $this->db->get("param_tipificacion");
 
 			if ($query->num_rows() >= 1) {

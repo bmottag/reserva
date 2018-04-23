@@ -21,7 +21,10 @@
 		  </a>
 		  <ul class="dropdown-menu dropdown-usermenu pull-right">
 			<li><a href="<?php echo base_url("admin/usuarios"); ?>"><i class="fa fa-users pull-right"></i> Usuarios</a></li>
+			
+			<li><a href="<?php echo base_url("admin/tipificacion"); ?>"><i class="fa fa-tags pull-right"></i> Tipificación</a></li>
 		  </ul>
+		  
 		</li>
 
 	  </ul>

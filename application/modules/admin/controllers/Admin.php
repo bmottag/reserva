@@ -171,6 +171,71 @@ class Admin extends CI_Controller {
 			$data["view"] = "template/answer";
 			$this->load->view("layout", $data);
 	}
+	
+	/**
+	 * tipificacion List
+     * @since 22/4/2018
+     * @author BMOTTAG
+	 */
+	public function tipificacion()
+	{
+			$this->load->model("general_model");
+
+			$arrParam = array();
+			$data['info'] = $this->general_model->get_tipificacion($arrParam);
+			
+			$data["view"] = 'tipificacion';
+			$this->load->view("layout", $data);
+	}
+	
+    /**
+     * Cargo modal - formulario tipificación
+     * @since 23/4/2018
+     */
+    public function cargarModalTipificacion() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$data["idTipificacion"] = $this->input->post("idTipificacion");	
+			
+			if ($data["idTipificacion"] != 'x') {
+				$this->load->model("general_model");
+				$arrParam = array("idTipificacion" => $data["idTipificacion"]);
+				$data['information'] = $this->general_model->get_tipificacion($arrParam);
+			}
+			
+			$this->load->view("tipificacion_modal", $data);
+    }
+	
+	/**
+	 * Update tipificacion
+     * @since 23/4/2018
+     * @author BMOTTAG
+	 */
+	public function save_tipificacion()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$idTipificacion = $this->input->post('hddId');
+			
+			$msj = "Se adicionó un nuevo registro!!";
+			if ($idTipificacion != '') {
+				$msj = "Se actualizó un registro!!";
+			}
+
+			if ($idCompany = $this->admin_model->saveTipificacion()) {
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', $msj);
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			echo json_encode($data);	
+    }
+
 
 
 

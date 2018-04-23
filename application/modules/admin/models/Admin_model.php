@@ -84,7 +84,32 @@
 				}
 	    }
 		
-		
+		/**
+		 * Add/Edit TIPIFICACION
+		 * @since 23/4/2018
+		 */
+		public function saveTipificacion() 
+		{
+				$idTipificacion = $this->input->post('hddId');
+				
+				$data = array(
+					'tipificacion' => $this->input->post('tipificacion'),
+					'usuario' => $this->input->post('usuario')
+				);
+				
+				//revisar si es para adicionar o editar
+				if ($idTipificacion == '') {
+					$query = $this->db->insert('param_tipificacion', $data);				
+				} else {
+					$this->db->where('id_tipificacion', $idTipificacion);
+					$query = $this->db->update('param_tipificacion', $data);
+				}
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
 		
 		
 	    
