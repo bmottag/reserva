@@ -126,8 +126,7 @@ if($information){
 							
 							?>',
 					start: '<?php echo $data["fecha_apartado"] . " " . $data["hora_inicial_24"]; ?>',
-					end: '<?php echo $data["fecha_apartado"] . " " . $data["hora_final_24"]; ?>',
-					url: '<?php echo base_url("solicitud/solicitudes_usuario/" . $data["fk_id_user"] . "/" . $data["id_solicitud"] ); ?>'
+					end: '<?php echo $data["fecha_apartado"] . " " . $data["hora_final_24"]; ?>'
 				  },
 				  
 <?php
@@ -189,31 +188,22 @@ if($information){
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title" id="myModalLabel2">Edit Calendar Entry</h4>
+            <h4 class="modal-title" id="myModalLabel2">Datos reserva</h4>
           </div>
           <div class="modal-body">
 
             <div id="testmodal2" style="padding: 5px 20px;">
               <form id="antoform2" class="form-horizontal calender" role="form">
                 <div class="form-group">
-                  <label class="col-sm-3 control-label">Title</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="title2" name="title2">
+                  <div class="col-sm-12">
+					<textarea class="form-control" id="title2" name="title2" rows="3" disabled></textarea>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">Description</label>
-                  <div class="col-sm-9">
-                    <textarea class="form-control" style="height:55px;" id="descr2" name="descr"></textarea>
-                  </div>
-                </div>
-
               </form>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
           </div>
         </div>
       </div>
