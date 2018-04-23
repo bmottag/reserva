@@ -64,9 +64,21 @@ $(document).ready(function () {
 				
 					<div class="col-md-9 col-sm-9 col-xs-12">
 					
-<?php if($solicitudes){ //SI HAY SOLICITUDES LAS MUESTRO?>
+<?php 
+
+$rol = $this->session->userdata("rol");//consulto rol
+$mensaje = "";
+if($rol == 3){
+	$mensaje = "<li>Como usuario GESTOR solo puede reservar para un horario hábil. (8:00 AM - 6:00 PM Lunes a Viernes)</li>";
+}
+
+if($solicitudes){ //SI HAY SOLICITUDES LAS MUESTRO?>
 						<div class="alert alert-danger alert-dismissible fade in" role="alert">
-							<strong>Info:</strong> El computador esta reservado para el siguiente horario:
+							<strong>Info:</strong> 
+							<ul>
+								<?php echo $mensaje; ?>
+								<li>El computador esta reservado para el siguiente horario:</li>
+							</ul>
 						</div>
 
 						<div class="table-responsive">
@@ -106,6 +118,7 @@ $(document).ready(function () {
 							<ul>
 								<li>Para la fecha seleccionada no existe ninguna reserva. </li>
 								<li>Diligencie el siguiente formulario para realizar una nueva reserva.</li>
+								<?php echo $mensaje; ?>
 							</ul>
 						</div>
 <?php } ?>
