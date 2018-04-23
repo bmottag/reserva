@@ -33,6 +33,8 @@ class Solicitud extends CI_Controller {
 			} 
 			else
 			{				
+				$data['fecha_apartada'] = $this->input->post('hddFecha');
+				
 				$this->load->model("general_model");
 				//LISTA DE TIPIFICACION
 				$arrParam = array(
@@ -53,7 +55,7 @@ class Solicitud extends CI_Controller {
 				$data['examenes'] = $this->general_model->get_examenes();//listado de examenes
 				
 				//filtro de solicitudes por fecha
-				$arrParam = array("fecha" => $this->input->post('hddFecha'));
+				$arrParam = array("fecha" => $data['fecha_apartada']);
 				$data['solicitudes'] = $this->general_model->get_solicitudes($arrParam);//listado de solicitudes filtrado por fecha
 				$data['information'] = FALSE;
 
@@ -266,6 +268,47 @@ class Solicitud extends CI_Controller {
 				}
 			}
     }
+	
+	/**
+	 * Form to update
+     * @since 22/4/2018
+     * @author BMOTTAG
+	 */
+	public function update_solicitud($idSolicitud = 'x')
+	{			
+			$this->load->model("general_model");
+			
+			//busco informacion de la solicitud
+			$arrParam = array("idSolicitud" => $idSolicitud);
+			$data['information'] = $this->general_model->get_solicitudes($arrParam);
+			
+			$data['fecha_apartada'] = $data['information'][0]["fecha_apartado"];
+		
+			//LISTA DE TIPIFICACION
+			$arrParam = array(
+				"table" => "param_tipificacion",
+				"order" => "tipificacion",
+				"id" => "x"
+			);
+			$data['tipificacion'] = $this->general_model->get_basic_search($arrParam);
+			
+			//LISTA DE HORAS
+			$arrParam = array(
+				"table" => "param_horas",
+				"order" => "id_hora",
+				"id" => "x"
+			);
+			$data['horas'] = $this->general_model->get_basic_search($arrParam);
+			
+			$data['examenes'] = $this->general_model->get_examenes();//listado de examenes
+			
+			//filtro de solicitudes por fecha
+			$arrParam = array("fecha" => $data['fecha_apartada']);
+			$data['solicitudes'] = $this->general_model->get_solicitudes($arrParam);//listado de solicitudes filtrado por fecha
+
+			$data["view"] = 'form_solicitud';
+			$this->load->view("layout", $data);
+	}
 	
 	
 	

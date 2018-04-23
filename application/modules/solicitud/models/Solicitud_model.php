@@ -18,6 +18,7 @@
 				'fk_id_hora_inicial' => $this->input->post('hora_inicio'),
 				'fk_id_hora_final' => $this->input->post('hora_final'),
 				'numero_items' => $this->input->post('numero_items'),
+				'fk_codigo_examen' => $this->input->post('prueba'),
 				'fk_id_prueba' => $this->input->post('grupo_items'),
 				'cual_prueba' => $this->input->post('cual_prueba'),
 				'cual' => $this->input->post('cual'),

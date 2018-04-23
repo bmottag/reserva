@@ -96,6 +96,8 @@ if ($retornoError) {
 					echo "<td>" . $data['first_name'] . " " . $data['last_name'] . "</td>";
 					echo "<td class='text-center'>";
 		?>
+<a href='<?php echo base_url("solicitud/update_solicitud/" . $data['id_solicitud']); ?>' class='btn btn-info btn-xs'><i class='fa fa-pencil'></i> Editar </a>
+		
 <button type="button" id="<?php echo $data['id_solicitud']; ?>" class='btn btn-danger btn-xs'>
 		Eliminar <span class="fa fa-times fa-fw" aria-hidden="true">
 </button>

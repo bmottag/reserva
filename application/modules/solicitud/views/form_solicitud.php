@@ -52,7 +52,7 @@ $(document).ready(function () {
 						<h4><strong>ZONA 2</strong></h4>
 
 						<ul class="list-unstyled user_data">
-							<li><i class="fa fa-calendar user-profile-icon"></i> <strong>Fecha:</strong> <?php echo $this->input->post('hddFecha'); ?>
+							<li><i class="fa fa-calendar user-profile-icon"></i> <strong>Fecha:</strong> <?php echo $fecha_apartada; ?>
 							</li>
 
 							<li>
@@ -112,7 +112,9 @@ $(document).ready(function () {
 				
 <!-- FORMULARIO -->
 					<form id="form" data-parsley-validate class="form-horizontal form-label-left">
-						<input type="hidden" id="hddFecha" name="hddFecha" value="<?php echo $this->input->post('hddFecha'); ?>">
+						<input type="hidden" id="hddIdInspeccion" name="hddIdInspeccion" value="<?php echo $information?$information[0]["id_solicitud"]:""; ?>" >
+						<input type="hidden" id="hddFecha" name="hddFecha" value="<?php echo $fecha_apartada; ?>">
+						
 						<div class="ln_solid"></div>
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="numero_computadores">Número computadores <span class="required">*</span>
@@ -121,7 +123,7 @@ $(document).ready(function () {
 								<select name="numero_computadores" id="numero_computadores" class="form-control" required>
 									<option value='' >Select...</option>
 									<?php for ($i = 1; $i <= 10; $i++) { ?>
-										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information["numero_computadores"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
+										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information[0]["numero_computadores"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
 									<?php } ?>									
 								</select>
 							</div>
@@ -133,7 +135,16 @@ $(document).ready(function () {
 								<select name="hora_inicio" id="hora_inicio" class="form-control" >
 									<option value=''>Select...</option>
 									<?php for ($i = 0; $i < count($horas); $i++) { ?>
-										<option value="<?php echo $horas[$i]["id_hora"]; ?>" <?php if(17 == $horas[$i]["id_hora"]) { echo "selected"; }  ?>><?php echo $horas[$i]["hora"]; ?></option>	
+										<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
+										<?php 
+										if ($information && $horas[$i]["id_hora"] == $information[0]["fk_id_hora_inicial"]) 
+										{ 
+											echo 'selected="selected"'; 
+										}elseif(17 == $horas[$i]["id_hora"]) { 
+											echo "selected"; 
+										}  
+										?> ><?php echo $horas[$i]["hora"]; ?>
+										</option>	
 									<?php } ?>
 								</select>
 							</div>
@@ -145,7 +156,16 @@ $(document).ready(function () {
 								<select name="hora_final" id="hora_final" class="form-control" >
 									<option value=''>Select...</option>
 									<?php for ($i = 0; $i < count($horas); $i++) { ?>
-										<option value="<?php echo $horas[$i]["id_hora"]; ?>" <?php if(17 == $horas[$i]["id_hora"]) { echo "selected"; }  ?>><?php echo $horas[$i]["hora"]; ?></option>	
+										<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
+										<?php 
+										if ($information && $horas[$i]["id_hora"] == $information[0]["fk_id_hora_final"]) 
+										{ 
+											echo 'selected="selected"'; 
+										}elseif(17 == $horas[$i]["id_hora"]) { 
+											echo "selected"; 
+										}  
+										?> ><?php echo $horas[$i]["hora"]; ?>
+										</option>
 									<?php } ?>
 								</select>
 							</div>
@@ -158,9 +178,9 @@ $(document).ready(function () {
 								<select name="numero_items" id="numero_items" class="form-control">
 									<option value='' >Select...</option>
 									<?php for ($i = 1; $i <= 50; $i++) { ?>
-										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information["numero_items"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
+										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information[0]["numero_items"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
 									<?php } ?>
-									<option value=99 <?php if ($information && 99 == $information["numero_items"]) { echo 'selected="selected"'; } ?> >Sin definir</option>
+									<option value=99 <?php if ($information && 99 == $information[0]["numero_items"]) { echo 'selected="selected"'; } ?> >Sin definir</option>
 								</select>
 							</div>
 						</div>
@@ -171,32 +191,42 @@ $(document).ready(function () {
 								<select name="prueba" id="prueba" class="form-control" >
 									<option value=''>Select...</option>
 									<?php for ($i = 0; $i < count($examenes); $i++) { ?>
-										<option value="<?php echo $examenes[$i]["codigo_examen"]; ?>" ><?php echo $examenes[$i]["examen"]; ?></option>	
+										<option value="<?php echo $examenes[$i]["codigo_examen"]; ?>" <?php if ($information && $examenes[$i]["codigo_examen"] == $information[0]["fk_codigo_examen"]) { echo 'selected="selected"'; } ?> ><?php echo $examenes[$i]["examen"]; ?></option>	
 									<?php } ?>
 								</select>
 							</div>
 						</div>
 						
-						<div class="form-group" id="div_cual_prueba" style="display: none">
+<?php 
+	$mostrar = "none";
+	if($information && $information[0]["fk_id_prueba"]==69){
+		$mostrar = "inline";
+	}
+?>
+						
+						<div class="form-group" id="div_cual_prueba" style="display: <?php echo $mostrar; ?>">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="cual_prueba">¿Cuál prueba?  <span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="text" id="cual_prueba" name="cual_prueba" class="form-control" placeholder="¿Cuál prueba?" >
+								<input type="text" id="cual_prueba" name="cual_prueba" class="form-control" placeholder="¿Cuál prueba?" value="<?php echo $information?$information[0]["cual_prueba"]:""; ?>" >
 							</div>
 						</div><br>
 						
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="grupo_items">Grupo de items <span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<select name="grupo_items" id="grupo_items" class="form-control" required>					
-
+								<select name="grupo_items" id="grupo_items" class="form-control" required>
+									<?php if($information){ ?>
+									<option value=''>Select...</option>
+										<option value="<?php echo $information[0]["fk_id_prueba"]; ?>" selected><?php echo $information[0]["prueba"]; ?></option>
+									<?php } ?>
 								</select>
 							</div>
 						</div>
 						
-						<div class="form-group" id="div_cual" style="display: none">
+						<div class="form-group" id="div_cual" style="display: <?php echo $mostrar; ?>">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="cual">¿Cuál?  <span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="text" id="cual" name="cual" class="form-control" placeholder="¿Cuál?" >
+								<input type="text" id="cual" name="cual" class="form-control" placeholder="¿Cuál?" value="<?php echo $information?$information[0]["cual"]:""; ?>">
 							</div>
 						</div><br>
 						
