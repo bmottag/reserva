@@ -141,7 +141,7 @@ if($solicitudes){ //SI HAY SOLICITUDES LAS MUESTRO?>
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<select name="numero_computadores" id="numero_computadores" class="form-control" required>
 									<option value='' >Select...</option>
-									<?php for ($i = 1; $i <= 10; $i++) { ?>
+									<?php for ($i = 1; $i <= $filtro[2]['valor']; $i++) { ?>
 										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information[0]["numero_computadores"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
 									<?php } ?>									
 								</select>
@@ -159,7 +159,7 @@ if($solicitudes){ //SI HAY SOLICITUDES LAS MUESTRO?>
 										if ($information && $horas[$i]["id_hora"] == $information[0]["fk_id_hora_inicial"]) 
 										{ 
 											echo 'selected="selected"'; 
-										}elseif(17 == $horas[$i]["id_hora"]) { 
+										}elseif($filtro[0]['valor'] == $horas[$i]["id_hora"]) { 
 											echo "selected"; 
 										}  
 										?> ><?php echo $horas[$i]["hora"]; ?>
@@ -180,7 +180,7 @@ if($solicitudes){ //SI HAY SOLICITUDES LAS MUESTRO?>
 										if ($information && $horas[$i]["id_hora"] == $information[0]["fk_id_hora_final"]) 
 										{ 
 											echo 'selected="selected"'; 
-										}elseif(17 == $horas[$i]["id_hora"]) { 
+										}elseif($filtro[0]['valor'] == $horas[$i]["id_hora"]) { 
 											echo "selected"; 
 										}  
 										?> ><?php echo $horas[$i]["hora"]; ?>

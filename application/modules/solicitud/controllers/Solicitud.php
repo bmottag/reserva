@@ -62,19 +62,19 @@ class Solicitud extends CI_Controller {
 				$rol = $this->session->userdata("rol");//consulto rol
 				$arrParamFiltro = array();
 				
+				//BUSCO HORA INICIO Y HORA FINAL PARA USUARIO GESTOR y numero maximo de computadores
+				$arrParamGeneral = array(
+					"table" => "param_generales",
+					"order" => "id_generales",
+					"id" => "x"
+				);
+				$data['filtro'] = $this->general_model->get_basic_search($arrParamGeneral);
+				
 				if($rol == 3){
-					
-					//BUSCO HORA INICIO Y HORA FINAL PARA USUARIO GESTOR
-					$arrParam = array(
-						"table" => "param_generales",
-						"order" => "id_generales",
-						"id" => "x"
-					);
-					$filtro = $this->general_model->get_basic_search($arrParam);
-					
+								
 					$arrParamFiltro = array(
-						"idHoraInicio" => $filtro[0]['valor'],
-						"idHoraFinal" => $filtro[1]['valor']
+						"idHoraInicio" => $data['filtro'][0]['valor'],
+						"idHoraFinal" => $data['filtro'][1]['valor']
 					);
 				}
 				$data['horas'] = $this->general_model->get_horas($arrParamFiltro);//LISTA DE HORAS
@@ -115,14 +115,24 @@ class Solicitud extends CI_Controller {
 		//recorro las reservas
 		if($listadoSolicitudes){
 			
-			$contadorDisponibleIgual = intval(10);
-			$contadorDisponibleEntre = intval(10);
-			$contadorDisponibleAntes = intval(10);
-			$contadorDisponibleDespues = intval(10);
+			//BUSCO numero maximo de computadores
+			$arrParamGeneral = array(
+				"table" => "param_generales",
+				"order" => "id_generales",
+				"id" => "x"
+			);
+			$paramGenerales = $this->general_model->get_basic_search($arrParamGeneral);
+						
+			$numeroMaxComputadores = $paramGenerales[2]['valor'];
+						
+			$contadorDisponibleIgual = intval($numeroMaxComputadores);
+			$contadorDisponibleEntre = intval($numeroMaxComputadores);
+			$contadorDisponibleAntes = intval($numeroMaxComputadores);
+			$contadorDisponibleDespues = intval($numeroMaxComputadores);
 			
-			$contadorDisponibleBDEntre = intval(10);
-			$contadorDisponibleBDAntes = intval(10);
-			$contadorDisponibleBDDespues = intval(10);
+			$contadorDisponibleBDEntre = intval($numeroMaxComputadores);
+			$contadorDisponibleBDAntes = intval($numeroMaxComputadores);
+			$contadorDisponibleBDDespues = intval($numeroMaxComputadores);
 			
 			foreach ($listadoSolicitudes as $list):
 				$hora_inicio_BD = $list['fk_id_hora_inicial'];
