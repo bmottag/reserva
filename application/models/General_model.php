@@ -156,7 +156,25 @@ class General_model extends CI_Model {
 				$this->db->close();
 				return $pruebas;
 		}
-	
+
+		/**
+		 * Lista de tipificacion
+		 * @since 22/4/2018
+		 */
+		public function get_tipificacion($arrData) 
+		{
+
+			if (array_key_exists("usuario", $arrData)) {
+				$this->db->where('usuario', $arrData["usuario"]);
+			}
+			$this->db->order_by("tipificacion", "ASC");
+			$query = $this->db->get("param_tipificacion");
+
+			if ($query->num_rows() >= 1) {
+				return $query->result_array();
+			} else
+				return false;
+		}
 		
 
 }

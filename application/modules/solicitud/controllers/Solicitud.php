@@ -37,12 +37,15 @@ class Solicitud extends CI_Controller {
 				
 				$this->load->model("general_model");
 				//LISTA DE TIPIFICACION
-				$arrParam = array(
-					"table" => "param_tipificacion",
-					"order" => "tipificacion",
-					"id" => "x"
-				);
-				$data['tipificacion'] = $this->general_model->get_basic_search($arrParam);
+				$rol = $this->session->userdata("rol");//consulto rol para mostrar la lista de tipificacion
+				if($rol == 3){
+					$usuario = "GESTOR";
+				}else{
+					$usuario = "ADMON";
+				}
+				
+				$arrParam = array("usuario" => $usuario);
+				$data['tipificacion'] = $this->general_model->get_tipificacion($arrParam);
 				
 				//LISTA DE HORAS
 				$arrParam = array(
@@ -285,12 +288,15 @@ class Solicitud extends CI_Controller {
 			$data['fecha_apartada'] = $data['information'][0]["fecha_apartado"];
 		
 			//LISTA DE TIPIFICACION
-			$arrParam = array(
-				"table" => "param_tipificacion",
-				"order" => "tipificacion",
-				"id" => "x"
-			);
-			$data['tipificacion'] = $this->general_model->get_basic_search($arrParam);
+			$rol = $this->session->userdata("rol");//consulto rol para mostrar la lista de tipificacion
+			if($rol == 3){
+				$usuario = "GESTOR";
+			}else{
+				$usuario = "ADMON";
+			}
+			
+			$arrParam = array("usuario" => $usuario);
+			$data['tipificacion'] = $this->general_model->get_tipificacion($arrParam);
 			
 			//LISTA DE HORAS
 			$arrParam = array(
