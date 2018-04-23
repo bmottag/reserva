@@ -30,7 +30,7 @@
 			<li><a href="<?php echo base_url("admin/tipificacion"); ?>"><i class="fa fa-tags pull-right"></i> Tipificación</a></li>
 			
 			<li><a href="<?php echo base_url("admin/prueba"); ?>"><i class="fa fa-database pull-right"></i> Pruebas</a></li>
-			<li><a href="<?php echo base_url("admin/update_parametricas"); ?>"><i class="fa fa-crosshairs pull-right"></i> Paramétricas</a></li>
+			<li><a href="<?php echo base_url("admin/update_parametricas"); ?>" ><i class="fa fa-crosshairs pull-right"></i> Paramétricas</a></li>
 			
 		  </ul>
 		</li>
@@ -38,6 +38,12 @@
 <?php
 	}
 ?>
+
+		<li class="">
+		  <a href="<?php echo base_url("public/reportico/run.php?execute_mode=MENU&project=Zona 2"); ?>" target="_blanck" class="user-profile" aria-expanded="false">
+			<i class="fa fa-area-chart"></i> Reporte
+		  </a>
+		</li>
 
 	  </ul>
 	</nav>
