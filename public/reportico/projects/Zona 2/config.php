@@ -223,5 +223,5 @@ define('SW_DEFAULT_YAxisColor', SW_DEFAULT_LineColor);
 }
 
 // Automatic addition of parameter SW_LANGUAGE
-define('SW_LANGUAGE', 'en_gb');
+define('SW_LANGUAGE', 'es_es');
 ?>
