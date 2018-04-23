@@ -131,6 +131,27 @@ class General_model extends CI_Model {
 		}
 		
 		/**
+		 * Lista de pruebas
+		 * @since 23/4/2018
+		 */
+		public function get_pruebas($arrData) 
+		{
+			if (array_key_exists("idPrueba", $arrData)) {
+				$this->db->where('id_prueba', $arrData["idPrueba"]);
+			}
+			if (array_key_exists("codigoExamen", $arrData)) {
+				$this->db->where('codigo_examen', $arrData["codigoExamen"]);
+			}
+			$this->db->order_by("examen, prueba", "ASC");
+			$query = $this->db->get("param_prueba");
+
+			if ($query->num_rows() >= 1) {
+				return $query->result_array();
+			} else
+				return false;
+		}
+		
+		/**
 		 * Lista de pruebas por examen
 		 * @since 16/4/2018
 		 */

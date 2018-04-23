@@ -23,6 +23,9 @@
 			<li><a href="<?php echo base_url("admin/usuarios"); ?>"><i class="fa fa-users pull-right"></i> Usuarios</a></li>
 			
 			<li><a href="<?php echo base_url("admin/tipificacion"); ?>"><i class="fa fa-tags pull-right"></i> Tipificación</a></li>
+			
+			<li><a href="<?php echo base_url("admin/prueba"); ?>"><i class="fa fa-tags pull-right"></i> Pruebas</a></li>
+			
 		  </ul>
 		  
 		</li>

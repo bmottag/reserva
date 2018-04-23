@@ -111,6 +111,35 @@
 				}
 		}
 		
+		/**
+		 * Add/Edit PRUEBA
+		 * @since 23/4/2018
+		 */
+		public function savePrueba($infoExamen) 
+		{
+				$idPrueba = $this->input->post('hddId');
+				
+				$data = array(
+					'codigo_examen' => $infoExamen[0]['codigo_examen'],
+					'examen' => $infoExamen[0]['examen'],
+					'prueba' => $this->input->post('prueba'),
+					'codigo_prueba' => $this->input->post('codigo_prueba')
+				);
+				
+				//revisar si es para adicionar o editar
+				if ($idPrueba == '') {
+					$query = $this->db->insert('param_prueba', $data);				
+				} else {
+					$this->db->where('id_prueba', $idPrueba);
+					$query = $this->db->update('param_prueba', $data);
+				}
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+		
 		
 	    
 	}

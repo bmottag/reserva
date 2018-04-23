@@ -236,6 +236,79 @@ class Admin extends CI_Controller {
 			echo json_encode($data);	
     }
 
+	/**
+	 * Prueba List
+     * @since 22/4/2018
+     * @author BMOTTAG
+	 */
+	public function prueba()
+	{
+			$this->load->model("general_model");
+			
+			$arrParam = array();
+			$data['info'] = $this->general_model->get_pruebas($arrParam);
+			
+			$data["view"] = 'pruebas';
+			$this->load->view("layout", $data);
+	}
+	
+    /**
+     * Cargo modal - formulario prueba
+     * @since 23/4/2018
+     */
+    public function cargarModalPrueba() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$data["idPrueba"] = $this->input->post("idPrueba");	
+			
+			$this->load->model("general_model");
+			//listado de examenes
+			$arrParam = array();
+			$data['examenes'] = $this->general_model->get_examenes();
+			
+			if ($data["idPrueba"] != 'x') {
+				$arrParam = array("idPrueba" => $data["idPrueba"]);
+				$data['information'] = $this->general_model->get_pruebas($arrParam);
+			}
+			
+			$this->load->view("pruebas_modal", $data);
+    }
+	
+	/**
+	 * Update prueba
+     * @since 23/4/2018
+     * @author BMOTTAG
+	 */
+	public function save_prueba()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$idPrueba = $this->input->post('hddId');
+			
+			//averiguo info del examen
+			$this->load->model("general_model");
+			$arrParam = array("codigoExamen" => $this->input->post('examen'));
+			$infoExamen = $this->general_model->get_pruebas($arrParam);
+			
+			$msj = "Se adicionó un nuevo registro!!";
+			if ($idPrueba != '') {
+				$msj = "Se actualizó un registro!!";
+			}
+
+			if ($idCompany = $this->admin_model->savePrueba($infoExamen)) {
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', $msj);
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			echo json_encode($data);	
+    }
+
 
 
 
