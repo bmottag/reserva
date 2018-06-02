@@ -52,14 +52,14 @@ if ($retornoError) {
 							<thead>
 								<tr class="headings">
 									<th class="column-title" style="width: 1%">#</th>
-									<th class="column-title" style="width: 14%">Fecha reserva</th>
-									<th class="column-title" style="width: 7%">No. CPU</th>
+									<th class="column-title" style="width: 12%">Fecha reserva</th>
+									<th class="column-title" style="width: 8%">No. CPU</th>
 									<th class="column-title" style="width: 8%">Hora inicio</th>
 									<th class="column-title" style="width: 8%">Hora fin</th>
 									<th class="column-title" style="width: 10%">No. items</th>
-									<th class="column-title" style="width: 15%">Grupo items</th>
-									<th class="column-title" style="width: 15%">Tipificación</th>
-									<th class="column-title" style="width: 15%">Usuario</th>
+									<th class="column-title" style="width: 17%">Grupo items</th>
+									<th class="column-title" style="width: 14%">Tipificación</th>
+									<th class="column-title" style="width: 14%">Usuario</th>
 									<th class="column-title" style="width: 8%">Enlaces</th>
 								</tr>
 							</thead>
@@ -114,13 +114,13 @@ if($data['estado_solicitud'] == 2)
 		<a href='<?php echo base_url("solicitud/update_solicitud/" . $data['id_solicitud']); ?>' class='btn btn-info btn-xs'><i class='fa fa-pencil'></i> Editar </a>
 				
 		<button type="button" id="<?php echo $data['id_solicitud']; ?>" class='btn btn-danger btn-xs'>
-				Eliminar <span class="fa fa-times fa-fw" aria-hidden="true">
+				<i class="fa fa-trash-o"></i> Eliminar 
 		</button>
 				<?php
 		}
 }
 ?>
-<a href='<?php echo base_url("solicitud/solicitudes_usuario/$data[fk_id_user]/$data[id_solicitud]"); ?>' class='btn btn-info btn-xs'><i class='fa fa-pencil'></i> Ver </a>
+<a href='<?php echo base_url("solicitud/solicitudes_usuario/$data[fk_id_user]/$data[id_solicitud]"); ?>' class='btn btn-success btn-xs'><i class='fa fa-eye'></i> Ver </a>
 <?php
 					echo "</td>";
 					echo "</tr>";
@@ -131,6 +131,88 @@ if($data['estado_solicitud'] == 2)
 							</tbody>
 						</table>
 					</div>
+					
+					
+<!-- INICIO HISTORICO -->
+		<?php
+			if($informationHistorico){
+		?>
+					<div class="alert alert-warning alert-dismissible fade in" role="alert">
+						<strong>-- Historial --</strong>
+					</div>
+					<div class="table-responsive">
+						<table id="datatable" class="table table-striped jambo_table bulk_action">
+
+							<thead>
+								<tr class="headings">
+									<th class="column-title" style="width: 12%">Fecha reserva</th>
+									<th class="column-title" style="width: 8%">No. CPU</th>
+									<th class="column-title" style="width: 8%">Hora inicio</th>
+									<th class="column-title" style="width: 8%">Hora fin</th>
+									<th class="column-title" style="width: 10%">No. items</th>
+									<th class="column-title" style="width: 17%">Grupo items</th>
+									<th class="column-title" style="width: 14%">Tipificación</th>
+									<th class="column-title" style="width: 14%">Usuario</th>
+									<th class="column-title" style="width: 8%">Fecha registro</th>
+								</tr>
+							</thead>
+
+							<tbody>
+										
+		<?php
+				foreach ($informationHistorico as $data):
+					echo "<tr>";
+					echo "<td>" . $data['fecha_apartado'] . "</td>";
+					echo "<td>" . $data['numero_computadores'] . "</td>";
+					echo "<td>" . $data['hora_inicial'] . "</td>";
+					echo "<td>" . $data['hora_final'] . "</td>";
+					echo "<td>";
+					if (99 == $data["numero_items"])
+					{ 
+						echo 'Sin definir'; 
+					}else{
+						echo $data['numero_items'];
+					}
+					echo "</td>";
+					echo "<td>";
+					echo "<strong>" . $data['examen'] . "</strong> - ";
+					if($data['fk_id_prueba'] == 69){
+						echo $data['cual_prueba'] . " - ";
+						echo $data['cual'];
+					}else{
+						echo $data['prueba'];
+					}
+					echo "</td>";
+					echo "<td>" . $data['tipificacion'] . "</td>";
+					echo "<td>" . $data['first_name'] . " " . $data['last_name'] . "</td>";
+					echo "<td class='text-center'>";
+					
+//consultar si la fecha y hora de la reserva es mayor a la fecha y hora actual
+$fechaAparatada = $data['fecha_apartado'] . " " . $data['hora_final_24'];
+
+$datetime1 = date_create($fechaAparatada);
+$datetime2 = date_create(date('Y-m-d G:i'));
+
+
+if($data['estado_solicitud'] == 2)
+{
+		echo '<p class="text-danger"><strong>Eliminada</strong></p>';
+}
+					echo $data['fecha_solicitud'];
+					echo "</td>";
+					echo "</tr>";
+				endforeach;
+		?>
+
+							</tbody>
+						</table>
+					</div>
+		<?php
+			}
+		?>
+<!-- FIN HISTORICO -->
+					
+					
 
 				</div>
 			</div>

@@ -226,5 +226,32 @@ class General_model extends CI_Model {
 				return false;
 		}
 		
+		/**
+		 * Lista de solicitudes HISTORIAL
+		 * @since 2/6/2018
+		 */
+		public function get_solicitudes_historico($arrData) 
+		{
+			$this->db->select("S.*, U.*, I.hora hora_inicial, I.formato_24 hora_inicial_24, F.hora hora_final, F.formato_24 hora_final_24, T.tipificacion, P.examen, P.prueba");
+
+			if (array_key_exists("idSolicitud", $arrData)) {
+				$this->db->where('S.fk_id_solicitud', $arrData["idSolicitud"]);
+			}
+			
+			$this->db->join('user U', 'U.id_user = S.fk_id_user', 'INNER');
+			$this->db->join('param_horas I', 'I.id_hora = S.fk_id_hora_inicial', 'INNER');
+			$this->db->join('param_horas F', 'F.id_hora = S.fk_id_hora_final', 'INNER');
+			$this->db->join('param_tipificacion T', 'T.id_tipificacion = S.fk_id_tipificacion', 'INNER');
+			$this->db->join('param_prueba P', 'P.id_prueba = S.fk_id_prueba', 'INNER');
+
+			$this->db->order_by("S.id_log_solicitud ASC"); 
+			$query = $this->db->get("log_solicitud S");
+
+			if ($query->num_rows() >= 1) {
+				return $query->result_array();
+			} else
+				return false;
+		}
+		
 
 }

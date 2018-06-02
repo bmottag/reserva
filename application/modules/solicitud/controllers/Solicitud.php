@@ -272,6 +272,7 @@ class Solicitud extends CI_Controller {
 	{			
 		$this->load->model("general_model");
 		$data['information'] = FALSE;
+		$data['informationHistorico'] = FALSE;
 		
 		$arrParam = array("idUser" => $idUser);
 		$data['userInfo'] = $this->general_model->get_user_list($arrParam);//info cliente
@@ -288,6 +289,10 @@ class Solicitud extends CI_Controller {
 		if ($idSolicitud != 'x') {
 			$arrParam = array("idSolicitud" => $idSolicitud);
 			$data['information'] = $this->general_model->get_solicitudes($arrParam);//info inspecciones
+			
+			//busco el historial
+			$arrParam = array("idSolicitud" => $idSolicitud);
+			$data['informationHistorico'] = $this->general_model->get_solicitudes_historico($arrParam);//info inspecciones
 		}
 
 		$data["view"] = 'solicitudes_usuario';
