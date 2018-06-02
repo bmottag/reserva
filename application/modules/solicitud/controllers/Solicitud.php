@@ -295,15 +295,14 @@ class Solicitud extends CI_Controller {
 			$data["idRecord"] = $this->session->userdata("id");
 			$idSolicitud = $this->input->post('identificador');
 			
-			$this->load->model("general_model");
-
-			$arrParam = array(
-				"table" => "solicitud",
-				"primaryKey" => "id_solicitud",
-				"id" => $idSolicitud
-			);
-			
-			if ($this->general_model->deleteRecord($arrParam)) {
+			if ($this->solicitud_model->eliminarRecord()) 
+			{
+				$this->load->model("general_model");
+				//busco informacion de la solicitud en la base de datos
+				$arrParam = array("idSolicitud" => $idSolicitud);
+				$information = $this->general_model->get_solicitudes($arrParam);
+				
+				$this->solicitud_model->saveHistorico_eliminar($information); //Guardo el historico
 				$data["result"] = true;
 				$this->session->set_flashdata('retornoExito', 'Se eliminó el registro.');
 			} else {
