@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-04-2018 a las 18:51:00
+-- Tiempo de generación: 02-06-2018 a las 03:20:27
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -23,6 +23,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `log_solicitud`
+--
+
+CREATE TABLE `log_solicitud` (
+  `id_log_solicitud` int(10) NOT NULL,
+  `fk_id_user` int(10) NOT NULL,
+  `fecha_apartado` date NOT NULL,
+  `numero_computadores` int(1) NOT NULL,
+  `fk_id_hora_inicial` int(1) NOT NULL,
+  `fk_id_hora_final` int(1) NOT NULL,
+  `fecha_solicitud` datetime NOT NULL,
+  `numero_items` tinyint(1) NOT NULL,
+  `fk_codigo_examen` int(2) NOT NULL,
+  `fk_id_prueba` int(10) NOT NULL,
+  `cual` varchar(150) NOT NULL,
+  `cual_prueba` varchar(150) NOT NULL,
+  `fk_id_tipificacion` int(1) NOT NULL,
+  `estado_solicitud` tinyint(1) NOT NULL COMMENT '1:Activa;2Inactiva',
+  `fk_id_solicitud` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `param_generales`
 --
 
@@ -38,9 +62,9 @@ CREATE TABLE `param_generales` (
 --
 
 INSERT INTO `param_generales` (`id_generales`, `nombre`, `valor`, `descripcion`) VALUES
-(1, 'Hora inicial', 17, 'Hora inicial para el formulario de de reserva. Es el id de la tabla param horas. Este se usa para los usuario ID 3 GESTOR'),
-(2, 'Hora final', 37, 'Hora final para el formulario de de reserva. Es el id de la tabla param horas. Este se usa para los usuario ID 3 GESTOR'),
-(3, 'Numero computadores', 10, 'Es el numero de computadores maximo que se usa para las reservas');
+(1, 'Hora inicial', 19, 'Hora inicial para el formulario de reserva. Es el ID de la tabla param horas. Este se usa para los usuario ID 3 GESTOR.'),
+(2, 'Hora final', 39, 'Hora final para el formulario de reserva. Es el ID de la tabla param horas. Este se usa para los usuario ID 3 GESTOR.'),
+(3, 'Numero computadores', 12, 'Es el número de computadores maximo que se usa para las reservas.');
 
 -- --------------------------------------------------------
 
@@ -288,16 +312,21 @@ CREATE TABLE `user` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `user`
---
-
-INSERT INTO `user` (`id_user`, `first_name`, `last_name`, `log_user`, `email`, `fk_id_rol`, `birthdate`, `movil`, `password`, `state`, `photo`, `address`) VALUES
-(1, 'BENJAMIN', 'MOTTA', 'bmottag', 'benmotta@gmail.com', 1, '2018-03-19', '4033089921', '25f9e794323b453885f5181f1b624d0b', 1, '', ''),
-(2, 'JORGE', 'LOZANO', 'jlozano', 'jlozano@gmail.com', 3, '2018-04-01', '3015505382', '8b8b34ffa987ed629d25d176411d3ce4', 1, '', '');
-
---
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `log_solicitud`
+--
+ALTER TABLE `log_solicitud`
+  ADD PRIMARY KEY (`id_log_solicitud`),
+  ADD KEY `fk_id_user` (`fk_id_user`),
+  ADD KEY `fk_id_hora_inicial` (`fk_id_hora_inicial`),
+  ADD KEY `fk_id_hora_final` (`fk_id_hora_final`),
+  ADD KEY `fk_id_tipificacion` (`fk_id_tipificacion`),
+  ADD KEY `fk_id_solicitud` (`fk_id_solicitud`),
+  ADD KEY `fk_codigo_examen` (`fk_codigo_examen`),
+  ADD KEY `fk_id_prueba` (`fk_id_prueba`);
 
 --
 -- Indices de la tabla `param_generales`
@@ -356,6 +385,11 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `log_solicitud`
+--
+ALTER TABLE `log_solicitud`
+  MODIFY `id_log_solicitud` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
 -- AUTO_INCREMENT de la tabla `param_generales`
 --
 ALTER TABLE `param_generales`
@@ -369,7 +403,7 @@ ALTER TABLE `param_horas`
 -- AUTO_INCREMENT de la tabla `param_prueba`
 --
 ALTER TABLE `param_prueba`
-  MODIFY `id_prueba` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id_prueba` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 --
 -- AUTO_INCREMENT de la tabla `param_rol`
 --
@@ -384,7 +418,7 @@ ALTER TABLE `param_tipificacion`
 -- AUTO_INCREMENT de la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
-  MODIFY `id_solicitud` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_solicitud` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
@@ -393,6 +427,15 @@ ALTER TABLE `user`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `log_solicitud`
+--
+ALTER TABLE `log_solicitud`
+  ADD CONSTRAINT `log_solicitud_ibfk_1` FOREIGN KEY (`fk_id_solicitud`) REFERENCES `solicitud` (`id_solicitud`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `log_solicitud_ibfk_2` FOREIGN KEY (`fk_id_prueba`) REFERENCES `param_prueba` (`id_prueba`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `log_solicitud_ibfk_3` FOREIGN KEY (`fk_id_hora_inicial`) REFERENCES `param_horas` (`id_hora`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `log_solicitud_ibfk_4` FOREIGN KEY (`fk_id_hora_final`) REFERENCES `param_horas` (`id_hora`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `solicitud`
