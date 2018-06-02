@@ -103,18 +103,25 @@ $datetime1 = date_create($fechaAparatada);
 $datetime2 = date_create(date('Y-m-d G:i'));
 
 
-if($datetime1 < $datetime2) {
-		echo "No se puede modificar";
+if($data['estado_solicitud'] == 2)
+{
+		echo '<p class="text-danger"><strong>Eliminada</strong></p>';
 }else{
-		?>
-<a href='<?php echo base_url("solicitud/update_solicitud/" . $data['id_solicitud']); ?>' class='btn btn-info btn-xs'><i class='fa fa-pencil'></i> Editar </a>
-		
-<button type="button" id="<?php echo $data['id_solicitud']; ?>" class='btn btn-danger btn-xs'>
-		Eliminar <span class="fa fa-times fa-fw" aria-hidden="true">
-</button>
-		<?php
+		if($datetime1 < $datetime2) {
+				echo '<p class="text-danger"><strong>No se puede modificar</strong></p>';
+		}else{
+				?>
+		<a href='<?php echo base_url("solicitud/update_solicitud/" . $data['id_solicitud']); ?>' class='btn btn-info btn-xs'><i class='fa fa-pencil'></i> Editar </a>
+				
+		<button type="button" id="<?php echo $data['id_solicitud']; ?>" class='btn btn-danger btn-xs'>
+				Eliminar <span class="fa fa-times fa-fw" aria-hidden="true">
+		</button>
+				<?php
+		}
 }
-
+?>
+<a href='<?php echo base_url("solicitud/solicitudes_usuario/$data[fk_id_user]/$data[id_solicitud]"); ?>' class='btn btn-info btn-xs'><i class='fa fa-pencil'></i> Ver </a>
+<?php
 					echo "</td>";
 					echo "</tr>";
 				endforeach;
