@@ -116,12 +116,15 @@ class Solicitud extends CI_Controller {
 		$prueba = $this->input->post('prueba');
 		$grupo_items = $this->input->post('grupo_items');
 		$tipificacion = $this->input->post('tipificacion');
+		$estado_historica = 1; //para estado NUEVA en el historico
 		
 		$numero_computadores_anterior = 0; //lo uso para la validacion que no se pase del numero maximo de computadores
 		
 		//revisar si es para editar, en ese caso verificar que sean datos diferentes
-		if ($idSolicitud != '') {
-						
+		if ($idSolicitud != '') 
+		{
+			$estado_historica = 3; //para estado MODIFICADA en el historico
+			
 			//busco informacion de la solicitud en la base de datos
 			$arrParam = array("idSolicitud" => $idSolicitud);
 			$information = $this->general_model->get_solicitudes($arrParam);
@@ -247,7 +250,7 @@ class Solicitud extends CI_Controller {
 		
 			if ($idSolicitud = $this->solicitud_model->saveSolicitud()) 
 			{
-				$this->solicitud_model->saveHistorico($idSolicitud ); //Guardo el historico
+				$this->solicitud_model->saveHistorico($idSolicitud, $estado_historica ); //Guardo el historico
 				$data["result"] = true;
 				$data["mensaje"] = "Se guardó la información con éxito.";
 				$data["idSolicitud"] = $idSolicitud;
@@ -318,7 +321,8 @@ class Solicitud extends CI_Controller {
 				$arrParam = array("idSolicitud" => $idSolicitud);
 				$information = $this->general_model->get_solicitudes($arrParam);
 				
-				$this->solicitud_model->saveHistorico_eliminar($information); //Guardo el historico
+				$estado_historica = 2; //para estado ELIMINADA en el historico
+				$this->solicitud_model->saveHistorico_eliminar($information, $estado_historica); //Guardo el historico
 				$data["result"] = true;
 				$this->session->set_flashdata('retornoExito', 'Se eliminó el registro.');
 			} else {

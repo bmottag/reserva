@@ -51,7 +51,7 @@
 		 * Add HISTORICO
 		 * @since 31/5/2018
 		 */
-		public function saveHistorico($idSolicitud ) 
+		public function saveHistorico($idSolicitud, $estado_historica ) 
 		{
 			$idUser = $this->session->userdata("id");
 		
@@ -66,7 +66,7 @@
 				'cual_prueba' => $this->input->post('cual_prueba'),
 				'cual' => $this->input->post('cual'),
 				'fk_id_tipificacion' => $this->input->post('tipificacion'),
-				'estado_solicitud' => 1,
+				'estado_solicitud' => $estado_historica,
 				'fk_id_user' => $idUser,
 				'fecha_solicitud' => date("Y-m-d G:i:s"),
 				'fk_id_solicitud' => $idSolicitud
@@ -85,7 +85,7 @@
 		 * Add HISTORICO de una eliminacion
 		 * @since 1/6/2018
 		 */
-		public function saveHistorico_eliminar($datosBD) 
+		public function saveHistorico_eliminar($datosBD, $estado_historica) 
 		{
 			$idUser = $this->session->userdata("id");
 			$idSolicitud = $this->input->post('identificador');
@@ -101,7 +101,7 @@
 				'cual_prueba' => $datosBD[0]['cual_prueba'],
 				'cual' => $datosBD[0]['cual'],
 				'fk_id_tipificacion' => $datosBD[0]['fk_id_tipificacion'],
-				'estado_solicitud' => 2,
+				'estado_solicitud' => $estado_historica,
 				'fk_id_user' => $idUser,
 				'fecha_solicitud' => date("Y-m-d G:i:s"),
 				'fk_id_solicitud' => $idSolicitud
