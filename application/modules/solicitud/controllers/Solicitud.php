@@ -277,14 +277,17 @@ class Solicitud extends CI_Controller {
 		$data['information'] = FALSE;
 		$data['informationHistorico'] = FALSE;
 		
-		$arrParam = array("idUser" => $idUser);
-		$data['userInfo'] = $this->general_model->get_user_list($arrParam);//info cliente
+		//$arrParam = array("idUser" => $idUser);
+		//$data['userInfo'] = $this->general_model->get_user_list($arrParam);//info cliente
 				
-		$arrParam["idUser"] = $idUser;
-		//consulto rol para filtrar por estados
+		$arrParam = array();
+		//consulto rol para filtrar por estados y por usuario
 		$rol = $this->session->userdata("rol");
 		if($rol == 3){
-			$arrParam["estado"] = 1;
+			$arrParam = array(
+							"idUser" => $idUser,
+							"estado" => 1
+						);
 		}
 		$data['information'] = $this->general_model->get_solicitudes($arrParam);//info solicitudes
 		
