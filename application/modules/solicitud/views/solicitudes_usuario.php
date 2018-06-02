@@ -119,9 +119,14 @@ if($data['estado_solicitud'] == 2)
 				<?php
 		}
 }
+
+//consulto rol mostrar el boton ver solo para los ADMINISTRADORES
+$rol = $this->session->userdata("rol");
+if($rol != 3){
 ?>
 <a href='<?php echo base_url("solicitud/solicitudes_usuario/$data[fk_id_user]/$data[id_solicitud]"); ?>' class='btn btn-success btn-xs'><i class='fa fa-eye'></i> Ver </a>
 <?php
+}
 					echo "</td>";
 					echo "</tr>";
 				endforeach;
