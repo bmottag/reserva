@@ -97,6 +97,10 @@ class General_model extends CI_Model {
 			if (array_key_exists("fecha", $arrData)) {
 				$this->db->where('S.fecha_apartado', $arrData["fecha"]);
 			}
+			if (array_key_exists("estado", $arrData)) {
+				$this->db->where('S.estado_solicitud', $arrData["estado"]);
+			}
+			
 			$this->db->join('user U', 'U.id_user = S.fk_id_user', 'INNER');
 			$this->db->join('param_horas I', 'I.id_hora = S.fk_id_hora_inicial', 'INNER');
 			$this->db->join('param_horas F', 'F.id_hora = S.fk_id_hora_final', 'INNER');

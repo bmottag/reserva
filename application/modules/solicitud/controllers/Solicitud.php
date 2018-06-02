@@ -11,7 +11,7 @@ class Solicitud extends CI_Controller {
 	public function calendario()
 	{
 		$this->load->model("general_model");
-		$arrParam = array();
+		$arrParam = array("estado" => 1);
 		$data['information'] = $this->general_model->get_solicitudes($arrParam);//info solicitudes
 		
 		$data["view"] = 'calendario';
@@ -81,7 +81,10 @@ class Solicitud extends CI_Controller {
 				$data['examenes'] = $this->general_model->get_examenes();//listado de examenes
 				
 				//filtro de solicitudes por fecha
-				$arrParam = array("fecha" => $data['fecha_apartada']);
+				$arrParam = array(
+								"fecha" => $data['fecha_apartada'], 
+								"estado" => 1
+							);
 				$data['solicitudes'] = $this->general_model->get_solicitudes($arrParam);//listado de solicitudes filtrado por fecha
 				$data['information'] = FALSE;
 
@@ -133,7 +136,10 @@ class Solicitud extends CI_Controller {
 		}
 
 		//filtro de solicitudes por fecha
-		$arrParam = array("fecha" => $fechaReserva);
+		$arrParam = array(
+						"fecha" => $fechaReserva, 
+						"estado" => 1
+					);
 		$listadoSolicitudes = $this->general_model->get_solicitudes($arrParam);//listado de solicitudes filtrado por fecha
 		
 		//recorro las reservas
@@ -270,7 +276,10 @@ class Solicitud extends CI_Controller {
 		$arrParam = array("idUser" => $idUser);
 		$data['userInfo'] = $this->general_model->get_user_list($arrParam);//info cliente
 		
-		$arrParam = array("idUser" => $idUser);
+		$arrParam = array(
+						"idUser" => $idUser, 
+						"estado" => 1
+					);
 		$data['information'] = $this->general_model->get_solicitudes($arrParam);//info solicitudes
 		
 		//si envio el id, entonces busco la informacion 
@@ -393,7 +402,10 @@ class Solicitud extends CI_Controller {
 			$data['examenes'] = $this->general_model->get_examenes();//listado de examenes
 			
 			//filtro de solicitudes por fecha
-			$arrParam = array("fecha" => $data['fecha_apartada']);
+			$arrParam = array(
+							"fecha" => $data['fecha_apartada'], 
+							"estado" => 1
+						);
 			$data['solicitudes'] = $this->general_model->get_solicitudes($arrParam);//listado de solicitudes filtrado por fecha
 
 			$data["view"] = 'form_solicitud';
