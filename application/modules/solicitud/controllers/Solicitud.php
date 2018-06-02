@@ -101,18 +101,43 @@ class Solicitud extends CI_Controller {
 		
 		$this->load->model("general_model");
 		$data["idRecord"] = $this->session->userdata("id");
+		$bandera = FALSE;
+		$bandera2 = FALSE;
+		//DATOS DEL POST
+		$idSolicitud = $this->input->post('hddIdInspeccion');
 		$fechaReserva = $this->input->post('hddFecha');
 		$numero_computadores = intval($this->input->post('numero_computadores'));
 		$hora_inicio = intval($this->input->post('hora_inicio'));
 		$hora_fin = intval($this->input->post('hora_final'));
-		$bandera = FALSE;
-				
+		$no_items = $this->input->post('numero_items');
+		$prueba = $this->input->post('prueba');
+		$grupo_items = $this->input->post('grupo_items');
+		$tipificacion = $this->input->post('tipificacion');
+		
+		$numero_computadores_anterior = 0; //lo uso para la validacion que no se pase del numero maximo de computadores
+		
+		//revisar si es para editar, en ese caso verificar que sean datos diferentes
+		if ($idSolicitud != '') {
+						
+			//busco informacion de la solicitud en la base de datos
+			$arrParam = array("idSolicitud" => $idSolicitud);
+			$information = $this->general_model->get_solicitudes($arrParam);
+			
+			$numero_computadores_anterior = intval($information[0]['numero_computadores']);
+
+			//comparo valores uno a uno si hay cambios
+			if($numero_computadores == $information[0]['numero_computadores'] && $hora_inicio == $information[0]['fk_id_hora_inicial'] && $hora_fin == $information[0]['fk_id_hora_final'] && $no_items == $information[0]['numero_items'] && $prueba == $information[0]['fk_codigo_examen'] && $grupo_items == $information[0]['fk_id_prueba'] && $tipificacion == $information[0]['fk_id_tipificacion'])
+			{
+				$bandera2 = TRUE;
+			}
+		}
+
 		//filtro de solicitudes por fecha
 		$arrParam = array("fecha" => $fechaReserva);
 		$listadoSolicitudes = $this->general_model->get_solicitudes($arrParam);//listado de solicitudes filtrado por fecha
 		
 		//recorro las reservas
-		if($listadoSolicitudes){
+		if($listadoSolicitudes && !$bandera2){
 			
 			//BUSCO numero maximo de computadores
 			$arrParamGeneral = array(
@@ -142,7 +167,7 @@ class Solicitud extends CI_Controller {
 				if( $hora_inicio_BD == $hora_inicio && $hora_fin_BD == $hora_fin )
 				{
 					//consulto numero de computadores disponibles
-					$contadorDisponibleIgual = $contadorDisponibleIgual - $numero_computadores_BD; 
+					$contadorDisponibleIgual = $contadorDisponibleIgual - $numero_computadores_BD + $numero_computadores_anterior; 
 					if($numero_computadores > $contadorDisponibleIgual){
 						//error no hay computadores para apartar
 						$bandera = TRUE;
@@ -151,7 +176,7 @@ class Solicitud extends CI_Controller {
 				}elseif( $hora_inicio >= $hora_inicio_BD && $hora_inicio < $hora_fin_BD && $hora_fin <= $hora_fin_BD && $hora_fin > $hora_inicio_BD )
 				{
 					//consulto numero de computadores disponibles
-					$contadorDisponibleEntre = $contadorDisponibleEntre - $numero_computadores_BD; 
+					$contadorDisponibleEntre = $contadorDisponibleEntre - $numero_computadores_BD + $numero_computadores_anterior; 
 					if($numero_computadores > $contadorDisponibleEntre){
 						//error no hay computadores para apartar
 						$bandera = TRUE;
@@ -160,7 +185,7 @@ class Solicitud extends CI_Controller {
 				}elseif( $hora_inicio_BD > $hora_inicio && $hora_fin <= $hora_fin_BD && $hora_fin > $hora_inicio_BD )
 				{
 					//consulto numero de computadores disponibles
-					$contadorDisponibleAntes = $contadorDisponibleAntes - $numero_computadores_BD; 
+					$contadorDisponibleAntes = $contadorDisponibleAntes - $numero_computadores_BD + $numero_computadores_anterior; 
 					if($numero_computadores > $contadorDisponibleAntes){
 						//error no hay computadores para apartar
 						$bandera = TRUE;
@@ -169,7 +194,7 @@ class Solicitud extends CI_Controller {
 				}elseif( $hora_inicio >= $hora_inicio_BD && $hora_fin <= $hora_fin_BD  )
 				{
 					//consulto numero de computadores disponibles
-					$contadorDisponibleDespues = $contadorDisponibleDespues - $numero_computadores_BD; 
+					$contadorDisponibleDespues = $contadorDisponibleDespues - $numero_computadores_BD + $numero_computadores_anterior; 
 					if($numero_computadores > $contadorDisponibleDespues){
 						//error no hay computadores para apartar
 						$bandera = TRUE;
@@ -178,7 +203,7 @@ class Solicitud extends CI_Controller {
 				}elseif( $hora_inicio_BD >= $hora_inicio && $hora_inicio_BD < $hora_fin && $hora_fin_BD <= $hora_fin && $hora_fin_BD > $hora_inicio )
 				{
 					//consulto numero de computadores disponibles
-					$contadorDisponibleBDEntre = $contadorDisponibleBDEntre - $numero_computadores_BD; 
+					$contadorDisponibleBDEntre = $contadorDisponibleBDEntre - $numero_computadores_BD + $numero_computadores_anterior; 
 					if($numero_computadores > $contadorDisponibleBDEntre){
 						//error no hay computadores para apartar
 						$bandera = TRUE;
@@ -187,7 +212,7 @@ class Solicitud extends CI_Controller {
 				}elseif( $hora_inicio > $hora_inicio_BD && $hora_fin_BD <= $hora_fin && $hora_inicio < $hora_fin_BD )
 				{
 					//consulto numero de computadores disponibles
-					$contadorDisponibleBDAntes = $contadorDisponibleBDAntes - $numero_computadores_BD; 
+					$contadorDisponibleBDAntes = $contadorDisponibleBDAntes - $numero_computadores_BD + $numero_computadores_anterior; 
 					if($numero_computadores > $contadorDisponibleBDAntes){
 						//error no hay computadores para apartar
 						$bandera = TRUE;
@@ -196,7 +221,7 @@ class Solicitud extends CI_Controller {
 				}elseif( $hora_inicio_BD >= $hora_inicio && $hora_fin_BD <= $hora_fin )
 				{
 					//consulto numero de computadores disponibles
-					$contadorDisponibleBDDespues = $contadorDisponibleBDDespues - $numero_computadores_BD; 
+					$contadorDisponibleBDDespues = $contadorDisponibleBDDespues - $numero_computadores_BD + $numero_computadores_anterior; 
 					if($numero_computadores > $contadorDisponibleBDDespues){
 						//error no hay computadores para apartar
 						$bandera = TRUE;
@@ -205,13 +230,18 @@ class Solicitud extends CI_Controller {
 			endforeach;
 		}
 		
-		if( $bandera ){
+		if( $bandera || $bandera2 ){
 			$data["result"] = "error";
-			$data["mensaje"] = " La cantidad de equipos no esta disponible para la fecha y hora seleccionada.";
+			if($bandera){
+				$data["mensaje"] = " La cantidad de equipos no esta disponible para la fecha y hora seleccionada.";
+			}elseif($bandera2){
+				$data["mensaje"] = " No se hicieron modificaciones.";
+			}
 		}else{
 		
 			if ($idSolicitud = $this->solicitud_model->saveSolicitud()) 
 			{
+				$this->solicitud_model->saveHistorico($idSolicitud ); //Guardo el historico
 				$data["result"] = true;
 				$data["mensaje"] = "Se guardó la información con éxito.";
 				$data["idSolicitud"] = $idSolicitud;

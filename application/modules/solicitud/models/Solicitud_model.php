@@ -32,18 +32,55 @@
 				$data['fecha_solicitud'] = date("Y-m-d G:i:s");			
 
 				$query = $this->db->insert('solicitud', $data);	
-				$idSolicitud = $this->db->insert_id();				
+				$idSolicitud = $this->db->insert_id();
+
 			} else {				
 				$this->db->where('id_solicitud', $idSolicitud);
 				$query = $this->db->update('solicitud', $data);
+
 			}
-			
+						
 			if ($query) {
 				return $idSolicitud;
 			} else {
 				return false;
 			}
 		}
+		
+		/**
+		 * Add HISTORICO
+		 * @since 31/5/2018
+		 */
+		public function saveHistorico($idSolicitud ) 
+		{
+			$idUser = $this->session->userdata("id");
+		
+			$data = array(
+				'fecha_apartado' => $this->input->post('hddFecha'),
+				'numero_computadores' => $this->input->post('numero_computadores'),
+				'fk_id_hora_inicial' => $this->input->post('hora_inicio'),
+				'fk_id_hora_final' => $this->input->post('hora_final'),
+				'numero_items' => $this->input->post('numero_items'),
+				'fk_codigo_examen' => $this->input->post('prueba'),
+				'fk_id_prueba' => $this->input->post('grupo_items'),
+				'cual_prueba' => $this->input->post('cual_prueba'),
+				'cual' => $this->input->post('cual'),
+				'fk_id_tipificacion' => $this->input->post('tipificacion'),
+				'estado_solicitud' => 1,
+				'fk_id_user' => $idUser,
+				'fecha_solicitud' => date("Y-m-d G:i:s"),
+				'fk_id_solicitud' => $idSolicitud
+			);
+						
+			$query = $this->db->insert('log_solicitud', $data);
+			
+			if ($query) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
 				
 	    
 	}
