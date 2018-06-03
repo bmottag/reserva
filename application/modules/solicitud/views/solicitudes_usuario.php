@@ -17,8 +17,6 @@
 
 				<div class="x_content">
 				
-					<a href="<?php echo base_url("solicitud"); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Nueva reserva</a>
-					
 					<div class="alert alert-warning alert-dismissible fade in" role="alert">
 						<strong>Info:</strong> Listado de solicitudes, organizadas de la más reciente a las más antigua.
 					</div>
