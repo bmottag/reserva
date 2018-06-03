@@ -51,16 +51,16 @@ if ($retornoError) {
 
 							<thead>
 								<tr class="headings">
-									<th class="column-title" style="width: 12%">Fecha reserva</th>
-									<th class="column-title" style="width: 8%">No. CPU</th>
-									<th class="column-title" style="width: 8%">Hora inicio</th>
-									<th class="column-title" style="width: 8%">Hora fin</th>
-									<th class="column-title" style="width: 10%">No. items</th>
-									<th class="column-title" style="width: 17%">Grupo items</th>
-									<th class="column-title" style="width: 14%">Tipificación</th>
-									<th class="column-title" style="width: 14%">Usuario</th>
-									<th class="column-title" style="width: 8%">Enlaces</th>
-									<th class="column-title" style="width: 1%">ID</th>
+									<th class="column-title" style="width: 12%"><small>Fecha reserva</small></th>
+									<th class="column-title" style="width: 8%"><small>No. CPU</small></th>
+									<th class="column-title" style="width: 8%"><small>Hora inicio</small></th>
+									<th class="column-title" style="width: 8%"><small>Hora fin</small></th>
+									<th class="column-title" style="width: 10%"><small>No. items</small></th>
+									<th class="column-title" style="width: 15%"><small>Grupo items</small></th>
+									<th class="column-title" style="width: 14%"><small>Tipificación</small></th>
+									<th class="column-title" style="width: 14%"><small>Usuario</small></th>
+									<th class="column-title" style="width: 8%"><small>Enlaces</small></th>
+									<th class="column-title" style="width: 1%"><small>ID</small></th>
 								</tr>
 							</thead>
 
@@ -70,11 +70,11 @@ if ($retornoError) {
 			if($information){
 				foreach ($information as $data):
 					echo "<tr>";
-					echo "<td>" . $data['fecha_apartado'] . "</td>";
-					echo "<td class='text-center'>" . $data['numero_computadores'] . "</td>";
-					echo "<td class='text-center'>" . $data['hora_inicial'] . "</td>";
-					echo "<td class='text-center'>" . $data['hora_final'] . "</td>";
-					echo "<td class='text-center'>";
+					echo "<td><small>" . $data['fecha_apartado'] . "</small></td>";
+					echo "<td class='text-center'><small>" . $data['numero_computadores'] . "</small></td>";
+					echo "<td class='text-center'><small>" . $data['hora_inicial'] . "</small></td>";
+					echo "<td class='text-center'><small>" . $data['hora_final'] . "</small></td>";
+					echo "<td class='text-center'><small>";
 					if (99 == $data["numero_items"])
 					{ 
 						echo 'Sin definir'; 
@@ -151,15 +151,15 @@ if($rol != 3){
 								</tr>
 								
 								<tr class="headings">
-									<th class="column-title" style="width: 11%">Fecha registro</th>
-									<th class="column-title" style="width: 8%">No. CPU</th>
-									<th class="column-title" style="width: 9%">Hora inicio</th>
-									<th class="column-title" style="width: 8%">Hora fin</th>
-									<th class="column-title" style="width: 10%">No. items</th>
-									<th class="column-title" style="width: 17%">Grupo items</th>
-									<th class="column-title" style="width: 14%">Tipificación</th>
-									<th class="column-title" style="width: 14%">Usuario</th>
-									<th class="column-title" style="width: 8%">Estado</th>
+									<th class="column-title" style="width: 11%"><small>Fecha registro</small></th>
+									<th class="column-title" style="width: 8%"><small>No. CPU</small></th>
+									<th class="column-title" style="width: 9%"><small>Hora inicio</small></th>
+									<th class="column-title" style="width: 8%"><small>Hora fin</small></th>
+									<th class="column-title" style="width: 10%"><small>No. items</small></th>
+									<th class="column-title" style="width: 17%"><small>Grupo items</small></th>
+									<th class="column-title" style="width: 14%"><small>Tipificación</small></th>
+									<th class="column-title" style="width: 14%"><small>Usuario</small></th>
+									<th class="column-title" style="width: 8%"><small>Estado</small></th>
 								</tr>
 							</thead>
 
@@ -168,18 +168,18 @@ if($rol != 3){
 		<?php
 				foreach ($informationHistorico as $data):
 					echo "<tr>";
-					echo "<td class='text-center'>$data[fecha_solicitud]</td>";
-					echo "<td class='text-center'>" . $data['numero_computadores'] . "</td>";
-					echo "<td class='text-center'>" . $data['hora_inicial'] . "</td>";
-					echo "<td class='text-center'>" . $data['hora_final'] . "</td>";
-					echo "<td class='text-center'>";
+					echo "<td class='text-center'><small>$data[fecha_solicitud]</small></td>";
+					echo "<td class='text-center'><small>" . $data['numero_computadores'] . "</small></td>";
+					echo "<td class='text-center'><small>" . $data['hora_inicial'] . "</small></td>";
+					echo "<td class='text-center'><small>" . $data['hora_final'] . "</small></td>";
+					echo "<td class='text-center'><small>";
 					if (99 == $data["numero_items"])
 					{ 
 						echo 'Sin definir'; 
 					}else{
 						echo $data['numero_items'];
 					}
-					echo "</td>";
+					echo "</small></td>";
 					echo "<td><small>";
 					echo "<strong>" . $data['examen'] . "</strong> - ";
 					if($data['fk_id_prueba'] == 69){
@@ -192,7 +192,7 @@ if($rol != 3){
 					echo "<td><small>" . $data['tipificacion'] . "</small></td>";
 					echo "<td><small>" . $data['first_name'] . " " . $data['last_name'] . "</small></td>";
 
-					echo "<td class='text-center'>";
+					echo "<td class='text-center'><small>";
 						switch ($data['estado_solicitud']) {
 							case 1:
 								$valor = 'Nueva';
@@ -208,7 +208,7 @@ if($rol != 3){
 								break;
 						}
 						echo '<p class="' . $clase . '"><strong>' . $valor . '</strong></p>';
-					echo "</td>";
+					echo "</small></td>";
 
 					echo "</tr>";
 				endforeach;
