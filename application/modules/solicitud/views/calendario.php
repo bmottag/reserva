@@ -122,7 +122,10 @@ if($information){
 								echo " GRUPO ITEMS: " . $data['prueba'] . " - ";
 							}
 							
-							echo "TIPIFICACIÓN: " . $data['tipificacion'];
+							echo "Fecha reserva: $data[fecha_apartado] - ";
+							
+							echo "Hora inicio: $data[hora_inicial_24] - ";
+							echo "Hora Fin: $data[hora_final_24]";
 							
 							?>',
 					start: '<?php echo $data["fecha_apartado"] . " " . $data["hora_inicial_24"]; ?>',
