@@ -8,9 +8,7 @@
 
 		<!-- menu profile quick info -->
 		<div class="profile clearfix">
-			<div class="profile_pic">
-				<img src="<?php echo base_url("images/oxalis.png"); ?>" alt="..." class="img-circle profile_img">
-			</div>
+
 			<div class="profile_info">
 				<span>Bienvenido,</span>
 				<h2><?php echo $userRol = $this->session->name; ?></h2>
