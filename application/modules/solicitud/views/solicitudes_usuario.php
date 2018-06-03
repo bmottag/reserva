@@ -47,11 +47,10 @@ if ($retornoError) {
 }
 ?> 
 					<div class="table-responsive">
-						<table id="datatable" class="table table-striped jambo_table bulk_action">
+						<table id="dataTables" class="table table-striped jambo_table bulk_action dt-responsive nowrap" cellspacing="0" width="100%">
 
 							<thead>
 								<tr class="headings">
-									<th class="column-title" style="width: 1%">#</th>
 									<th class="column-title" style="width: 12%">Fecha reserva</th>
 									<th class="column-title" style="width: 8%">No. CPU</th>
 									<th class="column-title" style="width: 8%">Hora inicio</th>
@@ -61,6 +60,7 @@ if ($retornoError) {
 									<th class="column-title" style="width: 14%">Tipificación</th>
 									<th class="column-title" style="width: 14%">Usuario</th>
 									<th class="column-title" style="width: 8%">Enlaces</th>
+									<th class="column-title" style="width: 1%">ID</th>
 								</tr>
 							</thead>
 
@@ -70,12 +70,11 @@ if ($retornoError) {
 			if($information){
 				foreach ($information as $data):
 					echo "<tr>";
-					echo "<td>" . $data['id_solicitud'] . "</td>";
 					echo "<td>" . $data['fecha_apartado'] . "</td>";
-					echo "<td>" . $data['numero_computadores'] . "</td>";
-					echo "<td>" . $data['hora_inicial'] . "</td>";
-					echo "<td>" . $data['hora_final'] . "</td>";
-					echo "<td>";
+					echo "<td class='text-center'>" . $data['numero_computadores'] . "</td>";
+					echo "<td class='text-center'>" . $data['hora_inicial'] . "</td>";
+					echo "<td class='text-center'>" . $data['hora_final'] . "</td>";
+					echo "<td class='text-center'>";
 					if (99 == $data["numero_items"])
 					{ 
 						echo 'Sin definir'; 
@@ -83,7 +82,7 @@ if ($retornoError) {
 						echo $data['numero_items'];
 					}
 					echo "</td>";
-					echo "<td>";
+					echo "<td><small>";
 					echo "<strong>" . $data['examen'] . "</strong> - ";
 					if($data['fk_id_prueba'] == 69){
 						echo $data['cual_prueba'] . " - ";
@@ -91,9 +90,9 @@ if ($retornoError) {
 					}else{
 						echo $data['prueba'];
 					}
-					echo "</td>";
-					echo "<td>" . $data['tipificacion'] . "</td>";
-					echo "<td>" . $data['first_name'] . " " . $data['last_name'] . "</td>";
+					echo "</small></td>";
+					echo "<td><small>" . $data['tipificacion'] . "</small></td>";
+					echo "<td><small>" . $data['first_name'] . " " . $data['last_name'] . "</small></td>";
 					echo "<td class='text-center'>";
 					
 //consultar si la fecha y hora de la reserva es mayor a la fecha y hora actual
@@ -128,6 +127,7 @@ if($rol != 3){
 <?php
 }
 					echo "</td>";
+					echo "<td>" . $data['id_solicitud'] . "</td>";
 					echo "</tr>";
 				endforeach;
 			}
@@ -142,13 +142,14 @@ if($rol != 3){
 		<?php
 			if($informationHistorico){
 		?>
-					<div class="alert alert-warning alert-dismissible fade in" role="alert">
-						<strong>-- Historial --</strong>
-					</div>
-					<div class="table-responsive">
-						<table id="datatable" class="table table-striped jambo_table bulk_action">
+					<div class="table-responsive">					
+						<table id="dataTablesHistorico" class="table table-striped jambo_table bulk_action" cellspacing="0" width="100%">
 
 							<thead>
+								<tr class="headings">
+									<th class="column-title" colspan="9">-- Historial --</th>
+								</tr>
+								
 								<tr class="headings">
 									<th class="column-title" style="width: 11%">Fecha registro</th>
 									<th class="column-title" style="width: 8%">No. CPU</th>
@@ -168,10 +169,10 @@ if($rol != 3){
 				foreach ($informationHistorico as $data):
 					echo "<tr>";
 					echo "<td class='text-center'>$data[fecha_solicitud]</td>";
-					echo "<td>" . $data['numero_computadores'] . "</td>";
-					echo "<td>" . $data['hora_inicial'] . "</td>";
-					echo "<td>" . $data['hora_final'] . "</td>";
-					echo "<td>";
+					echo "<td class='text-center'>" . $data['numero_computadores'] . "</td>";
+					echo "<td class='text-center'>" . $data['hora_inicial'] . "</td>";
+					echo "<td class='text-center'>" . $data['hora_final'] . "</td>";
+					echo "<td class='text-center'>";
 					if (99 == $data["numero_items"])
 					{ 
 						echo 'Sin definir'; 
@@ -179,7 +180,7 @@ if($rol != 3){
 						echo $data['numero_items'];
 					}
 					echo "</td>";
-					echo "<td>";
+					echo "<td><small>";
 					echo "<strong>" . $data['examen'] . "</strong> - ";
 					if($data['fk_id_prueba'] == 69){
 						echo $data['cual_prueba'] . " - ";
@@ -187,9 +188,9 @@ if($rol != 3){
 					}else{
 						echo $data['prueba'];
 					}
-					echo "</td>";
-					echo "<td>" . $data['tipificacion'] . "</td>";
-					echo "<td>" . $data['first_name'] . " " . $data['last_name'] . "</td>";
+					echo "</small></td>";
+					echo "<td><small>" . $data['tipificacion'] . "</small></td>";
+					echo "<td><small>" . $data['first_name'] . " " . $data['last_name'] . "</small></td>";
 
 					echo "<td class='text-center'>";
 						switch ($data['estado_solicitud']) {
@@ -228,3 +229,23 @@ if($rol != 3){
 		</div>
 	</div>
 </div>
+
+<!-- Tables -->
+<script>
+$(document).ready(function() {
+    $('#dataTables').DataTable( {
+        "pageLength": 50,
+        "ordering": false,
+        "info":     true
+    } );
+	
+    $('#dataTablesHistorico').DataTable( {
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+		"searching": false
+    } );
+	
+	
+} );
+</script>
