@@ -107,7 +107,7 @@ class General_model extends CI_Model {
 			$this->db->join('param_tipificacion T', 'T.id_tipificacion = S.fk_id_tipificacion', 'INNER');
 			$this->db->join('param_prueba P', 'P.id_prueba = S.fk_id_prueba', 'INNER');
 
-			$this->db->order_by("S.fecha_apartado DESC, S.fk_id_hora_inicial ASC"); 
+			$this->db->order_by("S.fecha_apartado DESC, S.fk_id_hora_inicial DESC"); 
 			$query = $this->db->get("solicitud S");
 
 			if ($query->num_rows() >= 1) {
