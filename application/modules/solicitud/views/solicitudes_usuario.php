@@ -50,11 +50,11 @@ if ($retornoError) {
 									<th class="column-title" style="width: 8%"><small>No. CPU</small></th>
 									<th class="column-title" style="width: 8%"><small>Hora inicio</small></th>
 									<th class="column-title" style="width: 8%"><small>Hora fin</small></th>
+									<th class="column-title" style="width: 8%"><small>Enlaces</small></th>
 									<th class="column-title" style="width: 10%"><small>No. items</small></th>
 									<th class="column-title" style="width: 15%"><small>Grupo items</small></th>
 									<th class="column-title" style="width: 14%"><small>Tipificación</small></th>
 									<th class="column-title" style="width: 14%"><small>Usuario</small></th>
-									<th class="column-title" style="width: 8%"><small>Enlaces</small></th>
 									<th class="column-title" style="width: 1%"><small>ID</small></th>
 								</tr>
 							</thead>
@@ -69,25 +69,6 @@ if ($retornoError) {
 					echo "<td class='text-center'><small>" . $data['numero_computadores'] . "</small></td>";
 					echo "<td class='text-center'><small>" . $data['hora_inicial'] . "</small></td>";
 					echo "<td class='text-center'><small>" . $data['hora_final'] . "</small></td>";
-					echo "<td class='text-center'><small>";
-					if (99 == $data["numero_items"])
-					{ 
-						echo 'Sin definir'; 
-					}else{
-						echo $data['numero_items'];
-					}
-					echo "</td>";
-					echo "<td><small>";
-					echo "<strong>" . $data['examen'] . "</strong> - ";
-					if($data['fk_id_prueba'] == 69){
-						echo $data['cual_prueba'] . " - ";
-						echo $data['cual'];
-					}else{
-						echo $data['prueba'];
-					}
-					echo "</small></td>";
-					echo "<td><small>" . $data['tipificacion'] . "</small></td>";
-					echo "<td><small>" . $data['first_name'] . " " . $data['last_name'] . "</small></td>";
 					echo "<td class='text-center'>";
 					
 //consultar si la fecha y hora de la reserva es mayor a la fecha y hora actual
@@ -122,6 +103,26 @@ if($rol != 3){
 <?php
 }
 					echo "</td>";
+
+					echo "<td class='text-center'><small>";
+					if (99 == $data["numero_items"])
+					{ 
+						echo 'Sin definir'; 
+					}else{
+						echo $data['numero_items'];
+					}
+					echo "</td>";
+					echo "<td><small>";
+					echo "<strong>" . $data['examen'] . "</strong> - ";
+					if($data['fk_id_prueba'] == 69){
+						echo $data['cual_prueba'] . " - ";
+						echo $data['cual'];
+					}else{
+						echo $data['prueba'];
+					}
+					echo "</small></td>";
+					echo "<td><small>" . $data['tipificacion'] . "</small></td>";
+					echo "<td><small>" . $data['first_name'] . " " . $data['last_name'] . "</small></td>";
 					echo "<td>" . $data['id_solicitud'] . "</td>";
 					echo "</tr>";
 				endforeach;
