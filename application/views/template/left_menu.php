@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
 	<div class="left_col scroll-view">
 		<div class="navbar nav_title" style="border: 0;">
-			<a href="<?php echo base_url("solicitud/solicitudes_usuario/" . $this->session->userdata("id")); ?>" class="site_title">
+			<a href="<?php echo base_url("solicitud/calendario"); ?>" class="site_title">
 				<img src="<?php echo base_url("images/logo.png"); ?>" class="img-rounded" width="87" height="32" /> <span>ZONA 2</span>
 			</a>
 		</div>
