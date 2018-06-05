@@ -106,6 +106,7 @@ class Solicitud extends CI_Controller {
 		$data["idRecord"] = $this->session->userdata("id");
 		$bandera = FALSE;
 		$bandera2 = FALSE;
+		$bandera3 = FALSE;
 		//DATOS DEL POST
 		$idSolicitud = $this->input->post('hddIdInspeccion');
 		$fechaReserva = $this->input->post('hddFecha');
@@ -137,6 +138,22 @@ class Solicitud extends CI_Controller {
 				$bandera2 = TRUE;
 			}
 		}
+		
+		//revisar que la hora inicial se mayor a la hora actual
+		$arrParamFiltro = array();
+		$horasBD = $this->general_model->get_horas($arrParamFiltro);//LISTA DE HORAS
+		foreach($horasBD as $data){
+			if($data['id_hora'] == $hora_inicio ){
+				$fechaCompleta = $fechaReserva . " " . $data['formato_24'];
+			}
+		}
+		
+		$datetime1 = date_create($fechaCompleta);
+		$datetime2 = date_create(date('Y-m-d G:i'));
+
+		if($datetime1 < $datetime2){
+			$bandera3 = TRUE;
+		}
 
 		//filtro de solicitudes por fecha
 		$arrParam = array(
@@ -146,7 +163,7 @@ class Solicitud extends CI_Controller {
 		$listadoSolicitudes = $this->general_model->get_solicitudes($arrParam);//listado de solicitudes filtrado por fecha
 		
 		//recorro las reservas
-		if($listadoSolicitudes && !$bandera2){
+		if($listadoSolicitudes && !$bandera2 && !$bandera3){
 			
 			//BUSCO numero maximo de computadores
 			$arrParamGeneral = array(
@@ -239,12 +256,14 @@ class Solicitud extends CI_Controller {
 			endforeach;
 		}
 		
-		if( $bandera || $bandera2 ){
+		if( $bandera || $bandera2 || $bandera3){
 			$data["result"] = "error";
 			if($bandera){
 				$data["mensaje"] = " La cantidad de equipos no esta disponible para la fecha y hora seleccionada.";
 			}elseif($bandera2){
 				$data["mensaje"] = " No se hicieron modificaciones.";
+			}elseif($bandera3){
+				$data["mensaje"] = " La hora inicial debe ser mayor a la hora actual.";
 			}
 		}else{
 		
