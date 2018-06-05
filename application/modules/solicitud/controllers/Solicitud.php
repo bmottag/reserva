@@ -270,6 +270,9 @@ class Solicitud extends CI_Controller {
 			if ($idSolicitud = $this->solicitud_model->saveSolicitud()) 
 			{
 				$this->solicitud_model->saveHistorico($idSolicitud, $estado_historica ); //Guardo el historico
+				
+				$this->email($idSolicitud, $estado_historica); //envio correo
+				
 				$data["result"] = true;
 				$data["mensaje"] = "Se guardó la información con éxito.";
 				$data["idSolicitud"] = $idSolicitud;
@@ -345,6 +348,9 @@ class Solicitud extends CI_Controller {
 				
 				$estado_historica = 2; //para estado ELIMINADA en el historico
 				$this->solicitud_model->saveHistorico_eliminar($information, $estado_historica); //Guardo el historico
+				
+				$this->email($idSolicitud, $estado_historica); //envio correo
+				
 				$data["result"] = true;
 				$this->session->set_flashdata('retornoExito', 'Se eliminó el registro.');
 			} else {
@@ -443,6 +449,85 @@ class Solicitud extends CI_Controller {
 
 			$data["view"] = 'form_solicitud';
 			$this->load->view("layout", $data);
+	}
+	
+	/**
+	 * Evio de correo al usuario 
+     * @since 5/6/2018
+     * @author BMOTTAG
+	 */
+	public function email($idSolicitud, $estado)
+	{
+			$this->load->model("general_model");
+			//busco informacion de la solicitud en la base de datos
+			$arrParam = array("idSolicitud" => $idSolicitud);
+			$information = $this->general_model->get_solicitudes($arrParam);//info solicitud
+				
+			$subjet = "Información reserva - ZONA 2";
+			$user = $information[0]["first_name"] . ' ' . $information[0]["last_name"];
+			$to = $information[0]["email"];
+		
+			//mensaje del correo
+			$msj = "<p>Información de su reserva:</p>";
+			$msj .= "<strong>Estado: </strong>";
+			switch ($estado) {
+				case 1:
+					$msj .= 'Nueva';
+					break;
+				case 2:
+					$msj .= 'Eliminada';
+					break;
+				case 3:
+					$msj .= 'Modificada';
+					break;
+			}
+			$msj .= "<br><strong>Usuario que reserva: </strong>" . $information[0]["first_name"] . ' ' . $information[0]["last_name"];
+			$msj .= "<br><strong>Hora inicial: </strong>" . $information[0]["hora_inicial_24"];
+			$msj .= "<br><strong>Hora final: </strong>" . $information[0]["hora_final_24"];
+			$msj .= "<br><strong>Prueba: </strong>" . $information[0]["examen"] . " - ";
+			
+			if($information[0]['fk_id_prueba'] == 69){
+				$msj .= $information[0]['cual_prueba'];
+				$msj .= " <strong>Grupo items: </strong>" . $information[0]['cual'];
+			}else{
+				$msj .= " <strong>Grupo items: </strong>" . $information[0]['prueba'];
+			}
+			
+			$msj .= "<br><strong>No. items: </strong>";
+
+			if (99 == $information[0]["numero_items"])
+			{ 
+				$msj .= 'Sin definir'; 
+			}else{
+				$msj .= $information[0]['numero_items'];
+			}
+			
+			$msj .= "<br><strong>Tipificación: </strong>" . $information[0]["tipificacion"];
+			$msj .= "<br><strong>No. computadores reservados: </strong>" . $information[0]["numero_computadores"];
+			$msj .= "<br><strong>Fecha reserva: </strong>" . $information[0]["fecha_apartado"];
+			
+			$mensaje = "<html>
+			<head>
+			  <title> $subjet </title>
+			</head>
+			<body>
+				<p>Señor(a)	$user:</p>
+				<p>$msj</p>
+				<p>Cordialmente,</p>
+				<p><strong>Administrador aplicativo de ZONA 2</strong></p>
+			</body>
+			</html>";
+			
+			$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+			$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			$cabeceras .= 'To: ' . $user . '<' . $to . '>' . "\r\n";
+			$cabeceras .= 'From: APP ZONA 2 <administrador@operativoicfes.com>' . "\r\n";
+			$cabeceras .= 'Cc: jelozanoo@gmail.com \r\n';
+
+			//enviar correo al cliente
+			mail($to, $subjet, $mensaje, $cabeceras);
+			
+			return true;
 	}
 	
 	
