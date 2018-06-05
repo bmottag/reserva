@@ -64,9 +64,9 @@ class Admin extends CI_Controller {
 			$log_user = $this->input->post('usuario');
 			$email = $this->input->post('email');
 
-			$msj = "Se adicionó el Cliente con éxito.";
+			$msj = "Se adicionó el Usuario con éxito.";
 			if ($idUser != '') {
-				$msj = "Se guardó el Cliente con éxito.";
+				$msj = "Se guardó el Usuario con éxito.";
 			}	
 			
 			$result_user = false;
