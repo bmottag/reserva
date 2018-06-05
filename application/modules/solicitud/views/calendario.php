@@ -151,7 +151,7 @@ if($information){
 
 </div>
 
-    <!-- calendar modal -->
+    <!-- calendar modal 
     <div id="CalenderModalNew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -185,6 +185,9 @@ if($information){
         </div>
       </div>
     </div>
+	-->
+	
+	
     <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
