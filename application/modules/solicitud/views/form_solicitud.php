@@ -77,7 +77,7 @@ if($solicitudes){ //SI HAY SOLICITUDES LAS MUESTRO?>
 							<strong>Info:</strong> 
 							<ul>
 								<?php echo $mensaje; ?>
-								<li>El computador esta reservado para el siguiente horario:</li>
+								<li>La sala esta reservada en los siguientes horarios:</li>
 							</ul>
 						</div>
 
