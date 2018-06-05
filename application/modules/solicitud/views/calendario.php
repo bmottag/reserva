@@ -103,12 +103,12 @@ if($information){
 ?>
 				  {
 					title: '<?php 
-							echo "Usuario que reserva: " . $data['first_name'] . " " . $data['last_name'] . " - ";
+							echo "Usuario que reserva: " . $data['first_name'] . " " . $data['last_name'] . " || ";
 							
 							echo "Hora inicial: $data[hora_inicial_24] || ";
-							echo "Hora final: $data[hora_final_24]";
+							echo "Hora final: $data[hora_final_24] || ";
 							
-							echo " Prueba: " . $data['examen'] . " || ";							
+							echo "Prueba: " . $data['examen'] . " || ";							
 							if($data['fk_id_prueba'] == 69){
 								echo $data['cual_prueba'] . " || ";
 								echo " Grupo items: " . $data['cual']. " || ";
@@ -116,7 +116,7 @@ if($information){
 								echo " Grupo items: " . $data['prueba'] . " || ";
 							}
 														
-							echo " No. items: ";
+							echo "No. items: ";
 							if (99 == $data["numero_items"])
 							{ 
 								echo 'Sin definir || '; 
@@ -205,7 +205,7 @@ if($information){
               <form id="antoform2" class="form-horizontal calender" role="form">
                 <div class="form-group">
                   <div class="col-sm-12">
-					<textarea class="form-control" id="title2" name="title2" rows="3" disabled></textarea>
+					<textarea class="form-control" id="title2" name="title2" rows="5" disabled></textarea>
                   </div>
                 </div>
               </form>
