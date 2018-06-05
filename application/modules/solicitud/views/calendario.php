@@ -103,29 +103,32 @@ if($information){
 ?>
 				  {
 					title: '<?php 
-							echo "No. COMPUTADORES: " . $data["numero_computadores"] . " - ";
-							echo " USUARIO: " . $data['first_name'] . " " . $data['last_name'] . " - ";
+							echo "Usuario que reserva: " . $data['first_name'] . " " . $data['last_name'] . " - ";
 							
-							echo " No. ITEMS: ";
+							echo "Hora inicial: $data[hora_inicial_24] || ";
+							echo "Hora final: $data[hora_final_24]";
+							
+							echo " Prueba: " . $data['examen'] . " || ";							
+							if($data['fk_id_prueba'] == 69){
+								echo $data['cual_prueba'] . " || ";
+								echo " Grupo items: " . $data['cual']. " || ";
+							}else{
+								echo " Grupo items: " . $data['prueba'] . " || ";
+							}
+														
+							echo " No. items: ";
 							if (99 == $data["numero_items"])
 							{ 
-								echo 'Sin definir - '; 
+								echo 'Sin definir || '; 
 							}else{
-								echo $data['numero_items'] . " - ";
+								echo $data['numero_items'] . " || ";
 							}
 							
-							echo " PRUEBA: " . $data['examen'] . " - ";
-							if($data['fk_id_prueba'] == 69){
-								echo $data['cual_prueba'] . " - ";
-								echo " GRUPO ITEMS: " . $data['cual']. " - ";
-							}else{
-								echo " GRUPO ITEMS: " . $data['prueba'] . " - ";
-							}
+							echo "Tipificación: " . $data["tipificacion"] . " || ";
 							
-							echo "Fecha reserva: $data[fecha_apartado] - ";
-							
-							echo "Hora inicio: $data[hora_inicial_24] - ";
-							echo "Hora Fin: $data[hora_final_24]";
+							echo "No. computadores: " . $data["numero_computadores"] . " || ";
+
+							echo "Fecha reserva: $data[fecha_apartado]";
 							
 							?>',
 					start: '<?php echo $data["fecha_apartado"] . " " . $data["hora_inicial_24"]; ?>',
