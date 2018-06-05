@@ -126,7 +126,7 @@ if($information){
 							
 							echo "Tipificación: " . $data["tipificacion"] . " || ";
 							
-							echo "No. computadores: " . $data["numero_computadores"] . " || ";
+							echo "No. computadores reservados: " . $data["numero_computadores"] . " || ";
 
 							echo "Fecha reserva: $data[fecha_apartado]";
 							
