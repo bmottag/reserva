@@ -29,11 +29,12 @@
 		public function saveUsuario() 
 		{
 				$idUser = $this->input->post('hddId');
+				$logUser = $this->input->post('usuario');
 				
 				$data = array(
 					'first_name' => $this->input->post('nombres'),
 					'last_name' => $this->input->post('apellidos'),
-					'log_user' => $this->input->post('usuario'),
+					'log_user' => $logUser,
 					'email' => $this->input->post('email'),
 					'movil' => $this->input->post('celular'),
 					'fk_id_rol' => $this->input->post('rol'),
@@ -43,7 +44,8 @@
 				//revisar si es para adicionar o editar
 				if ($idUser == '') {
 					$data['birthdate'] = date("Y-m-d");
-					$data['password'] = 'e10adc3949ba59abbe56e057f20f883e';//123456
+					//$data['password'] = 'e10adc3949ba59abbe56e057f20f883e';//123456
+					$data['password'] = md5($logUser);
 					$data['address'] = '';
 					$query = $this->db->insert('user', $data);
 					$idUser = $this->db->insert_id();
