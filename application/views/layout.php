@@ -66,7 +66,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Reservas - BMG</a>
+            Reservas - BMG
           </div>
           <div class="clearfix"></div>
         </footer>
