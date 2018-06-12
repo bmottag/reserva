@@ -11,7 +11,19 @@ class Solicitud extends CI_Controller {
 	public function calendario()
 	{
 		$this->load->model("general_model");
-		$arrParam = array("estado" => 1);
+				
+		$arrParam = array();
+		//consulto rol para filtrar por estados y por usuario
+		$rol = $this->session->userdata("rol");
+		$idUser = $this->session->userdata("id");
+		if($rol == 3){
+			$arrParam = array(
+							"idUser" => $idUser,
+							"estado" => 1
+						);
+		}else{
+			$arrParam = array("estado" => 1);
+		}
 		$data['information'] = $this->general_model->get_solicitudes($arrParam);//info solicitudes
 		
 		$data["view"] = 'calendario';
