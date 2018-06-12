@@ -352,6 +352,72 @@ class Admin extends CI_Controller {
 
 			echo json_encode($data);
     }
+	
+	/**
+	 * Vista para cargar informacion de usuarios a la base de datos
+     * @since 10/6/2018
+	 */
+	public function subir_usuarios($error="", $success="")
+	{		
+	
+			$data["error"] = $error;
+			$data["success"] = $success;
+			$data["view"] = 'cargar_usuarios';
+			$this->load->view("layout", $data);
+	}
+	
+	/**
+	 * Subir archivo
+     * @since 11/6/2018
+	 */
+	public function do_upload()
+	{		
+            $config['upload_path'] = './tmp/';
+            $config['overwrite'] = true;
+            $config['allowed_types'] = 'csv';
+            $config['max_size'] = '5000';
+            $config['file_name'] = 'cargar_informacion_usuarios.csv';
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload()) {
+                $error = $this->upload->display_errors();
+                $msgError = html_escape(substr($error, 3, -4));
+                $this->subir_usuarios($msgError);
+            }else {				
+                $file_info = $this->upload->data();
+                $data = array('upload_data' => $this->upload->data());
+
+                $archivo = $file_info['file_name'];
+
+				$registros = array();
+				if (($fichero = fopen(FCPATH . 'tmp/' . $archivo, "a+")) !== FALSE) {
+					// Lee los nombres de los campos
+					$nombres_campos = fgetcsv($fichero, 0, ";");
+					$num_campos = count($nombres_campos);
+					// Lee los registros
+
+					while (($datos = fgetcsv($fichero, 0, ";")) !== FALSE) {
+						// Crea un array asociativo con los nombres y valores de los campos
+						for ($icampo = 0; $icampo < $num_campos; $icampo++) {
+							$registro[$nombres_campos[$icampo]] = $datos[$icampo];
+						}
+						// Añade el registro leido al array de registros
+						$registros[] = $registro;
+					}
+					fclose($fichero);
+					
+					foreach ($registros as $lista) {
+						$idUsuario = $this->admin_model->cargar_informacion_usuarios($lista);
+					}
+				}
+
+            }
+			
+			$success = 'El archivo se cargo correctamente.';
+			$this->subir_usuarios('', $success);
+			
+    }
 
 
 	

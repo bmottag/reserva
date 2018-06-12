@@ -17,6 +17,8 @@
 				
 					<a href="<?php echo base_url("admin/update_usuario"); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Adicionar Usuario</a>
 					
+					<a href="<?php echo base_url("admin/subir_usuarios"); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Cargar Usuarios</a>
+					
 <?php
 $retornoExito = $this->session->flashdata('retornoExito');
 if ($retornoExito) {

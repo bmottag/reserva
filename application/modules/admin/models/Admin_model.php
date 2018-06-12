@@ -168,7 +168,23 @@
 				} else {
 					return false;
 				}
-		}	
+		}
+
+		/**
+		 * Cargar informacion usuarios
+		 * @since 19/8/2017
+		 */
+		public function cargar_informacion_usuarios($lista) 
+		{
+				$lista['state'] = 1;
+				$query = $this->db->insert('user', $lista);
+
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
 		
 	    
 	}
