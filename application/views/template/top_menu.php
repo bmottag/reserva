@@ -25,13 +25,14 @@
 			<span class=" fa fa-angle-down"></span>
 		  </a>
 		  <ul class="dropdown-menu dropdown-usermenu pull-right">
-			<li><a href="<?php echo base_url("admin/usuarios"); ?>"><i class="fa fa-users pull-right"></i> Usuarios</a></li>
+			<li><a href="<?php echo base_url("admin/examen"); ?>"><i class="fa fa-sitemap pull-right"></i> Examen</a></li>
+			
+			<li><a href="<?php echo base_url("admin/update_parametricas"); ?>" ><i class="fa fa-crosshairs pull-right"></i> Paramétricas</a></li>
+			<li><a href="<?php echo base_url("admin/prueba"); ?>"><i class="fa fa-database pull-right"></i> Pruebas</a></li>
 			
 			<li><a href="<?php echo base_url("admin/tipificacion"); ?>"><i class="fa fa-tags pull-right"></i> Tipificación</a></li>
 			
-			<li><a href="<?php echo base_url("admin/examen"); ?>"><i class="fa fa-database pull-right"></i> Examen</a></li>
-			<li><a href="<?php echo base_url("admin/prueba"); ?>"><i class="fa fa-database pull-right"></i> Pruebas</a></li>
-			<li><a href="<?php echo base_url("admin/update_parametricas"); ?>" ><i class="fa fa-crosshairs pull-right"></i> Paramétricas</a></li>
+			<li><a href="<?php echo base_url("admin/usuarios"); ?>"><i class="fa fa-users pull-right"></i> Usuarios</a></li>
 			
 		  </ul>
 		</li>
