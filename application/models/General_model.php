@@ -120,9 +120,13 @@ class General_model extends CI_Model {
 		 * Lista de pruebas
 		 * @since 16/4/2018
 		 */
-		public function get_examenes() 
+		public function get_examenes($arrData) 
 		{
 				$this->db->select('DISTINCT(codigo_examen), examen');
+				
+				if (array_key_exists("codigoExamen", $arrData)) {
+					$this->db->where('codigo_examen', $arrData["codigoExamen"]);
+				}
 
 				$this->db->order_by('codigo_examen', 'asc');
 				$query = $this->db->get('param_prueba P');
