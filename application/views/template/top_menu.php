@@ -29,6 +29,7 @@
 			
 			<li><a href="<?php echo base_url("admin/tipificacion"); ?>"><i class="fa fa-tags pull-right"></i> Tipificación</a></li>
 			
+			<li><a href="<?php echo base_url("admin/examen"); ?>"><i class="fa fa-database pull-right"></i> Examen</a></li>
 			<li><a href="<?php echo base_url("admin/prueba"); ?>"><i class="fa fa-database pull-right"></i> Pruebas</a></li>
 			<li><a href="<?php echo base_url("admin/update_parametricas"); ?>" ><i class="fa fa-crosshairs pull-right"></i> Paramétricas</a></li>
 			

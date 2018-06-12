@@ -266,7 +266,7 @@ class Admin extends CI_Controller {
 			$this->load->model("general_model");
 			//listado de examenes
 			$arrParam = array();
-			$data['examenes'] = $this->general_model->get_examenes();
+			$data['examenes'] = $this->general_model->get_examenes($arrParam);
 			
 			if ($data["idPrueba"] != 'x') {
 				$arrParam = array("idPrueba" => $data["idPrueba"]);
@@ -417,6 +417,71 @@ class Admin extends CI_Controller {
 			$success = 'El archivo se cargo correctamente.';
 			$this->subir_usuarios('', $success);
 			
+    }
+	
+	/**
+	 * Examen List
+     * @since 12/6/2018
+     * @author BMOTTAG
+	 */
+	public function examen()
+	{
+			$this->load->model("general_model");
+			
+			$arrParam = array();
+			$data['info'] = $this->general_model->get_examenes($arrParam);
+			
+			$data["view"] = 'examen';
+			$this->load->view("layout", $data);
+	}
+	
+    /**
+     * Cargo modal - formulario examen
+     * @since 12/6/2018
+     */
+    public function cargarModalExamen() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$data["codigoExamen"] = $this->input->post("codigoExamen");	
+			
+			$this->load->model("general_model");
+			
+			if ($data["codigoExamen"] != 'x') {
+				$arrParam = array("codigoExamen" => $data["codigoExamen"]);
+				$data['information'] = $this->general_model->get_examenes($arrParam);
+			}
+			
+			$this->load->view("examen_modal", $data);
+    }
+	
+	/**
+	 * Update examen
+     * @since 12/6/2018
+     * @author BMOTTAG
+	 */
+	public function save_examen()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$codigoExamen = $this->input->post('hddId');
+						
+			$msj = "Se adicionó un nuevo registro!!";
+			if ($codigoExamen != '') {
+				$msj = "Se actualizó un registro!!";
+			}
+
+			if ($this->admin_model->saveExamen()) {
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', $msj);
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			echo json_encode($data);	
     }
 
 
