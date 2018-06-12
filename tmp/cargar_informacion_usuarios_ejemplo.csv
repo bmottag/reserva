@@ -1,0 +1,2 @@
+first_name;last_name;log_user;email;fk_id_rol;movil;password
+JORGE;LOZANO;jlozano;jlozano@gmail.com;3;3015505382;md5(jlozano)
