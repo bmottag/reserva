@@ -1,5 +1,6 @@
 $( document ).ready( function () {
 
+	$("#prueba").convertirMayuscula().maxlength(150);
 	$("#codigo_prueba").convertirMayuscula().maxlength(50);
 	
 	$( "#form" ).validate( {
