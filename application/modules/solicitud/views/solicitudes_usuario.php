@@ -69,7 +69,7 @@ if ($retornoError) {
 					echo "<td class='text-center'><small>" . $data['numero_computadores'] . "</small></td>";
 					echo "<td class='text-center'><small>" . $data['hora_inicial'] . "</small></td>";
 					echo "<td class='text-center'><small>" . $data['hora_final'] . "</small></td>";
-					echo "<td class='text-center'>";
+					echo "<td class='text-center'><small>";
 					
 //consultar si la fecha y hora de la reserva es mayor a la fecha y hora actual
 $fechaAparatada = $data['fecha_apartado'] . " " . $data['hora_final_24'];
@@ -100,9 +100,24 @@ $rol = $this->session->userdata("rol");
 if($rol != 3){
 ?>
 <a href='<?php echo base_url("solicitud/solicitudes_usuario/$data[fk_id_user]/$data[id_solicitud]"); ?>' class='btn btn-success btn-xs'><i class='fa fa-eye'></i> Ver </a>
+
 <?php
+	//boton para indicar si se incumplio la reserva.
+	//Se habilita para los administradores y cuando la fecha de reserva es mayor a la fecha actual
+	if($data['incumplio'] == 1)
+	{
+			echo '<p class="text-warning"><strong>Incumplió</strong></p>';
+	}else{
+		if($datetime1 < $datetime2 && $data['estado_solicitud'] == 1) {
+?>
+			<button type="button" id="<?php echo $data['id_solicitud']; ?>" class='btn btn-warning btn-xs'>
+					<i class="fa fa-ban"></i> Incumplió
+			</button>
+<?php
+		}
+	}
 }
-					echo "</td>";
+					echo "</small></td>";
 
 					echo "<td class='text-center'><small>";
 					if (99 == $data["numero_items"])
@@ -204,6 +219,11 @@ if($rol != 3){
 								break;
 						}
 						echo '<p class="' . $clase . '"><strong>' . $valor . '</strong></p>';
+						
+						if($data['incumplio'] == 1){
+							echo '<p class="text-warning"><strong>Incumplió</strong></p>';
+						}
+						
 					echo "</small></td>";
 
 					echo "</tr>";

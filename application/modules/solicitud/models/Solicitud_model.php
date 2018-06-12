@@ -117,6 +117,42 @@
 		}
 		
 		/**
+		 * Add HISTORICO de INCUMPLIO
+		 * @since 12/6/2018
+		 */
+		public function saveHistorico_incumplio($datosBD) 
+		{
+			$idUser = $this->session->userdata("id");
+			$idSolicitud = $this->input->post('identificador');
+		
+			$data = array(
+				'fecha_apartado' => $datosBD[0]['fecha_apartado'],
+				'numero_computadores' => $datosBD[0]['numero_computadores'],
+				'fk_id_hora_inicial' => $datosBD[0]['fk_id_hora_inicial'],
+				'fk_id_hora_final' => $datosBD[0]['fk_id_hora_final'],
+				'numero_items' => $datosBD[0]['numero_items'],
+				'fk_codigo_examen' => $datosBD[0]['fk_codigo_examen'],
+				'fk_id_prueba' => $datosBD[0]['fk_id_prueba'],
+				'cual_prueba' => $datosBD[0]['cual_prueba'],
+				'cual' => $datosBD[0]['cual'],
+				'fk_id_tipificacion' => $datosBD[0]['fk_id_tipificacion'],
+				'estado_solicitud' => $datosBD[0]['estado_solicitud'],
+				'fk_id_user' => $idUser,
+				'fecha_solicitud' => date("Y-m-d G:i:s"),
+				'incumplio' => 1,
+				'fk_id_solicitud' => $idSolicitud
+			);
+						
+			$query = $this->db->insert('log_solicitud', $data);
+			
+			if ($query) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		/**
 		 * Eliminar registro
 		 * @since 1/6/2018
 		 */
@@ -126,6 +162,28 @@
 		
 			$data = array(
 				'estado_solicitud' => 2
+			);
+			
+			$this->db->where('id_solicitud', $idSolicitud);
+			$query = $this->db->update('solicitud', $data);
+						
+			if ($query) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		/**
+		 * incumplio registro
+		 * @since 12/6/2018
+		 */
+		public function incumplioRecord() 
+		{
+			$idSolicitud = $this->input->post('identificador');
+		
+			$data = array(
+				'incumplio' => 1
 			);
 			
 			$this->db->where('id_solicitud', $idSolicitud);

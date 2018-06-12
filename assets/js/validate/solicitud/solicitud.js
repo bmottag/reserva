@@ -96,6 +96,49 @@ jQuery.validator.addMethod("mayorQ", function(value, element, param) {
 			}
 	});
 	
+	$(".btn-warning").click(function () {	
+			var oID = $(this).attr("id");
+			
+			//Activa icono guardando
+			if(window.confirm('Se incumplió la reseva?'))
+			{
+					$(".btn-warning").attr('disabled','-1');
+					$.ajax ({
+						type: 'POST',
+						url: base_url + 'solicitud/incumplio_reserva',
+						data: {'identificador': oID},
+						cache: false,
+						success: function(data){
+												
+							if( data.result == "error" )
+							{
+								alert(data.mensaje);
+								$(".btn-warning").removeAttr('disabled');							
+								return false;
+							} 
+											
+							if( data.result )//true
+							{	                                                        
+								$(".btn-warning").removeAttr('disabled');
+
+								var url = base_url + "solicitud/solicitudes_usuario/" + data.idRecord;
+								$(location).attr("href", url);
+							}
+							else
+							{
+								alert('Error. Reload the web page.');
+								$(".btn-warning").removeAttr('disabled');
+							}	
+						},
+						error: function(result) {
+							alert('Error. Reload the web page.');
+							$(".btn-warning").removeAttr('disabled');
+						}
+
+					});
+			}
+	});
+	
 	$("#btnSubmit").click(function(){		
 	
 		if ($("#form").valid() == true){

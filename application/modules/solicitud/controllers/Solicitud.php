@@ -90,7 +90,8 @@ class Solicitud extends CI_Controller {
 				}
 				$data['horas'] = $this->general_model->get_horas($arrParamFiltro);//LISTA DE HORAS
 				
-				$data['examenes'] = $this->general_model->get_examenes();//listado de examenes
+				$arrParam = array();
+				$data['examenes'] = $this->general_model->get_examenes($arrParam);//listado de examenes
 				
 				//filtro de solicitudes por fecha
 				$arrParam = array(
@@ -450,7 +451,8 @@ class Solicitud extends CI_Controller {
 			}
 			$data['horas'] = $this->general_model->get_horas($arrParamFiltro);//LISTA DE HORAS
 			
-			$data['examenes'] = $this->general_model->get_examenes();//listado de examenes
+			$arrParam = array();
+			$data['examenes'] = $this->general_model->get_examenes($arrParam);//listado de examenes
 			
 			//filtro de solicitudes por fecha
 			$arrParam = array(
@@ -541,6 +543,38 @@ class Solicitud extends CI_Controller {
 			
 			return true;
 	}
+	
+	/**
+	 * Incumplio reserva
+     * @since 12/6/2018
+	 */
+	public function incumplio_reserva()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$data["idRecord"] = $this->session->userdata("id");
+			$idSolicitud = $this->input->post('identificador');
+			
+			if ($this->solicitud_model->incumplioRecord()) 
+			{
+				$this->load->model("general_model");
+				//busco informacion de la solicitud en la base de datos
+				$arrParam = array("idSolicitud" => $idSolicitud);
+				$information = $this->general_model->get_solicitudes($arrParam);
+				
+				$this->solicitud_model->saveHistorico_incumplio($information); //Guardo el historico
+				
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', 'Se guardó la información.');
+			} else {
+				$data["result"] = "error";
+				$data["mensaje"] = "Error!!! Contactarse con el Administrador.";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Contactarse con el Administrador.');
+			}				
+
+			echo json_encode($data);
+    }
 	
 	
 	
