@@ -58,9 +58,72 @@ $(document).ready(function () {
 							<li>
 								<i class="fa fa-user user-profile-icon"></i> <strong>Usuario:</strong><br> <?php echo $this->session->userdata("name"); ?>
 							</li>
+							
+							<li>
+								<i class="fa fa-reorder user-profile-icon"></i> <strong>No. computadores disponibles:</strong><br>
+							</li>							
 						</ul>
+						
+<!-- INICIO DISPONIBILIDAD -->
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr class="headings">
+										<th class="column-title">Hora</th>
+										<th class="column-title text-center">No.</th>
+									</tr>
+								</thead>
+
+								<tbody>
+								<?php 								
+									$x = 1;
+									
+									$ci = &get_instance();
+									$ci->load->model("general_model");
+														
+									//BUSCO numero maximo de computadores
+									$arrParamGeneral = array(
+										"table" => "param_generales",
+										"order" => "id_generales",
+										"id" => "x"
+									);
+									$paramGenerales = $this->general_model->get_basic_search($arrParamGeneral);
+												
+									$numeroMaxComputadores = $paramGenerales[2]['valor'];
+								
+									for ($i = 0; $i < count($horas); $i++):
+										if($x < count($horas))
+										{
+											//filtro de solicitudes por fecha
+											$arrParam = array(
+															"fecha" => $fecha_apartada, 
+															"estado" => 1,
+															"horaStart" => $horas[$i]["id_hora"],
+															"horaFinish" => $horas[$x]["id_hora"]
+														);
+											$listadoSolicitudes = $this->general_model->get_computadores_solicitudes($arrParam);//listado de solicitudes filtrado por fecha
+
+											//recorro las reservas
+											if($listadoSolicitudes){
+												$numeroDisponibles = $numeroMaxComputadores-$listadoSolicitudes['numero_computadores'];	
+											}else{
+												$numeroDisponibles = $numeroMaxComputadores;
+											}
+												
+											echo "<tr>";
+											echo "<td>" . $horas[$i]["hora"]  . "-" . $horas[$x]["hora"] . "</td>";
+											echo "<td class='text-center'>" . $numeroDisponibles . "</td>";
+											echo "</tr>";
+											$x++;
+										}
+									endfor;
+								?>
+								</tbody>
+							</table>
+						</div>
+<!-- FIN DISPONIBILIDAD -->
 										
-					 </div>
+					</div>
 				
 					<div class="col-md-9 col-sm-9 col-xs-12">
 					

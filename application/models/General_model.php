@@ -257,5 +257,31 @@ class General_model extends CI_Model {
 				return false;
 		}
 		
+		/**
+		 * Numero de computadores para una fecha y horas
+		 * @since 12/6/2018
+		 */
+		public function get_computadores_solicitudes($arrData) 
+		{
+			$this->db->select_sum('numero_computadores');
+
+			if (array_key_exists("fecha", $arrData)) {
+				$this->db->where('S.fecha_apartado', $arrData["fecha"]);
+			}
+			if (array_key_exists("horaStart", $arrData)) {
+				$this->db->where('S.fk_id_hora_inicial <=', $arrData["horaStart"]);
+			}
+			if (array_key_exists("horaFinish", $arrData)) {
+				$this->db->where('S.fk_id_hora_final >=', $arrData["horaFinish"]);
+			}
+
+			$query = $this->db->get("solicitud S");
+
+			if ($query->num_rows() >= 1) {
+				return $query->row_array();
+			} else
+				return false;
+		}
+		
 
 }
