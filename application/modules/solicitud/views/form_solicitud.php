@@ -65,16 +65,6 @@ $(document).ready(function () {
 						</ul>
 						
 <!-- INICIO DISPONIBILIDAD -->
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr class="headings">
-										<th class="column-title">Hora</th>
-										<th class="column-title text-center">No.</th>
-									</tr>
-								</thead>
-
-								<tbody>
 								<?php 								
 									$x = 1;
 									
@@ -90,16 +80,17 @@ $(document).ready(function () {
 									$paramGenerales = $this->general_model->get_basic_search($arrParamGeneral);
 												
 									$numeroMaxComputadores = $paramGenerales[2]['valor'];
-								
-									for ($i = 0; $i < count($horas); $i++):
-										if($x < count($horas))
+
+echo '<small><textarea class="form-control" rows="25">';
+									for ($i = 0; $i < count($horasDisponibilidad); $i++):
+										if($x < count($horasDisponibilidad))
 										{
 											//filtro de solicitudes por fecha
 											$arrParam = array(
 															"fecha" => $fecha_apartada, 
 															"estado" => 1,
-															"horaStart" => $horas[$i]["id_hora"],
-															"horaFinish" => $horas[$x]["id_hora"]
+															"horaStart" => $horasDisponibilidad[$i]["id_hora"],
+															"horaFinish" => $horasDisponibilidad[$x]["id_hora"]
 														);
 											$listadoSolicitudes = $this->general_model->get_computadores_solicitudes($arrParam);//listado de solicitudes filtrado por fecha
 
@@ -110,17 +101,16 @@ $(document).ready(function () {
 												$numeroDisponibles = $numeroMaxComputadores;
 											}
 												
-											echo "<tr>";
-											echo "<td>" . $horas[$i]["hora"]  . "-" . $horas[$x]["hora"] . "</td>";
-											echo "<td class='text-center'>" . $numeroDisponibles . "</td>";
-											echo "</tr>";
+											echo "Hora: ";
+											echo $horasDisponibilidad[$i]["hora"]  . "-" . $horasDisponibilidad[$x]["hora"];
+											echo "  Computadores disponibles: " . $numeroDisponibles;
+											echo "\r";
 											$x++;
 										}
 									endfor;
+									
+echo '</textarea></small>';
 								?>
-								</tbody>
-							</table>
-						</div>
 <!-- FIN DISPONIBILIDAD -->
 										
 					</div>
