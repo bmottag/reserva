@@ -90,6 +90,13 @@ class Solicitud extends CI_Controller {
 				}
 				$data['horas'] = $this->general_model->get_horas($arrParamFiltro);//LISTA DE HORAS
 				
+				//para el listado de disponibilidad
+				$arrParamFiltroDisponibilidad = array(
+					"idHoraInicio" => 13,
+					"idHoraFinal" => 50
+				);
+				$data['horasDisponibilidad'] = $this->general_model->get_horas($arrParamFiltroDisponibilidad);//LISTA DE HORAS para disponibilidad
+				
 				$arrParam = array();
 				$data['examenes'] = $this->general_model->get_examenes($arrParam);//listado de examenes
 				
