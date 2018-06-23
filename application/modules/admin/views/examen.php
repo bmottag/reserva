@@ -74,6 +74,7 @@ if ($retornoError) {
 								<tr class="headings">
 								<th class="column-title">Examen</th>
 								<th class="column-title">Código examen</th>
+								<th class="column-title">Fecha límite</th>
 								<th class="column-title">Editar</th>
 								</tr>
 							</thead>
@@ -84,6 +85,7 @@ if ($retornoError) {
 				echo "<tr>";
 				echo "<td>" . $data['examen'] . "</td>";
 				echo "<td>" . $data['codigo_examen'] . "</td>";
+				echo "<td class='text-center'>" . $data['fecha_limite'] . "</td>";
 
 				echo "<td>";
 		?>

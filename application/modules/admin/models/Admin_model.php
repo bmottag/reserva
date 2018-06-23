@@ -196,7 +196,8 @@
 				
 				$data = array(
 					'codigo_examen' => $this->input->post('codigo_examen'),
-					'examen' => $this->input->post('examen')
+					'examen' => $this->input->post('examen'),
+					'fecha_limite' => $this->input->post('datetimepicker')
 				);
 				
 				//revisar si es para adicionar o editar

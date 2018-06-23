@@ -122,7 +122,7 @@ class General_model extends CI_Model {
 		 */
 		public function get_examenes($arrData) 
 		{
-				$this->db->select('DISTINCT(codigo_examen), examen');
+				$this->db->select('DISTINCT(codigo_examen), examen, fecha_limite');
 				
 				if (array_key_exists("codigoExamen", $arrData)) {
 					$this->db->where('codigo_examen', $arrData["codigoExamen"]);
