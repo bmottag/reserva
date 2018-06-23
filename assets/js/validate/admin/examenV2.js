@@ -6,7 +6,8 @@ $( document ).ready( function () {
 	$( "#form" ).validate( {
 		rules: {
 			examen:					{ required: true, minlength: 3, maxlength:100 },
-			codigo_examen:			{ required: true, minlength: 2, maxlength:4 }
+			codigo_examen:			{ required: true, minlength: 2, maxlength:4 },
+			datetimepicker:			{ required: true }
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
