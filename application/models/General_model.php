@@ -127,6 +127,10 @@ class General_model extends CI_Model {
 				if (array_key_exists("codigoExamen", $arrData)) {
 					$this->db->where('codigo_examen', $arrData["codigoExamen"]);
 				}
+				
+				if (array_key_exists("fechaLimite", $arrData)) {
+					$this->db->where('fecha_limite >=', $arrData["fechaLimite"]);
+				}
 
 				$this->db->order_by('codigo_examen', 'asc');
 				$query = $this->db->get('param_prueba P');

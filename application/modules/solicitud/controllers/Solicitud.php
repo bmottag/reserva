@@ -97,7 +97,7 @@ class Solicitud extends CI_Controller {
 				);
 				$data['horasDisponibilidad'] = $this->general_model->get_horas($arrParamFiltroDisponibilidad);//LISTA DE HORAS para disponibilidad
 				
-				$arrParam = array();
+				$arrParam = array("fechaLimite" => $data['fecha_apartada']);
 				$data['examenes'] = $this->general_model->get_examenes($arrParam);//listado de examenes
 				
 				//filtro de solicitudes por fecha
