@@ -15,10 +15,10 @@
 		</li>
 		
 <?php
-	$rol = $this->session->userdata("rol");//consulto rol para mostrar enlaces, usuario GESTOR no tiene acceso
-	if($rol != 3){
+	$rol = $this->session->userdata("rol");//consulto rol para mostrar enlaces
+	//configuracion solo para usuarios ADMINISTRADOR
+	if($rol == 1){
 ?>
-		
 		<li class="">
 		  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			<i class="fa fa-cogs"></i> Configuración
@@ -35,8 +35,15 @@
 			<li><a href="<?php echo base_url("admin/usuarios"); ?>"><i class="fa fa-users pull-right"></i> Usuarios</a></li>
 			
 		  </ul>
-		</li>
-
+		</li>	
+<?php
+	}
+?>
+		
+<?php
+	//usuario GESTOR no tiene acceso
+	if($rol != 3){
+?>	
 		<li class="">
 		  <a href="<?php echo base_url("public/reportico/run.php?execute_mode=MENU&project=Zona 2"); ?>" target="_blanck" class="user-profile" aria-expanded="false">
 			<i class="fa fa-area-chart"></i> Reporte
