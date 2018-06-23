@@ -50,7 +50,7 @@
 	<div class="control-group">
 		<div class="controls">
 			<div class="col-md-11 xdisplay_inputx form-group has-feedback">
-				<input type="text" class="form-control has-feedback-left" id="datetimepicker" name="datetimepicker" aria-describedby="inputSuccess2Status">
+				<input type="text" class="form-control has-feedback-left" id="datetimepicker" name="datetimepicker" value="<?php echo $information?$information[0]["fecha_limite"]:""; ?>" aria-describedby="inputSuccess2Status">
 				<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
 				<span id="inputSuccess2Status" class="sr-only">(success)</span>
 			</div>
