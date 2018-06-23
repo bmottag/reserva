@@ -171,6 +171,8 @@ if($solicitudes){ //SI HAY SOLICITUDES LAS MUESTRO?>
 							<ul>
 								<li>Para la fecha seleccionada no existe ninguna reserva. </li>
 								<li>Diligencie el siguiente formulario para realizar una nueva reserva.</li>
+								<li>La fecha de reserva debe ser previa a la fecha límite del examen, 
+								de lo contrario no se visualizará en el listado de prueba.</li>
 								<?php echo $mensaje; ?>
 							</ul>
 						</div>
